@@ -1,0 +1,111 @@
+.mainDiv {
+    display: none;
+    @media (min-width: 640px) { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    @media (min-width: 1280px) { flex-direction: row; align-items: flex-start; width: 340px; padding: 2rem; position: fixed; height: 100vh; border-right: 1px solid #ccc; padding-right: 0; }
+    @media (min-width: 1280px) { padding-right: 2rem; }
+  }
+  
+  .twitterIconContainer {
+    display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; padding: 0; margin: 0;
+    @media (min-width: 1280px) { margin-left: 6rem; }
+  }
+  
+  .hoverEffect:hover { background-color: #f0f0f0; cursor: pointer; }
+  
+  .twitterIcon { font-size: 34px; }
+
+
+  .sidebar {
+    margin-top: 1rem; /* 4 units of margin-top (adjust unit as needed) */
+    margin-bottom: 0.625rem; /* 2.5 units of margin-bottom (adjust unit as needed) */
+    gap: 0.5rem; /* 2 units of vertical space between direct children (adjust unit as needed) */
+  
+    @media (min-width: 1280px) { /* Specific layout for extra-large screens */
+      margin-left: 6rem; /* 24 units of margin-left (adjust unit as needed) */
+    }
+  }
+
+  .tweetButton {
+    display: none;
+    background-color: #1d9bf0;
+    color: #fff;
+    border-radius: 50%;
+    width: 52px;
+    height: 52px;
+    font-size: 1.125rem;
+    font-weight: bold;
+    margin-left: auto;
+  }
+  
+  .tweetButton:hover {
+    background-color: #1a8cd8;
+  }
+  
+  @media (min-width: 1280px) {
+    .tweetButton {
+      display: inline;
+    }
+  }
+
+  .signOutDiv {
+    color: #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+    padding: 0.5rem 1rem;
+  }
+  
+  .signOutDiv:hover {
+    /* Add your desired hover effects here */
+  }
+  
+  @media (min-width: 1280px) {
+    .signOutDiv {
+      margin-left: auto;
+      margin-right: -5rem;
+    }
+  }
+
+
+  .userImage {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+  }
+  
+  .userDetails {
+    display: none;
+    line-height: 1.25; /* Leading-5 value for line-height */
+  }
+  
+  .userDetails h4 {
+    font-weight: bold;
+  }
+  
+  .userDetails p {
+    color: #6e767d;
+  }
+  
+  .dotsIcon {
+    height: 5px;
+    margin-left: 10rem;
+  }
+  
+  @media (min-width: 1280px) {
+    .userDetails {
+      display: inline;
+    }
+  
+    .userImage {
+      margin-right: 0.625rem; /* xl:mr-2.5 value */
+    }
+  
+    .dotsIcon {
+      display: inline;
+    }
+  }
+  
+  
+  
+  

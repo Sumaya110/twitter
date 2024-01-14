@@ -1,0 +1,36 @@
+.loginContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .twitterBg {
+    height: 100vh;
+    display: grid;
+    place-items: center;
+  }
+  
+  .twitterIcon {
+    font-size: 335px;
+  }
+  
+  .googleLoginContainer {
+    display: grid;
+    place-items: center;
+  }
+  
+  .googleLoginButton {
+    display: flex;
+    gap: 16px;
+    background-color: #fff;
+    padding: 16px;
+    padding-left: 24px;
+    padding-right: 24px;
+    align-items: center;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .googleIcon {
+    font-size: 30px;
+  }
+  

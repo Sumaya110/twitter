@@ -31,7 +31,7 @@ const SignIn = () => {
     } catch (error) {
       console.error('Error during form submission:', error);
     }
-  };
+   };
 
   return (
     <div className={styles.container}>

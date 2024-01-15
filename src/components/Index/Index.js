@@ -2,6 +2,8 @@ import { useSession } from 'next-auth/react';
 import Login from '@/components/Login/Login';
 import styles from "@/components/Index/Index.module.css"
 import Sidebar from "@/components/Sidebar/Sidebar"
+import  Feed  from "@/components/Feed/Feed"
+import Trending from '../Trending/Trending';
 
 
 

@@ -5,6 +5,8 @@ import {
   } from "@/libs/api_routes/routes"
   
   async function createUser(data) {
+
+    console.log("dataa  :", data)
     try {
       const response = await createNewUser(data);
 
@@ -17,11 +19,11 @@ import {
 
   
   
-  async function getUser(matchId) {
+  async function getUser(data) {
     try {
-      const response = await getNewUser(matchId);
+      const response = await getNewUser(data);
       
-      console.log("get matchAction",response)
+      console.log("get Action",response)
       return response.data;
     } catch (error) {
       throw Error(error.response.data);

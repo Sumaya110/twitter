@@ -1,21 +1,19 @@
 import Users from "../models/userModel";
 
-
-const findOne = async({email}) => {
-  const user = await Users.findOne({email})
+const create = async ({ email, password}) => {
+  console.log(email, "  ", password);
+  const user = await Users.create({ email, password});
   return user;
-}
+};
 
-const create = async({email, password: hash}) => {
-    console.log(email, "  ",password)
-  const user = await Users.create({email, password: hash})
+const findOne = async ({ email }) => {
+  const user = await Users.findOne({ email });
   return user;
-}
-
+};
 
 const UserRepository = {
-    findOne, create
-}
+  findOne,
+  create,
+};
 
-export default UserRepository
-
+export default UserRepository;

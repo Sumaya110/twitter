@@ -3,8 +3,9 @@
     margin-left: 340px;
     width: 600px;
     min-height: 100vh;
-    border-right: 1px solid #bdbdbd;
-    color: #fff;
+    border-right: 1px solid #4a4545;
+    /* color: #fff; */
+    color: black;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
   }
@@ -12,12 +13,12 @@
   .sectiondiv {
     position: sticky;
     top: 0;
-    background-color: #000;
+    /* background-color: #000; */
     display: flex;
     justify-content: space-between;
     font-weight: 500;
     font-size: 20px;
-    padding-left: 1rem;
+    padding-left: 5rem;
     padding-right: 1rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;

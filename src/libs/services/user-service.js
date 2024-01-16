@@ -1,6 +1,8 @@
 import UserRepository from "../repositories/userRepository";
+const bcrypt = require("bcrypt")
 
 export const createUser = async (req, res) => {
+  console.log(req.body);
   try {
     const { email, password } = req.body;
 
@@ -21,6 +23,11 @@ export const createUser = async (req, res) => {
       email,
       password: hashedPassword,
     });
+
+    // const newUser = await UserRepository.create({
+    //   email,
+    //   password,
+    // });
     return res.status(201).json(newUser);
   } catch (error) {
     console.error("Error creating user:", error);
@@ -32,7 +39,7 @@ export const createUser = async (req, res) => {
 
 export const getUser = async (req, res) => {
   try {
-    const { email } = req.query;
+    const { email, password } = req.query;
     const user = await UserRepository.findOne({ email });
 
     if (!user) {

@@ -1,16 +1,19 @@
-import React from 'react'
-import styles from "@/components/Sidebar/Sidebar.module.css"
+import React from "react";
+import styles from "@/components/Sidebar/Sidebar.module.css";
 import { FaXTwitter } from "react-icons/fa6";
-import SidebarLink from '../SidebarLink/SidebarLink';
-import { BiHash } from "react-icons/bi"
-import { BsBell, BsBookmark, BsThreeDots, BsTwitter } from "react-icons/bs"
-import { AiFillHome, AiOutlineInbox, AiOutlineUser } from 'react-icons/ai'
-import { HiOutlineClipboardList, HiOutlineDotsCircleHorizontal } from "react-icons/hi"
-import { signOut, useSession } from 'next-auth/react'
+import SidebarLink from "../SidebarLink/SidebarLink";
+import { BiHash } from "react-icons/bi";
+import { BsBell, BsBookmark, BsThreeDots, BsTwitter } from "react-icons/bs";
+import { AiFillHome, AiOutlineInbox, AiOutlineUser } from "react-icons/ai";
+// import { BsThreeDots } from "react-icons/bs";
+import {
+  HiOutlineClipboardList,
+  HiOutlineDotsCircleHorizontal,
+} from "react-icons/hi";
+import { signOut, useSession } from "next-auth/react";
 
 const Sidebar = () => {
-
-  const {data: session} = useSession()
+  const { data: session } = useSession();
 
   return (
     <div className={styles.mainDiv}>
@@ -27,27 +30,26 @@ const Sidebar = () => {
         <SidebarLink text="Lists" Icon={HiOutlineClipboardList} />
         <SidebarLink text="Profile" Icon={AiOutlineUser} />
         <SidebarLink text="More" Icon={HiOutlineDotsCircleHorizontal} />
-      </div>
 
-      <button class="tweetButton">Tweet</button>
+        <button class={styles.tweetButton}>Post</button>
 
-      <div class="signOutDiv" onClick={signOut}>
-        <img
-          src={session?.user?.image}
-          alt=""
-          class="userImage"
-        />
-        <div class="userDetails">
-          <h4>{session?.user?.name}</h4>
-          <p>@{session?.user?.tag}</p>
+        <div class={styles.signOutDiv} onClick={signOut}>
+          <image src={session?.user?.image} alt="" class={styles.userImage} />
+
+          <div class={styles.userDetails}>
+            <h4>{session?.user?.name}</h4>
+            <p>@{session?.user?.tag}</p>
+           
+          </div>
+          <div>
+          <BsThreeDots class={styles.dotsIcon} />
+          </div>
+
+         
         </div>
-        <BsThreeDots class="dotsIcon" />
-
       </div>
-
-
     </div>
-  )
-}
+  );
+};
 
-export default Sidebar
+export default Sidebar;

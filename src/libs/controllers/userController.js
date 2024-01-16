@@ -1,18 +1,18 @@
 const bcrypt = require('bcrypt');
 const validator = require('validator');
 const jwt = require('jsonwebtoken');
-const { userRepository } = require('../repositories/userRepositories');
+import UserRepository from '../repositories/userRepository';
 
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.SECRET, { expiresIn: '9d' });
 };
 
-// Signup a user
+
 const signupUser = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Validation
+ 
     if (!email || !password) {
       throw Error('All fields must be filled');
     }
@@ -25,7 +25,7 @@ const signupUser = async (req, res) => {
       throw Error('Password not strong enough');
     }
 
-    const exists = await userRepository.findOne({ email });
+    const exists = await UserRepository.findOne({ email });
 
     if (exists) {
       throw Error('Email already in use');
@@ -34,7 +34,7 @@ const signupUser = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
 
-    const user = await userRepository.create({ email, password: hash });
+    const user = await UserRepository.create({ email, password: hash });
 
 
     // create a token
@@ -56,7 +56,7 @@ const loginUser = async (req, res) => {
       throw Error('All fields must be filled');
     }
 
-    const user = await userRepository.findOne({ email });
+    const user = await UserRepository.findOne({ email });
 
     if (!user) {
       throw Error('Incorrect email');

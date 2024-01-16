@@ -1,15 +1,14 @@
-// Login.js
-
-import { signIn } from "next-auth/react";
-import React from "react";
-import { FcGoogle } from "react-icons/fc";
-import { FaXTwitter } from "react-icons/fa6";
-import styles from "@/components/Login/Login.module.css";
-import SignUp from "@/components/SignUp/SignUp";
-import { useState } from "react";
+import { signIn } from 'next-auth/react';
+import React from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import { FaXTwitter } from 'react-icons/fa6';
+import {  FaGithub } from 'react-icons/fa';
+import styles from '@/components/Login/Login.module.css';
+import SignUp from '@/components/SignUp/SignUp';
+import { useRouter } from 'next/router';
 
 const Login = () => {
-  const [show, setShow] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -17,14 +16,29 @@ const Login = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    const status = await signIn("credentials", {
-      redirect: false,
-      email,
-      password,
-      callbackUrl: "/home",
-    });
+    console.log('email-password  :', email, password);
 
-    if (status.ok) router.push(status.url);
+    try {
+      const status = await signIn('credentials', {
+        redirect: false,
+        email,
+        password,
+        callbackUrl: '/home',
+      });
+    
+      console.log('status  :', status);
+    
+      if (!status.ok) {
+        console.error('Authentication error:', status.error ?? 'Unknown error');
+        // Handle authentication error, show message, etc.
+      } else {
+        router.push(status.url);
+      }
+    } catch (error) {
+      // Handle unexpected errors during authentication
+      console.error('Unexpected error during authentication:', error);
+    }
+    
   };
 
   return (
@@ -40,15 +54,23 @@ const Login = () => {
         <div className={styles.googleSignupContainer}>
           <button
             className={styles.googleLoginButton}
-            onClick={() => signIn("google")}
+            onClick={() => signIn('google')}
           >
             <FcGoogle className={styles.googleIcon} />
             Sign up with Google
           </button>
 
+
+          <button
+            className={styles.githubLoginButton}
+            onClick={() => signIn('github')}
+          >
+            <FaGithub className={styles.githubIcon} />
+            Sign up with GitHub
+          </button>
+
           <SignUp />
         </div>
-
 
         <div className={styles.container}>
           <div className={styles.signUpLink}>

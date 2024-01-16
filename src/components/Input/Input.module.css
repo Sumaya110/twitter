@@ -1,0 +1,129 @@
+.combined {
+  position: absolute;
+  margin-top: 10px;
+  margin-left: -4px;
+  padding-left: 100px;
+  max-width: 320px;
+  border-radius: 20px;
+}
+
+.combined2 {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.combined3 {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background-color: #15181c;
+  background-color: rgba(21, 24, 28, 0.75); /* bg-opacity-75 */
+  border-radius: 50%; /* rounded-full */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 1px;
+  left: 1px;
+  cursor: pointer;
+}
+
+.combined4 {
+  color: white;
+  height: 5px;
+}
+
+.combined5 {
+  border-radius: 1.5rem; /* rounded-2xl */
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.combined6 {
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  font-size: 20px;
+  /* padding-left: 485px;   */
+  /* margin-left: 20px; */
+}
+
+.combined7 {
+  width: 100%;
+}
+
+.combined8 {
+  margin-top: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  opacity: 0.6;
+}
+
+.combined9 {
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 4px;
+}
+
+.combined10 {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.combined11 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.combined12 {
+  display: flex;
+  gap: 4px;
+  font-size: 20px;
+  color: #1d9bf0;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.combined13 {
+    border: 1px solid #1d9bf0;
+    border-radius: 4px;
+    height: 18px;
+    font-size: 16px;
+    display: grid;
+    place-items: center;
+  }
+
+  .rotatedCw {
+    transform: rotate(90deg);
+  }
+
+
+  .combined14 {
+    background-color: #1d9bf0;
+    color: white;
+    border-radius: 30%;
+    padding: 0.75rem 2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .combined14:hover {
+    background-color: #1a8cd8;
+  }
+  
+  .combined14:disabled {
+    background-color: #1d9bf0;
+    opacity: 0.5;
+    cursor: default;
+  }
+  .combined14:disabled:hover {
+    background-color: #1d9bf0; 
+  }
+  
+  
+  

@@ -1,50 +1,44 @@
-// import React, { useEffect, useState } from 'react';
-// import { FaSparkles } from "react-icons/fa";
-// import Input from "@/components/Input/Input"
-// import Post from "@/components/Post/Post"
-// import styles from "@/components/Feed/Feed.module.css"
+import React, { useEffect, useState } from 'react'
+import styles from "@/components/Feed/Feed.module.css"
+import Input from "@/components/Input/Input"
+import { HiOutlineSparkles } from 'react-icons/hi';
 
-
-// const fetchPostsFromMongoDB = async () => {
-//   const postsData = await fetch('/api/posts');
-//   return postsData.json();
-// };
-
-// const Feed = () => {
-//   const [posts, setPosts] = useState([]);
-
-//   useEffect(() => {
-//     const fetchData = async () => {
-//       const postsData = await fetchPostsFromMongoDB();
-//       setPosts(postsData);
-//     };
-
-//     fetchData();
-//   }, []);
-
-//   return (
-//     <section className={styles.section}>
-//       <div className={styles.sectiondiv}>
-//         Home
-//         <FaSparkles />
-//       </div>
-
-//       <Input />
-//       {/* {posts.map((post) => (
-//         <Post key={post._id} id={post._id} post={post} />
-//       ))} */}
-//     </section>
-//   );
-// };
-
-// export default Feed;
-
-import React from 'react'
 
 const Feed = () => {
-  return (
-    <div>Feed</div>
-  )
-}
 
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/posts'); 
+        if (!response.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []); 
+
+  return (
+    <section className={styles.section}>
+      <div className={styles.sectiondiv}>
+        Home
+        <HiOutlineSparkles/>
+      </div>
+
+      <Input/>
+      {/* {posts.map((post) => (
+        <Post key={post.id} id={post.id} post={post.data()} />
+      ))} */}
+     
+    </section>
+  );
+};
 export default Feed

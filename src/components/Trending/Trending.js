@@ -1,9 +1,32 @@
 import React from 'react'
+import { FiSearch } from "react-icons/fi"
+import TrendingList from '../TrendingList/TrendingList'
+import styles from "@/components/Trending/Trending.module.css"
 
 const Trending = () => {
-  return (
-    <div>Trending</div>
-  )
+    return (
+
+        <div className={styles.combined}>
+
+            <div className={styles.combined2}>
+                <FiSearch />
+                <input className={styles.combined3} type="text" placeholder='Search Twitter' />
+            </div>
+
+
+            <div className={styles.combined4}>
+                <h1 className={styles.combined5}>What's Happening</h1>
+
+                <TrendingList />
+                <TrendingList />
+                <TrendingList />
+                <TrendingList />
+                <TrendingList />
+
+            </div>
+
+        </div>
+    )
 }
 
 export default Trending

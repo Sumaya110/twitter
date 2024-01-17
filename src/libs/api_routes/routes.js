@@ -19,3 +19,7 @@ export const createNewUser = (payload) => API.post('/api/users', payload);
 
 export const getNewUser = (payload) => API.get('/api/users', payload);
 
+
+
+export const createNewPost = (payload) => API.post('/api/posts', payload);
+

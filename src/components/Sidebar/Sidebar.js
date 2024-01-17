@@ -3,9 +3,10 @@ import styles from "@/components/Sidebar/Sidebar.module.css";
 import { FaXTwitter } from "react-icons/fa6";
 import SidebarLink from "../SidebarLink/SidebarLink";
 import { BiHash } from "react-icons/bi";
-import { BsBell, BsBookmark, BsThreeDots, BsTwitter } from "react-icons/bs";
+import { BsBell, BsBookmark } from "react-icons/bs";
+import { BsThreeDots } from "react-icons/bs";
 import { AiFillHome, AiOutlineInbox, AiOutlineUser } from "react-icons/ai";
-// import { BsThreeDots } from "react-icons/bs";
+
 import {
   HiOutlineClipboardList,
   HiOutlineDotsCircleHorizontal,
@@ -20,8 +21,7 @@ const Sidebar = () => {
       <div className={styles.twitterIconContainer}>
         <FaXTwitter className={styles.twitterIcon} />
       </div>
-
-      <div className={styles.Sidebar}>
+      <div className={styles.sidebar}>
         <SidebarLink text="Home" Icon={AiFillHome} />
         <SidebarLink text="Explore" Icon={BiHash} />
         <SidebarLink text="Notifications" Icon={BsBell} />
@@ -30,24 +30,22 @@ const Sidebar = () => {
         <SidebarLink text="Lists" Icon={HiOutlineClipboardList} />
         <SidebarLink text="Profile" Icon={AiOutlineUser} />
         <SidebarLink text="More" Icon={HiOutlineDotsCircleHorizontal} />
-
-        <button class={styles.tweetButton}>Post</button>
-
-        <div class={styles.signOutDiv} onClick={signOut}>
-          <image src={session?.user?.image} alt="" class={styles.userImage} />
-
-          <div class={styles.userDetails}>
-            <h4>{session?.user?.name}</h4>
-            <p>@{session?.user?.tag}</p>
-           
-          </div>
-          <div>
-          <BsThreeDots class={styles.dotsIcon} />
-          </div>
-
-         
-        </div>
       </div>
+
+      <button className={styles.tweetButton} >Post</button>
+
+      <div class={styles.signOutDiv} onClick={signOut}>
+        <image src={session?.user?.image} alt="" class={styles.userImage} />
+
+        <div class={styles.userDetails}>
+          <h4>{session?.user?.name}</h4>
+          <p>@{session?.user?.tag}</p>
+        </div>
+
+        <BsThreeDots class={styles.dotsIcon} />
+
+      </div>
+     
     </div>
   );
 };

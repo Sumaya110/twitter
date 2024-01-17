@@ -1,0 +1,20 @@
+.combined {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.combined2 {
+  color: #a0aec0;
+  font-size: 14px;
+  margin-bottom: 0.25rem;
+}
+
+.combined3 {
+  font-weight: 500;
+  padding-right: 0.5rem;
+}
+
+.rounded {
+  border-radius: 20px;
+}

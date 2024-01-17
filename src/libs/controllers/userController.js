@@ -47,34 +47,34 @@ const signupUser = async (req, res) => {
 };
 
 // Login a user
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+// const loginUser = async (req, res) => {
+//   const { email, password } = req.body;
 
-  try {
-    // Validation
-    if (!email || !password) {
-      throw Error('All fields must be filled');
-    }
+//   try {
+//     // Validation
+//     if (!email || !password) {
+//       throw Error('All fields must be filled');
+//     }
 
-    const user = await UserRepository.findOne({ email });
+//     const user = await UserRepository.findOne({ email });
 
-    if (!user) {
-      throw Error('Incorrect email');
-    }
+//     if (!user) {
+//       throw Error('Incorrect email');
+//     }
 
-    const match = await bcrypt.compare(password, user.password);
+//     const match = await bcrypt.compare(password, user.password);
 
-    if (!match) {
-      throw Error('Incorrect password');
-    }
+//     if (!match) {
+//       throw Error('Incorrect password');
+//     }
 
-    // create a token
-    const token = createToken(user._id);
+//     // create a token
+//     const token = createToken(user._id);
 
-    res.status(200).json({ email, token });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+//     res.status(200).json({ email, token });
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 module.exports = { signupUser, loginUser };

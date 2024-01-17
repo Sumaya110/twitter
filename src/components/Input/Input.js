@@ -8,9 +8,6 @@ import { useSession } from "next-auth/react";
 
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
-// import { addDoc, collection, doc, serverTimestamp, updateDoc } from 'firebase/firestore'
-// import { getDownloadURL, ref, uploadString } from 'firebase/storage'
-
 import styles from "@/components/Input/Input.module.css";
 
 const Input = () => {
@@ -25,7 +22,6 @@ const Input = () => {
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
     }
-
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
     };
@@ -41,41 +37,51 @@ const Input = () => {
 
   const sendPost = async () => {
     if (loading) return;
-
+  
     setLoading(true);
+  
+    try {
+      // const post = await db.collection("posts").insertOne({
+      //   id: session.user.uid,
+      //   username: session.user.name,
+      //   userImg: session.user.image,
+      //   tag: session.user.tag,
+      //   text: input,
+      //   timestamp: new Date(), 
+      // });
+  
+      // const postId = post.insertedId;
+  
+      // if (selectedFile) {
+      //   const imageUrl = await uploadImage(selectedFile, postId);
 
-    const docRef = await addDoc(collection(db, "posts"), {
-      id: session.user.uid,
-      username: session.user.name,
-      userImg: session.user.image,
-      tag: session.user.tag,
-      text: input,
-      timestamp: serverTimestamp(),
-    });
-
-    const imageRef = ref(storage, `posts/${docRef.id}/image`);
-
-    if (selectedFile) {
-      await uploadString(imageRef, selectedFile, "data_url").then(async () => {
-        const downloadURL = await getDownloadURL(imageRef);
-        await updateDoc(doc(db, "posts", docRef.id), {
-          image: downloadURL,
-        });
-      });
+      //   await db.collection("posts").updateOne(
+      //     { _id: postId },
+      //     { $set: { image: imageUrl } }
+      //   );
+      // }
+    } catch (error) {
+      console.error("Error sending post:", error);
+      // Handle errors gracefully, e.g., display error messages to the user
+    } finally {
+      setLoading(false);
+      setInput("");
+      setSelectedFile(null);
+      setShowEmojis(false);
     }
-
-    setLoading(false);
-    setInput("");
-    setSelectedFile(null);
-    setShowEmojis(false);
   };
-
+  
   return (
     <div className={styles.combined8}>
       <div className={styles.combined9}>
+
         <div>
-                    <image className={styles.combined10} src={session?.user?.image} alt="" />
-                </div>
+          <image
+            className={styles.combined10}
+            src={session?.user?.image}
+            alt=""
+          />
+        </div>
 
         <div className={styles.combined7}>
           <textarea
@@ -97,39 +103,39 @@ const Input = () => {
               <image src={selectedFile} alt="" className={styles.combined5} />
             </div>
           )}
-          
-                    {!loading && (
-                        <div className={styles.combined11}>
 
-                            <div className={styles.combined12}>
+          {!loading && (
+            <div className={styles.combined11}>
+              <div className={styles.combined12}>
 
-                                <label htmlFor="file">
-                                    <BsImage className={styles.clickable} />
-                                </label>
+                <label htmlFor="file">
+                  <BsImage className={styles.clickable} />
+                </label>
 
-                                <input id="file" type="file"
-                                    hidden
-                                    onChange={addImageToPost}
-                                />
+                <input id="file" type="file" hidden onChange={addImageToPost} />
 
-                                <div className={styles.combined13}>
-                                    <AiOutlineGif />
-                                </div>
-                                <RiBarChart2Line className={styles.rotatedCw} />
-                                <BsEmojiSmile className={styles.clickable} onClick={() => setShowEmojis(!showEmojis)} />
-                                <IoCalendarNumberOutline />
-                                <HiOutlineLocationMarker />
-                            </div>
+                <div className={styles.combined13}>
+                  <AiOutlineGif />
+                </div>
 
-                            <button
-                                className={styles.combined14}
-                                disabled={!input.trim() && !selectedFile}
-                                onClick={sendPost} >
-                                Post
-                            </button>
+                <RiBarChart2Line className={styles.rotatedCw} />
+                <BsEmojiSmile
+                  className={styles.clickable}
+                  onClick={() => setShowEmojis(!showEmojis)}
+                />
+                <IoCalendarNumberOutline />
+                <HiOutlineLocationMarker />
+              </div>
 
-                        </div>
-                    )}
+              <button
+                className={styles.combined14}
+                disabled={!input.trim() && !selectedFile}
+                onClick={sendPost}
+              >
+                Post
+              </button>
+            </div>
+          )}
 
           {showEmojis && (
             <div className={styles.combined}>

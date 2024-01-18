@@ -1,7 +1,5 @@
 .mainDiv {
   display: none;
- 
-    border-right: 1px solid rgb(194, 187, 187); 
 }
 
 .twitterIconContainer {
@@ -56,19 +54,19 @@
   align-items: center;
   justify-content: center;
   padding: 0.5rem 1rem;
-  margin-top: 100px;
-  padding-right: 150px;
+  margin-top: 200px;
+  padding-right: 100px;
 }
 
 .signOutDiv:hover {
-  /* Add your desired hover effects here */
+ 
 }
 
 
 
 .userImage {
-  height: 10px;
-  width: 10px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
 }
 
@@ -110,10 +108,11 @@
   }
 
   .mainDiv{
-    width: 340px;
-    padding-left: 2rem;
-    padding-right: 2rem;
+    width: 280px;
+    padding-left: 0rem;
+    padding-right: 3rem;
     position: fixed;
+    border-right: 1px solid rgb(234, 228, 228); 
   }
 
   .twitterIconContainer {

@@ -30,19 +30,19 @@ const Login = () => {
     
       if (!status.ok) {
         console.error('Authentication error:', status.error ?? 'Unknown error');
-        // Handle authentication error, show message, etc.
       } else {
         router.push(status.url);
       }
     } catch (error) {
-      // Handle unexpected errors during authentication
       console.error('Unexpected error during authentication:', error);
     }
     
   };
 
   return (
+ 
     <div className={styles.loginContainer}>
+         {/* <p>hhh</p> */}
       <div className={styles.twitterBg}>
         <FaXTwitter className={styles.twitterIcon} />
       </div>

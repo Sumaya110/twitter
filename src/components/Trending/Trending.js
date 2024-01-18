@@ -10,12 +10,12 @@ const Trending = () => {
 
             <div className={styles.combined2}>
                 <FiSearch />
-                <input className={styles.combined3} type="text" placeholder='Search Twitter' />
+                <input className={styles.combined3} type="text" placeholder='Search' />
             </div>
 
 
             <div className={styles.combined4}>
-                <h1 className={styles.combined5}>What's Happening</h1>
+                <h1 className={styles.combined5}>Trends for you</h1>
 
                 <TrendingList />
                 <TrendingList />

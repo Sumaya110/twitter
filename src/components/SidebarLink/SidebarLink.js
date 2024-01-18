@@ -1,9 +1,10 @@
 import React from 'react'
+import styles from "@/components/SidebarLink/SidebarLink.module.css"
 
 const SidebarLink = ({Icon, text}) => {
   return (
-    <div class="container">
-    <Icon /> <span class="hidden">{text}</span>
+    <div >
+    <Icon /> <span >{text}</span>
   </div>
   
   )

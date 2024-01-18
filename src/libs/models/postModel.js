@@ -1,7 +1,7 @@
 import { Schema, model, models } from "mongoose";
 
 const postSchema = new Schema({
-  _id: ObjectId,
+  // _id: ObjectId,
   id: String,
   username: String,
   userImg: String,
@@ -9,7 +9,7 @@ const postSchema = new Schema({
   text: String,
   image: String,
   timestamp: Date,
-  likes: [ObjectId],
+  // likes: [ObjectId],
   comments: [
     {
       id: String,
@@ -17,7 +17,7 @@ const postSchema = new Schema({
       userImg: String,
       text: String,
       timestamp: Date,
-      likes: [ObjectId],
+      // likes: [ObjectId],
       replies: [
         {
           id: String,
@@ -25,7 +25,7 @@ const postSchema = new Schema({
           userImg: String,
           text: String,
           timestamp: Date,
-          likes: [ObjectId],
+          // likes: [ObjectId],
         },
       ],
     },

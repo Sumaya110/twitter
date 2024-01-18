@@ -12,4 +12,17 @@ async function createPost(data) {
   }
 }
 
-export { createPost };
+
+async function getPost(postId) {
+
+  try {
+    const response = await getNewPost(postId);
+    
+    console.log("get postAction",response)
+    return response.data;
+  } catch (error) {
+    throw Error(error.response.data);
+  }
+}
+
+export { createPost , getPost};

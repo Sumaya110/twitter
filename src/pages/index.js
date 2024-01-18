@@ -1,10 +1,21 @@
 import React from 'react'
-import Index from "@/components/Index/Index"
+
+
+import Login from '@/components/Login/Login'
 
 
 const index = () => {
   return (
-   <Index/>
+
+   
+    <div>
+
+<Login/>
+
+    </div>
+
+
+  
   )
 }
 

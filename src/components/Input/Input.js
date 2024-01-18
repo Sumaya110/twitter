@@ -9,9 +9,14 @@ import { useSession } from "next-auth/react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import styles from "@/components/Input/Input.module.css";
+import { createPost } from "@/libs/action/postAction";
+import Image from "next/image";
 
 const Input = () => {
   const { data: session } = useSession();
+
+  console.log("from input file", session);
+
   const [selectedFile, setSelectedFile] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] = useState("");
@@ -37,21 +42,20 @@ const Input = () => {
 
   const sendPost = async () => {
     if (loading) return;
-  
+
     setLoading(true);
-  
+
     try {
-      // const post = await db.collection("posts").insertOne({
-      //   id: session.user.uid,
-      //   username: session.user.name,
-      //   userImg: session.user.image,
-      //   tag: session.user.tag,
-      //   text: input,
-      //   timestamp: new Date(), 
-      // });
-  
-      // const postId = post.insertedId;
-  
+      const postId = await createPost({
+        id: session.user.uid,
+        username: session.user.name,
+        userImg: session.user.image,
+        tag: session.user.tag,
+        text: input,
+      });
+
+      console.log("post Id ", postId);
+
       // if (selectedFile) {
       //   const imageUrl = await uploadImage(selectedFile, postId);
 
@@ -61,8 +65,7 @@ const Input = () => {
       //   );
       // }
     } catch (error) {
-      console.error("Error sending post:", error);
-      // Handle errors gracefully, e.g., display error messages to the user
+      console.error("Error sending post !! :", error);
     } finally {
       setLoading(false);
       setInput("");
@@ -70,24 +73,25 @@ const Input = () => {
       setShowEmojis(false);
     }
   };
-  
+
   return (
     <div className={styles.combined8}>
       <div className={styles.combined9}>
-
         <div>
-          <image
+          <Image
             className={styles.combined10}
             src={session?.user?.image}
             alt=""
+            width={100}
+            height={100}
           />
         </div>
 
         <div className={styles.combined7}>
           <textarea
             className={styles.combined6}
-            rows="2"
-            placeholder="What's Happening?"
+            rows="3"
+            placeholder="What is happening?!"
             value={input}
             onChange={(e) => setInput(e.target.value)}
           />
@@ -100,14 +104,13 @@ const Input = () => {
               >
                 <AiOutlineClose className={styles.combined4} />
               </div>
-              <image src={selectedFile} alt="" className={styles.combined5} />
+              <Image src={selectedFile} alt="" className={styles.combined5} />
             </div>
           )}
 
           {!loading && (
             <div className={styles.combined11}>
               <div className={styles.combined12}>
-
                 <label htmlFor="file">
                   <BsImage className={styles.clickable} />
                 </label>

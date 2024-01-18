@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import styles from "@/components/Feed/Feed.module.css"
 import Input from "@/components/Input/Input"
 import { HiOutlineSparkles } from 'react-icons/hi';
-
+import { getPost } from '@/libs/action/postAction';
+import Post from '../Post/Post';
 
 const Feed = () => {
 
@@ -11,10 +12,8 @@ const Feed = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/posts'); 
-        if (!response.ok) {
-          throw new Error('Failed to fetch data');
-        }
+
+        const response = await getPost()
 
         const data = await response.json();
         setPosts(data);
@@ -24,7 +23,7 @@ const Feed = () => {
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   return (
     <section className={styles.section}>
@@ -34,9 +33,10 @@ const Feed = () => {
       </div>
 
       <Input/>
-      {/* {posts.map((post) => (
+      
+      {posts.map((post) => (
         <Post key={post.id} id={post.id} post={post.data()} />
-      ))} */}
+      ))}
      
     </section>
   );

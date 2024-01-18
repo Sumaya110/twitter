@@ -1,0 +1,108 @@
+.combined {
+  margin-top: 1rem;
+  border-top: 1px solid #a0aec0;
+  padding: 1rem 0.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  cursor: pointer;
+}
+
+.myGridContainer {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 4px;
+}
+
+.combined2 {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.combined3 {
+  display: block;
+}
+
+.combined4 {
+  font-weight: 500;
+}
+.combined5 {
+  display: flex;
+}
+.combined6 {
+  color: #a0aec0;
+}
+.combined7 {
+  max-height: 450px;
+  object-fit: cover;
+  border-radius: 20px;
+  margin-top: 0.5rem;
+}
+.combined8 {
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  margin-top: 1rem;
+  width: 80%;
+}
+.combined9 {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.combined10 {
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+}
+
+.combined10:hover {
+}
+
+.textSm {
+  font-size: 1rem;
+}
+
+.combined11 {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.combined12 {
+    width: 28px;
+    height: 28px;
+    padding: 4px;
+    color: #c552e6;
+    cursor: pointer;
+  }
+  
+  .combined12:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+  }
+
+  .combined13 {
+    width: 28px; 
+    height: 28px; 
+    padding: 4px; 
+  }
+  
+  .combined13:hover {
+  }
+
+  .textPink { color: #c51162; }
+
+  
+  
+
+  
+  
+
+@media (min-width: 640px) {
+  .combined3 {
+    display: flex;
+    gap: 1rem;
+  }
+}

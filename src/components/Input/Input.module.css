@@ -4,7 +4,6 @@
   margin-left: -4px;
   padding-left: 100px;
   max-width: 320px;
-  border-radius: 20px;
 }
 
 .combined2 {
@@ -16,9 +15,7 @@
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: #15181c;
-  background-color: rgba(21, 24, 28, 0.75); /* bg-opacity-75 */
-  border-radius: 50%; /* rounded-full */
+  border-radius: 50%; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,42 +30,44 @@
 }
 
 .combined5 {
-  border-radius: 1.5rem; /* rounded-2xl */
+  border-radius: 1.5rem; 
   max-height: 80px;
   object-fit: contain;
 }
 
 .combined6 {
-  width: 100%;
+  width: 460px;
   background-color: transparent;
   outline: none;
   font-size: 20px;
-  /* padding-left: 485px;   */
-  /* margin-left: 20px; */
+  border: none; 
+  border-bottom: 1px solid #e7ebed;
 }
 
 .combined7 {
   width: 100%;
+  position: relative; 
+  padding-left: 20px;
 }
 
 .combined8 {
   margin-top: 1rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  opacity: 0.6;
+  padding-left: 2rem;
+  padding-right: 6rem;
 }
 
 .combined9 {
   display: grid;
   grid-template-columns: 50px 1fr;
   gap: 4px;
+  border-bottom: 1px solid #e7ebed;
+
 }
 
 .combined10 {
-  height: 12px;
-  width: 12px;
+  height: 50px;
+  width: 50px;
   border-radius: 50%;
-  object-fit: contain;
 }
 
 .combined11 {
@@ -79,9 +78,11 @@
 
 .combined12 {
   display: flex;
-  gap: 4px;
+  gap: 14px;
   font-size: 20px;
-  color: #1d9bf0;
+  color: #0594f3;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .clickable {
@@ -103,13 +104,11 @@
 
 
   .combined14 {
-    background-color: #1d9bf0;
+    background-color: #0c89dc;
     color: white;
-    border-radius: 30%;
-    padding: 0.75rem 2rem;
+    border-radius: 30px;
+    padding: 0.75rem 1.3rem;
     font-weight: bold;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-    transition: background-color 0.2s ease-in-out;
   }
   
   .combined14:hover {

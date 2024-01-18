@@ -6,6 +6,7 @@ import { BiHash } from "react-icons/bi";
 import { BsBell, BsBookmark } from "react-icons/bs";
 import { BsThreeDots } from "react-icons/bs";
 import { AiFillHome, AiOutlineInbox, AiOutlineUser } from "react-icons/ai";
+import Image from "next/image";
 
 import {
   HiOutlineClipboardList,
@@ -32,20 +33,24 @@ const Sidebar = () => {
         <SidebarLink text="More" Icon={HiOutlineDotsCircleHorizontal} />
       </div>
 
-      <button className={styles.tweetButton} >Post</button>
+      <button className={styles.tweetButton}>Post</button>
 
-      <div class={styles.signOutDiv} onClick={signOut}>
-        <image src={session?.user?.image} alt="" class={styles.userImage} />
+      <div className={styles.signOutDiv} onClick={signOut}>
+        <Image
+          src={session?.user?.image}
+          alt=""
+          className={styles.userImage}
+          width={500}
+          height={500}
+        />
 
-        <div class={styles.userDetails}>
+        <div className={styles.userDetails}>
           <h4>{session?.user?.name}</h4>
           <p>@{session?.user?.tag}</p>
         </div>
 
-        <BsThreeDots class={styles.dotsIcon} />
-
+        <BsThreeDots className={styles.dotsIcon} />
       </div>
-     
     </div>
   );
 };

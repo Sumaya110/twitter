@@ -57,6 +57,41 @@ export const authOptions = {
     },
   },
 
+  // callbacks: {
+  //   async signIn(user, account, profile) {
+  //     const isSignIn = account?.provider !== 'credentials';
+
+  //     if (isSignIn) {
+  //       return Promise.resolve('/home');
+  //     }
+
+  //     return Promise.resolve(true);
+  //   },
+
+  //   async redirect(url, baseUrl) {
+  //     return baseUrl;
+  //   },
+
+  //   async session({ session, token }) {
+  //     session.user.tag = session.user.name
+  //       .split(" ")
+  //       .join("")
+  //       .toLocaleLowerCase();
+
+  //     session.user.uid = token.sub;
+  //     return session;
+  //   },
+  // },
+
+  // pages: {
+  //   signIn: '/auth/signin', // Customize sign-in page URL
+  //   signOut: '/auth/signout', // Customize sign-out page URL
+  //   error: '/auth/error', // Customize error page URL
+  //   verifyRequest: '/auth/verify-request', // Customize email verification request page URL
+  //   newUser: null, // Don't redirect to a new user page
+  // },
+
+
   secret: process.env.NEXTAUTH_SECRET,
 };
 

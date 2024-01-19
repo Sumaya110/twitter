@@ -3,7 +3,7 @@ import Post from "../models/postModel";
 const create = async (content ) => {
   console.log("content ", content)
   const post = await Post.create({
-    id: content.id,
+    userId: content.userId,
     username: content.username,
     userImg: content.userImg,
     tag: content.tag,
@@ -13,14 +13,15 @@ const create = async (content ) => {
 };
 
 
-const findById = async (id) => {
-  console.log("idddd  :", id)
-  const response = await Post.findById(id);
+const find = async (userId ) => {
+
+  const response = await Post.find({userId});
+  console.log("repo response", response);
   return response;
 };
 
 const PostRepository = {
-  create, findById, 
+  create, find, 
 };
 
 export default PostRepository;

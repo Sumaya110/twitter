@@ -15,7 +15,7 @@ import Image from "next/image";
 const Input = () => {
   const { data: session } = useSession();
 
-  console.log("from input file", session);
+  // console.log("from input file", session);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
@@ -47,14 +47,14 @@ const Input = () => {
 
     try {
       const postId = await createPost({
-        id: session.user.uid,
+        userId: session.user.uid,
         username: session.user.name,
         userImg: session.user.image,
         tag: session.user.tag,
         text: input,
       });
 
-      console.log("post Id ", postId);
+      // console.log("post Id ", postId);
 
       // if (selectedFile) {
       //   const imageUrl = await uploadImage(selectedFile, postId);
@@ -78,13 +78,18 @@ const Input = () => {
     <div className={styles.combined8}>
       <div className={styles.combined9}>
         <div>
-          <Image
-            className={styles.combined10}
-            src={session?.user?.image}
-            alt=""
-            width={100}
-            height={100}
-          />
+          {session?.user?.image ? (
+            <Image
+              className={styles.combined10}
+              src={session?.user?.image}
+              alt=""
+              width={100}
+              height={100}
+            />
+          ) : (
+            // Render a placeholder or alternative content if the image is not available
+            <div>No image available</div>
+          )}
         </div>
 
         <div className={styles.combined7}>
@@ -133,7 +138,10 @@ const Input = () => {
               <button
                 className={styles.combined14}
                 disabled={!input.trim() && !selectedFile}
-                onClick={sendPost}
+                onClick={(e)=>{
+                  e.stopPropagation()
+                  sendPost()
+                }}
               >
                 Post
               </button>

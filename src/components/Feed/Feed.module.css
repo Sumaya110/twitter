@@ -1,24 +1,29 @@
 .section {
-    margin-left: 81px;
-    margin-left: 340px;
-    width: 600px;
-    min-height: 100vh;
-    border-right: 1px solid #ece3e3;
-    color: black;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  
-  .sectiondiv {
-    position: sticky;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    font-weight: 500;
-    font-size: 20px;
-    padding-left: 2rem;
-    padding-right: 1rem;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-  }
-  
+  margin-left: 81px;
+  margin-left: 340px;
+  width: 600px;
+  min-height: 100vh;
+  border-right: 1px solid #ece3e3;
+  color: black;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.sectiondiv {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 500;
+  font-size: 20px;
+  padding-left: 2rem;
+  padding-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.image {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+}

@@ -1,44 +1,63 @@
-import React, { useEffect, useState } from 'react'
-import styles from "@/components/Feed/Feed.module.css"
-import Input from "@/components/Input/Input"
-import { HiOutlineSparkles } from 'react-icons/hi';
-import { getPost } from '@/libs/action/postAction';
-import Post from '../Post/Post';
+import React, { useEffect, useState } from "react";
+import styles from "@/components/Feed/Feed.module.css";
+import Input from "@/components/Input/Input";
+import { HiOutlineSparkles } from "react-icons/hi";
+import { getPost } from "@/libs/action/postAction";
+import Post from "../Post/Post";
+import Image from "next/image";
 
-const Feed = () => {
-
-  const [posts, setPosts] = useState([])
+const Feed = ({ user }) => {
+  console.log("user and uid ", user.uid);
+  const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const data = await getPost(user.uid);
 
-        const response = await getPost()
+        console.log("from feed ", data);
+        console.log("from feed ", user.uid)
 
-        const data = await response.json();
         setPosts(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
+      } catch (error) {   
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, []);
+  }, [user.uid]);
 
   return (
     <section className={styles.section}>
       <div className={styles.sectiondiv}>
         Home
-        <HiOutlineSparkles/>
+        <HiOutlineSparkles />
       </div>
 
-      <Input/>
-      
-      {posts.map((post) => (
-        <Post key={post.id} id={post.id} post={post.data()} />
-      ))}
-     
+      <Input />
+
+      {posts &&
+        posts.map((post) => {
+          const { _id, id, username, userImg, text } = post;
+          return (
+            <tr key={_id}>
+              <td>
+                <div>
+                  <Image
+                    className={styles.image}
+                    src={userImg}
+                    alt={`${username}'s avatar`}
+                    width={30}
+                    height={30}
+                  />
+                  {username}
+                </div>
+                <div>{text}</div>
+              </td>
+            </tr>
+          );
+        })}
     </section>
   );
 };
-export default Feed
+export default Feed;

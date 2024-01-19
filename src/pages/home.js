@@ -1,11 +1,24 @@
+import HomePage from '@/components/HomePage/HomePage';
+import { getSession } from 'next-auth/react';
 import React from 'react'
-import Home from '@/components/Home/Home'
 
 
-const home = () => {
-  return (
-  <Home/>
-  )
+const home = ({user}) => {
+
+  console.log("home page user : ", user)
+  
+   return <HomePage user={user} />;
+  
 }
 
 export default home
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      user: session?.user||null,
+    },
+  };
+}

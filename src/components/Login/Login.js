@@ -1,11 +1,11 @@
-import { signIn } from 'next-auth/react';
-import React from 'react';
-import { FcGoogle } from 'react-icons/fc';
-import { FaXTwitter } from 'react-icons/fa6';
-import {  FaGithub } from 'react-icons/fa';
-import styles from '@/components/Login/Login.module.css';
-import SignUp from '@/components/SignUp/SignUp';
-import { useRouter } from 'next/router';
+import { signIn } from "next-auth/react";
+import React from "react";
+import { FcGoogle } from "react-icons/fc";
+import { FaXTwitter } from "react-icons/fa6";
+import { FaGithub } from "react-icons/fa";
+import styles from "@/components/Login/Login.module.css";
+import SignUp from "@/components/SignUp/SignUp";
+import { useRouter } from "next/router";
 
 const Login = () => {
   const router = useRouter();
@@ -16,33 +16,31 @@ const Login = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    console.log('email-password  :', email, password);
+    console.log("email-password  :", email, password);
 
     try {
-      const status = await signIn('credentials', {
+      const status = await signIn("credentials", {
         redirect: false,
         email,
         password,
-        callbackUrl: '/home',
+        // callbackUrl: "",
       });
-    
-      console.log('status  :', status);
-    
+
+      console.log("status  :", status);
+
       if (!status.ok) {
-        console.error('Authentication error:', status.error ?? 'Unknown error');
+        console.error("Authentication error:", status.error ?? "Unknown error");
       } else {
         router.push(status.url);
       }
     } catch (error) {
-      console.error('Unexpected error during authentication:', error);
+      console.error("Unexpected error during authentication:", error);
     }
-    
   };
 
   return (
- 
     <div className={styles.loginContainer}>
-         {/* <p>hhh</p> */}
+
       <div className={styles.twitterBg}>
         <FaXTwitter className={styles.twitterIcon} />
       </div>
@@ -54,16 +52,21 @@ const Login = () => {
         <div className={styles.googleSignupContainer}>
           <button
             className={styles.googleLoginButton}
-            onClick={() => signIn('google')}
+            onClick={() => {
+              signIn("google");
+              // router.replace("/home");
+            }}
           >
             <FcGoogle className={styles.googleIcon} />
             Sign up with Google
           </button>
 
-
           <button
             className={styles.githubLoginButton}
-            onClick={() => signIn('github')}
+            onClick={() => {
+              signIn("github");
+              //router.replace("/home");
+            }}
           >
             <FaGithub className={styles.githubIcon} />
             Sign up with GitHub

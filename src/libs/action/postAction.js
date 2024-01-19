@@ -1,4 +1,4 @@
-import { createNewPost } from "@/libs/api_routes/routes";
+import { createNewPost, getNewPost } from "@/libs/api_routes/routes";
 
 async function createPost(data) {
   console.log("dataa  :", data);
@@ -13,10 +13,10 @@ async function createPost(data) {
 }
 
 
-async function getPost(postId) {
+async function getPost(userId) {
 
   try {
-    const response = await getNewPost(postId);
+    const response = await getNewPost(userId);
     
     console.log("get postAction",response)
     return response.data;

@@ -2,7 +2,7 @@ import { Schema, model, models } from "mongoose";
 
 const postSchema = new Schema({
   // _id: ObjectId,
-  id: String,
+  userId: String,
   username: String,
   userImg: String,
   tag: String,

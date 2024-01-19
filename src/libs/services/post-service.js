@@ -14,8 +14,10 @@ export const createPost = async (req, res) => {
 
 export const getPost = async (req, res) => {
   try {
-    const response = await Repository.findById(req.query.id);
-    console.log("from service ", response)
+    const userId = req.query._id
+    console.log("service id", userId)
+    const response = await PostRepository.find(userId);
+    // console.log("from service ", response)
     return res.status(200).json(response);
     
   } catch (error) {

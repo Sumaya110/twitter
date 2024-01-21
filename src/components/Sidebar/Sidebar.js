@@ -44,18 +44,19 @@ const Sidebar = () => {
           height={100}
         /> */}
 
-{session?.user?.image ? (
-    <Image
-      // className={styles.combined10}
-      src={session?.user?.image}
-      alt=""
-      width={100}
-      height={100}
-    />
-  ) : (
-    // Render a placeholder or alternative content if the image is not available
-    <div>No image available</div>
-  )}
+        {session?.user?.image ? (
+          <Image
+            // className={styles.combined10}
+            src={session?.user?.image}
+            alt=""
+            className={styles.userImage}
+            width={100}
+            height={100}
+          />
+        ) : (
+          // Render a placeholder or alternative content if the image is not available
+          <div>No image available</div>
+        )}
 
         <div className={styles.userDetails}>
           <h4>{session?.user?.name}</h4>

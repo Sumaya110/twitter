@@ -8,13 +8,13 @@ const create = async (content ) => {
     userImg: content.userImg,
     tag: content.tag,
     text: content.text,
+    timestamp: content.timestamp,
   });
   return post;
 };
 
 
 const find = async (userId ) => {
-
   const response = await Post.find({userId});
   console.log("repo response", response);
   return response;

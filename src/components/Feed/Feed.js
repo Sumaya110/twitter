@@ -5,21 +5,18 @@ import { HiOutlineSparkles } from "react-icons/hi";
 import { getPost } from "@/libs/action/postAction";
 import Post from "../Post/Post";
 import Image from "next/image";
+import Moment from "react-moment";
+import 'moment-timezone';
 
 const Feed = ({ user }) => {
-  console.log("user and uid ", user.uid);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getPost(user.uid);
-
-        console.log("from feed ", data);
-        console.log("from feed ", user.uid)
-
         setPosts(data);
-      } catch (error) {   
+      } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
@@ -38,26 +35,28 @@ const Feed = ({ user }) => {
 
       {posts &&
         posts.map((post) => {
-          const { _id, id, username, userImg, text } = post;
+          const { _id, id, username, userImg, text, timestamp } = post;
           return (
-            <tr key={_id}>
-              <td>
-                <div>
-                  <Image
-                    className={styles.image}
-                    src={userImg}
-                    alt={`${username}'s avatar`}
-                    width={30}
-                    height={30}
-                  />
-                  {username}
-                </div>
-                <div>{text}</div>
-              </td>
-            </tr>
+            <div key={_id} className={styles.postContainer}>
+              <div className={styles.sameSpan}>
+                <Image
+                  className={styles.image}
+                  src={userImg}
+                  alt={`${username}'s avatar`}
+                  width={30}
+                  height={30}
+                />
+                <span className={styles.userName}>{username}</span>
+                {/* <p className={styles.time}> */}
+                  <Moment fromNow  className={styles.time}>{timestamp}</Moment>
+                {/* </p> */}
+              </div>
+              <div>{text}</div>
+            </div>
           );
         })}
     </section>
   );
 };
+
 export default Feed;

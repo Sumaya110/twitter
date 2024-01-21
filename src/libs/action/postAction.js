@@ -16,8 +16,7 @@ async function createPost(data) {
 async function getPost(userId) {
 
   try {
-    const response = await getNewPost(userId);
-    
+    const response = await getNewPost(userId); 
     console.log("get postAction",response)
     return response.data;
   } catch (error) {

@@ -9,7 +9,6 @@ const getPost = async(req, res) => {
 }
 
 
-
 // create a new post
 const createPost = async (req, res) => {
     try {
@@ -19,8 +18,6 @@ const createPost = async (req, res) => {
       res.status(400).json({ error: error.message })
     }
 }
-
-
 
 
 module.exports = {

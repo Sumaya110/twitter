@@ -5,22 +5,21 @@ import { RiBarChart2Line } from "react-icons/ri";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useSession } from "next-auth/react";
-
-import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
+import Image from "next/image";
 import styles from "@/components/Input/Input.module.css";
 import { createPost } from "@/libs/action/postAction";
-import Image from "next/image";
+// import { uploadImage } from "@/libs/action/imageAction"; // Import your image upload function
+import moment from "moment"; // Import the moment library
 
 const Input = () => {
   const { data: session } = useSession();
-
-  // console.log("from input file", session);
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [formattedTimestamp, setFormattedTimestamp] = useState(null);
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -52,26 +51,32 @@ const Input = () => {
         userImg: session.user.image,
         tag: session.user.tag,
         text: input,
+        timestamp: new Date(),
       });
+
+      setFormattedTimestamp(moment(new Date()).fromNow());
 
       // console.log("post Id ", postId);
 
-      // if (selectedFile) {
-      //   const imageUrl = await uploadImage(selectedFile, postId);
+      if (selectedFile) {
+        const imageUrl = await uploadImage(selectedFile, postId);
 
-      //   await db.collection("posts").updateOne(
-      //     { _id: postId },
-      //     { $set: { image: imageUrl } }
-      //   );
-      // }
+        // Update the post with the image URL
+        await updatePostImage(postId, imageUrl);
+      }
     } catch (error) {
-      console.error("Error sending post !! :", error);
+      console.error("Error sending post:", error);
     } finally {
       setLoading(false);
       setInput("");
       setSelectedFile(null);
       setShowEmojis(false);
     }
+  };
+
+  const updatePostImage = async (postId, imageUrl) => {
+    // Implement your logic to update the post with the image URL
+    // Example: Call an API to update the post in your backend
   };
 
   return (
@@ -87,7 +92,6 @@ const Input = () => {
               height={100}
             />
           ) : (
-            // Render a placeholder or alternative content if the image is not available
             <div>No image available</div>
           )}
         </div>
@@ -138,9 +142,9 @@ const Input = () => {
               <button
                 className={styles.combined14}
                 disabled={!input.trim() && !selectedFile}
-                onClick={(e)=>{
-                  e.stopPropagation()
-                  sendPost()
+                onClick={(e) => {
+                  e.stopPropagation();
+                  sendPost();
                 }}
               >
                 Post
@@ -155,6 +159,11 @@ const Input = () => {
           )}
         </div>
       </div>
+
+      {/* Display the formatted timestamp */}
+      {formattedTimestamp && (
+        <div className={styles.timestamp}>{formattedTimestamp}</div>
+      )}
     </div>
   );
 };

@@ -8,7 +8,9 @@
 
 .combined2 {
   position: relative;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
+  align-items: center;
+ 
 }
 
 .combined3 {
@@ -31,8 +33,11 @@
 
 .combined5 {
   border-radius: 1.5rem; 
-  max-height: 80px;
+  /* max-height: 80px; */
   object-fit: contain;
+  height: 50%;
+  width: 70%;
+  /* margin-right: 10px; */
 }
 
 .combined6 {
@@ -52,7 +57,7 @@
 
 .combined8 {
   margin-top: 1rem;
-  padding-left: 2rem;
+  /* padding-left: 1rem; */
   padding-right: 6rem;
 }
 

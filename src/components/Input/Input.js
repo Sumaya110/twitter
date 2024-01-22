@@ -5,31 +5,20 @@ import { RiBarChart2Line } from "react-icons/ri";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { useSession } from "next-auth/react";
+import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import Image from "next/image";
 import styles from "@/components/Input/Input.module.css";
 import { createPost } from "@/libs/action/postAction";
-// import { uploadImage } from "@/libs/action/imageAction"; // Import your image upload function
-import moment from "moment"; // Import the moment library
+import moment from "moment";
+import UploadForm from "@/components/UploadForm/UploadForm";
 
 const Input = () => {
   const { data: session } = useSession();
-
-  const [selectedFile, setSelectedFile] = useState(null);
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [formattedTimestamp, setFormattedTimestamp] = useState(null);
-
-  const addImageToPost = (e) => {
-    const reader = new FileReader();
-    if (e.target.files[0]) {
-      reader.readAsDataURL(e.target.files[0]);
-    }
-    reader.onload = (readerEvent) => {
-      setSelectedFile(readerEvent.target.result);
-    };
-  };
 
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
@@ -43,7 +32,6 @@ const Input = () => {
     if (loading) return;
 
     setLoading(true);
-
     try {
       const postId = await createPost({
         userId: session.user.uid,
@@ -56,27 +44,19 @@ const Input = () => {
 
       setFormattedTimestamp(moment(new Date()).fromNow());
 
-      // console.log("post Id ", postId);
+      // if (selectedFile) {
+      //   const imageUrl = await uploadImage(selectedFile, postId);
+      //   await updatePostImage(postId, imageUrl);
+      // }
 
-      if (selectedFile) {
-        const imageUrl = await uploadImage(selectedFile, postId);
-
-        // Update the post with the image URL
-        await updatePostImage(postId, imageUrl);
-      }
     } catch (error) {
       console.error("Error sending post:", error);
     } finally {
       setLoading(false);
       setInput("");
-      setSelectedFile(null);
+      // setSelectedFile(null);
       setShowEmojis(false);
     }
-  };
-
-  const updatePostImage = async (postId, imageUrl) => {
-    // Implement your logic to update the post with the image URL
-    // Example: Call an API to update the post in your backend
   };
 
   return (
@@ -105,17 +85,7 @@ const Input = () => {
             onChange={(e) => setInput(e.target.value)}
           />
 
-          {selectedFile && (
-            <div className={styles.combined2}>
-              <div
-                className={styles.combined3}
-                onClick={() => setSelectedFile(null)}
-              >
-                <AiOutlineClose className={styles.combined4} />
-              </div>
-              <Image src={selectedFile} alt="" className={styles.combined5} />
-            </div>
-          )}
+          <UploadForm />
 
           {!loading && (
             <div className={styles.combined11}>
@@ -123,8 +93,6 @@ const Input = () => {
                 <label htmlFor="file">
                   <BsImage className={styles.clickable} />
                 </label>
-
-                <input id="file" type="file" hidden onChange={addImageToPost} />
 
                 <div className={styles.combined13}>
                   <AiOutlineGif />
@@ -141,7 +109,7 @@ const Input = () => {
 
               <button
                 className={styles.combined14}
-                disabled={!input.trim() && !selectedFile}
+                // disabled={!input.trim() && !selectedFile}
                 onClick={(e) => {
                   e.stopPropagation();
                   sendPost();
@@ -160,7 +128,6 @@ const Input = () => {
         </div>
       </div>
 
-      {/* Display the formatted timestamp */}
       {formattedTimestamp && (
         <div className={styles.timestamp}>{formattedTimestamp}</div>
       )}

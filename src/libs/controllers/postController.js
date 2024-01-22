@@ -20,8 +20,27 @@ const createPost = async (req, res) => {
 }
 
 
+
+// Update a post
+const updatePost = async (req, res) => {
+  try {
+    const updateData = {
+      postId: req.params.postId,
+      updatedData: req.body,
+    };
+
+    const post = await PostRepository.findOneAndUpdate(updateData);
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
+
 module.exports = {
   getPost,
   createPost,
+  updatePost,
   
 }

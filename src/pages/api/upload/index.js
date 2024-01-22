@@ -9,7 +9,6 @@ export const config = {
 };
 
 const handleFileUpload = async (req, res) => {
-  console.log("helooo")
   try {
     const data = await new Promise((resolve, reject) => {
       const form = new IncomingForm();
@@ -18,9 +17,10 @@ const handleFileUpload = async (req, res) => {
         if (err) return reject(err);
         // console.log(fields, files);
         // console.log(files.file.filepath);
-        var oldPath = files.file.filepath;
+        var oldPath = files.file[0].filepath;
        
-        var newPath = `..../public/uploads/${files.file.originalFilename}`;
+       
+        var newPath = `./public/images/${files.file[0].originalFilename}`;
      
         mv(oldPath, newPath, function (err) {
           if (err) return reject(err);

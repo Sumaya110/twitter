@@ -8,76 +8,76 @@ export default function PrivatePage() {
   const [createObjectURL, setCreateObjectURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-    const uploadToClient = (event) => {
-      if (event.target.files && event.target.files[0]) {
-        const i = event.target.files[0];
+    // const uploadToClient = (event) => {
+    //   if (event.target.files && event.target.files[0]) {
+    //     const i = event.target.files[0];
 
-        console.log("url  : ", i);
+    //     console.log("url  : ", i);
 
-        setImage(i);
-        setCreateObjectURL(URL.createObjectURL(i));
-      }
+    //     setImage(i);
+    //     setCreateObjectURL(URL.createObjectURL(i));
+    //   }
+    // };
+
+    // const uploadToServer = async () => {
+    //   const body = new FormData();
+    //   body.append("file", image);
+
+    //   console.log("ekhon dekhao", body)
+
+    //   const response = await fetch("/api/upload", {
+    //     method: "POST",
+    //     body,
+    //   });
+    // };
+
+  const addImageToPost = async (e) => {
+    const reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+    reader.onload = (readerEvent) => {
+      setSelectedFile(readerEvent.target.result);
     };
 
-    const uploadToServer = async () => {
-      const body = new FormData();
-      body.append("file", image);
+    const i = e.target.files[0];
 
-      console.log("ekhon dekhao", body)
+    console.log("url  : ", i);
 
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body,
-      });
-    };
+    setImage(i);
+    setCreateObjectURL(URL.createObjectURL(i));
+    const url = URL.createObjectURL(i);
+    console.log("eita URL  : ", url);
 
-  // const addImageToPost = async (e) => {
-  //   const reader = new FileReader();
-  //   if (e.target.files[0]) {
-  //     reader.readAsDataURL(e.target.files[0]);
-  //   }
-  //   reader.onload = (readerEvent) => {
-  //     setSelectedFile(readerEvent.target.result);
-  //   };
-
-  //   const i = e.target.files[0];
-
-  //   console.log("url  : ", i);
-
-  //   setImage(i);
-  //   setCreateObjectURL(URL.createObjectURL(i));
-  //   const url = URL.createObjectURL(i);
-  //   console.log("eita URL  : ", url);
-
-  //   const body = new FormData();
-  //   body.append("file", image);
+    const body = new FormData();
+    body.append("file", image);
     
-  //   console.log("body  :", body)
+    console.log("body  :", body)
 
-  //   const response = await fetch("/api/upload", {
-  //     method: "POST",
-  //     body,
-  //   });
-  // };
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body,
+    });
+  };
 
 
 
   return (
     <div>
       <div>
-        <img src={createObjectURL} alt="" />
+        {/* <img src={createObjectURL} alt="" />
    
         <input type="file" name="myImage" onChange={uploadToClient} /> 
         <button
           className="btn btn-primary"
           type="submit"
-          onClick={uploadToServer}
+          onClick={()=>uploadToServer()}
         >
           Send to server
-        </button>
+        </button> */}
 
-        {/* <input id="file" type="file" hidden onChange={addImageToPost} /> */}
-        {/* {selectedFile && (
+        <input id="file" type="file" hidden onChange={addImageToPost} />
+        {selectedFile && (
           <div className={styles.combined2}>
             <div
               className={styles.combined3}
@@ -86,16 +86,16 @@ export default function PrivatePage() {
               <AiOutlineClose className={styles.combined4} />
             </div>
 
-            <img src={createObjectURL} alt="" /> 
-             <Image
+            <img src={createObjectURL} alt="" className={styles.combined5} /> 
+             {/* <Image
               src={selectedFile}
               alt=""
               width={500}
               height={300}
               className={styles.combined5}
-            />
+            /> */}
           </div>
-        )} */}
+        )}
       </div>
     </div>
   );

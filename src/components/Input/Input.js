@@ -9,9 +9,8 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import Image from "next/image";
 import styles from "@/components/Input/Input.module.css";
-import { createPost } from "@/libs/action/postAction";
+import { createPost, updatePost } from "@/libs/action/postAction";
 import moment from "moment";
-import UploadForm from "@/components/UploadForm/UploadForm";
 
 const Input = () => {
   const { data: session } = useSession();
@@ -19,6 +18,29 @@ const Input = () => {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [formattedTimestamp, setFormattedTimestamp] = useState(null);
+  const [image, setImage] = useState(null);
+  const [createObjectURL, setCreateObjectURL] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+
+  const addImageToPost = (e) => {
+    const reader = new FileReader();
+
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+
+      const i = e.target.files[0];
+      setImage(i);
+      setCreateObjectURL(URL.createObjectURL(i));
+
+    }
+    reader.onload = (readerEvent) => {
+      setSelectedFile(readerEvent.target.result);
+    };
+
+    
+  };
+
 
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
@@ -40,23 +62,47 @@ const Input = () => {
         tag: session.user.tag,
         text: input,
         timestamp: new Date(),
+
       });
 
       setFormattedTimestamp(moment(new Date()).fromNow());
 
-      // if (selectedFile) {
-      //   const imageUrl = await uploadImage(selectedFile, postId);
-      //   await updatePostImage(postId, imageUrl);
-      // }
+      if (selectedFile) {
+
+        console.log("selected files  : ", selectedFile)
+        // const imageUrl = await uploadImage(selectedFile, postId);
+        // await updatePostImage(postId, imageUrl);
+
+        const body = new FormData();
+          body.append("file", image);
+      
+          console.log("ekhon dekhao", body)
+      
+          const response = await fetch("/api/upload", {
+            method: "POST",
+            body,
+          });
+
+
+          console.log("post id and url ", postId, response)
+          updatePostImage(postId, response);
+      }
 
     } catch (error) {
       console.error("Error sending post:", error);
     } finally {
       setLoading(false);
       setInput("");
-      // setSelectedFile(null);
+      setSelectedFile(null);
       setShowEmojis(false);
     }
+  };
+
+  const updatePostImage = async (postId, imageUrl) => {
+    await updatePost(postId, {
+      imageUrl: imageUrl
+    })
+   
   };
 
   return (
@@ -85,7 +131,19 @@ const Input = () => {
             onChange={(e) => setInput(e.target.value)}
           />
 
-          <UploadForm />
+    
+          {selectedFile && (
+            <div className={styles.combined2}>
+              <div
+                className={styles.combined3}
+                onClick={() => setSelectedFile(null)}
+              >
+                <AiOutlineClose className={styles.combined4} />
+              </div>
+              {/* <img src={createObjectURL} alt="" className={styles.combined5} />  */}
+              <Image src={selectedFile} alt="" width={500} height={500} className={styles.combined5} />
+            </div>
+          )}
 
           {!loading && (
             <div className={styles.combined11}>
@@ -93,6 +151,8 @@ const Input = () => {
                 <label htmlFor="file">
                   <BsImage className={styles.clickable} />
                 </label>
+
+                <input id="file" type="file" hidden onChange={addImageToPost} />
 
                 <div className={styles.combined13}>
                   <AiOutlineGif />
@@ -109,7 +169,7 @@ const Input = () => {
 
               <button
                 className={styles.combined14}
-                // disabled={!input.trim() && !selectedFile}
+                disabled={!input.trim() && !selectedFile}
                 onClick={(e) => {
                   e.stopPropagation();
                   sendPost();
@@ -125,12 +185,15 @@ const Input = () => {
               <Picker onEmojiSelect={addEmoji} data={data} />
             </div>
           )}
+
         </div>
       </div>
 
       {formattedTimestamp && (
         <div className={styles.timestamp}>{formattedTimestamp}</div>
       )}
+
+
     </div>
   );
 };

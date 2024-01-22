@@ -1,7 +1,7 @@
 import Post from "../models/postModel";
 
 const create = async (content ) => {
-  console.log("content ", content)
+  // console.log("content ", content)
   const post = await Post.create({
     userId: content.userId,
     username: content.username,
@@ -9,6 +9,7 @@ const create = async (content ) => {
     tag: content.tag,
     text: content.text,
     timestamp: content.timestamp,
+    imageUrl: content.imageUrl,
   });
   return post;
 };
@@ -16,12 +17,23 @@ const create = async (content ) => {
 
 const find = async (userId ) => {
   const response = await Post.find({userId});
-  console.log("repo response", response);
+  return response;
+};
+
+
+const findOneAndUpdate = async (updateData) => {
+ 
+  const response = await Post.findOneAndUpdate(
+    { _id: updateData.postId }, 
+    updateData.updatedData,
+    { new: true } 
+  );
+  console.log("post repo ", response)
   return response;
 };
 
 const PostRepository = {
-  create, find, 
+  create, find, findOneAndUpdate,
 };
 
 export default PostRepository;

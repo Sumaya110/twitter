@@ -22,7 +22,6 @@ const Input = () => {
   const [createObjectURL, setCreateObjectURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-
   const addImageToPost = (e) => {
     const reader = new FileReader();
 
@@ -31,16 +30,12 @@ const Input = () => {
 
       const i = e.target.files[0];
       setImage(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-
+      // setCreateObjectURL(URL.createObjectURL(i));
     }
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
     };
-
-    
   };
-
 
   const addEmoji = (e) => {
     let sym = e.unified.split("-");
@@ -62,32 +57,30 @@ const Input = () => {
         tag: session.user.tag,
         text: input,
         timestamp: new Date(),
-
       });
 
       setFormattedTimestamp(moment(new Date()).fromNow());
 
       if (selectedFile) {
-
-        console.log("selected files  : ", selectedFile)
+        // console.log("selected files  : ", selectedFile);
         // const imageUrl = await uploadImage(selectedFile, postId);
         // await updatePostImage(postId, imageUrl);
 
         const body = new FormData();
-          body.append("file", image);
-      
-          console.log("ekhon dekhao", body)
-      
-          const response = await fetch("/api/upload", {
-            method: "POST",
-            body,
-          });
+        body.append("file", image);
 
+        console.log("ekhon dekhao", body);
 
-          console.log("post id and url ", postId, response)
-          updatePostImage(postId, response);
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body,
+        });
+
+        const url = await response.json();
+
+        console.log("post id and url ", postId, url)
+        updatePostImage(postId, url);
       }
-
     } catch (error) {
       console.error("Error sending post:", error);
     } finally {
@@ -99,10 +92,7 @@ const Input = () => {
   };
 
   const updatePostImage = async (postId, imageUrl) => {
-    await updatePost(postId, {
-      imageUrl: imageUrl
-    })
-   
+    await updatePost(postId, {imageUrl: imageUrl});
   };
 
   return (
@@ -114,8 +104,8 @@ const Input = () => {
               className={styles.combined10}
               src={session?.user?.image}
               alt=""
-              width={100}
-              height={100}
+              width={40}
+              height={40}
             />
           ) : (
             <div>No image available</div>
@@ -131,7 +121,6 @@ const Input = () => {
             onChange={(e) => setInput(e.target.value)}
           />
 
-    
           {selectedFile && (
             <div className={styles.combined2}>
               <div
@@ -141,7 +130,13 @@ const Input = () => {
                 <AiOutlineClose className={styles.combined4} />
               </div>
               {/* <img src={createObjectURL} alt="" className={styles.combined5} />  */}
-              <Image src={selectedFile} alt="" width={500} height={500} className={styles.combined5} />
+              <Image
+                src={selectedFile}
+                alt=""
+                width={500}
+                height={500}
+                className={styles.combined5}
+              />
             </div>
           )}
 
@@ -185,15 +180,12 @@ const Input = () => {
               <Picker onEmojiSelect={addEmoji} data={data} />
             </div>
           )}
-
         </div>
       </div>
 
       {formattedTimestamp && (
         <div className={styles.timestamp}>{formattedTimestamp}</div>
       )}
-
-
     </div>
   );
 };

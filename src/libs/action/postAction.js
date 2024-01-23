@@ -1,4 +1,4 @@
-import { createNewPost, getNewPost, updateNewPost } from "@/libs/api_routes/routes";
+import { createNewPost, getNewPost, getNewPosts, updateNewPost } from "@/libs/api_routes/routes";
 
 async function createPost(data) {
   try {
@@ -10,9 +10,18 @@ async function createPost(data) {
 }
 
 
-async function getPost(userId) {
+async function getPosts(userId) {
   try {
-    const response = await getNewPost(userId); 
+    const response = await getNewPosts(userId); 
+    return response.data;
+  } catch (error) {
+    throw Error(error.response.data);
+  }
+}
+
+async function getPost(matchId) {
+  try {
+    const response = await  getNewPost(matchId); 
     return response.data;
   } catch (error) {
     throw Error(error.response.data);
@@ -20,10 +29,12 @@ async function getPost(userId) {
 }
 
 
-async function updatePost(postId, updatedData) {
+
+async function updatePost(postId, imageUrl) {
+  console.log("update action: ", imageUrl);
   try {
-    const response = await updateNewPost(postId, updatedData); 
-    console.log("update postAction",response)
+    const response = await updateNewPost({postId, imageUrl});
+    console.log("update postAction", response.data);
     return response.data;
   } catch (error) {
     throw Error(error.response.data);
@@ -31,4 +42,4 @@ async function updatePost(postId, updatedData) {
 }
 
 
-export { createPost , getPost, updatePost};
+export { createPost , getPost, getPosts, updatePost};

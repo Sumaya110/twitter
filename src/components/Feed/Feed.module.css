@@ -22,11 +22,20 @@
   padding-bottom: 0.5rem;
 }
 
-.image {
-  height: 30px;
-  width: 30px;
+/* .image {
+ 
+  height: auto;
+  width: auto;
   border-radius: 50%;
 }
+
+.image2 {
+  height: 500px;
+  width: 500px;
+  border-radius: 15%;
+  padding-left: 40px;
+  padding-top: 1rem;
+} */
 
 .line{
   color: gray;
@@ -34,16 +43,15 @@
 }
 
 
-.postContainer {
-  /* display: flex; */
+/* .postContainer {
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 10px;
   background-color: #f9f9f9;
-}
+} */
 
-.sameSpan{
+/* .sameSpan{
   display: flex;
 }
 
@@ -54,5 +62,5 @@
 .time {
   color: #a0aec0;
   padding-left: 10px;
- }
+ } */
  

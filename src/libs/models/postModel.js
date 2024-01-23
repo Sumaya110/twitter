@@ -1,7 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
 const postSchema = new Schema({
-  // _id: ObjectId,
   userId: String,
   username: String,
   userImg: String,

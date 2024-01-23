@@ -23,5 +23,7 @@ export const createNewPost = (payload) => API.post('/api/posts', payload);
 
 export const getNewPost = (payload) => API.get('/api/posts', {params:{_id:payload}});
 
-export const updateNewPost = (payload) => API.patch('/api/posts', {params:{_id}});
+export const getNewPosts = (payload) => API.get('/api/posts', {params:{_id:payload}});
+
+export const updateNewPost = (payload) => API.patch('/api/posts', payload);
 

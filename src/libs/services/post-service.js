@@ -10,11 +10,21 @@ export const createPost = async (req, res) => {
 };
 
 
-export const getPost = async (req, res) => {
+export const getPosts = async (req, res) => {
   try {
     const userId = req.query._id
-    // console.log("service id", userId)
     const response = await PostRepository.find(userId);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+};
+
+
+export const getPost = async (req, res) => {
+  try {
+    const postId = req.query._id
+    const response = await PostRepository.findById(postId);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -32,3 +42,8 @@ export const updatePost = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
+
+
+
+

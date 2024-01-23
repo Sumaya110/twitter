@@ -6,7 +6,7 @@ export const createUser = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log("email  :", email)
+    // console.log("email  :", email)
     const existingUser = await UserRepository.findOne({ email });
 
     if (existingUser) {

@@ -19,9 +19,10 @@ async function getPosts(userId) {
   }
 }
 
-async function getPost(matchId) {
+async function getPost(postId) {
   try {
-    const response = await  getNewPost(matchId); 
+    // console.log("helll  ", postId)
+    const response = await  getNewPost(postId); 
     return response.data;
   } catch (error) {
     throw Error(error.response.data);

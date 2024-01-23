@@ -21,6 +21,7 @@ const find = async (userId ) => {
 };
 
 const findById = async (postId ) => {
+  console.log("post id from repo", postId)
   const response = await Post.findById({postId});
   return response;
 };

@@ -11,6 +11,7 @@ const getPosts = async(req, res) => {
 // GET post
 const getPost = async(req, res) => {
   // const postId=req._id
+  console.log("post controller : ", req)
   const postId = req.params
   const posts = await PostRepository.findById({postId});
   res.status(200).json(posts)
@@ -42,7 +43,6 @@ const updatePost = async (req, res) => {
   if (!updatedPost) {
     return res.status(400).json({ error: 'No such post' });
   }
-
   res.status(200).json(updatedPost);
 };
 

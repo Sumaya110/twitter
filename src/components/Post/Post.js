@@ -22,11 +22,10 @@ const Post = ({ id, post }) => {
 
   useEffect(() =>{
 
-    const fetchComments = async (id) => {
+    const fetchComments = async () => {
         try {
-
+          // console.log("hellll", id)
           const post = await getPost(id)
-
           return post.comments;
         } catch (error) {
           console.error('Error fetching comments:', error);
@@ -36,7 +35,7 @@ const Post = ({ id, post }) => {
 
       fetchComments()
 
-  }, [id])
+  }, [])
 
   // Fetch comments for a post
 // const fetchComments = async (postId) => {
@@ -88,7 +87,7 @@ const Post = ({ id, post }) => {
    
 
   const handleRoute = () => {
-    router.push(`/${id}`);
+    // router.push(`/${id}`);
   };
 
   return (
@@ -136,7 +135,7 @@ const Post = ({ id, post }) => {
         </div>
       )}
 
-      <div className={styles.combined8}>
+      {/* <div className={styles.combined8}>
         <div className={styles.combined9}>
           <BsChat
             className={styles.combined10}
@@ -176,7 +175,7 @@ const Post = ({ id, post }) => {
           {likes.length > 0 && (<span className={`${liked }`}>{likes.length}</span>)}
         </div>
         <AiOutlineShareAlt className={styles.combined10} />
-      </div>
+      </div> */}
     </div>
   );
 };

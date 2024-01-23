@@ -13,6 +13,8 @@ const Feed = ({ user }) => {
     const fetchData = async () => {
       try {
         const data = await getPosts(user.uid);
+
+        // console.log("feed data :", data[0]._id)
         setPosts(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -34,7 +36,7 @@ const Feed = ({ user }) => {
       {posts
         .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
         .map((post) => (
-          <Post key={post.id} id={post.id} post={post} />
+          <Post key={post._id} id={post._id} post={post} />
         ))}
     </section>
   );

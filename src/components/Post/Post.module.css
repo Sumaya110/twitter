@@ -87,7 +87,7 @@
   justify-content: space-between;
   font-size: 20px;
   margin-top: 1rem;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   margin-left: 3rem;
   width: 80%;
 }

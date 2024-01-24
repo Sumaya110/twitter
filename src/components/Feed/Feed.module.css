@@ -1,12 +1,9 @@
 .section {
-  margin-left: 81px;
-  margin-left: 340px;
+  margin-left: auto;
   width: 600px;
-  min-height: 100vh;
-  border-right: 1px solid #ece3e3;
+  border-right: 1px solid #dfd7d7;
+  border-left: 1px solid #eee6e6 ;
   color: black;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 .sectiondiv {
@@ -22,45 +19,18 @@
   padding-bottom: 0.5rem;
 }
 
-/* .image {
- 
-  height: auto;
-  width: auto;
-  border-radius: 50%;
-}
 
-.image2 {
-  height: 500px;
-  width: 500px;
-  border-radius: 15%;
-  padding-left: 40px;
-  padding-top: 1rem;
-} */
 
 .line{
-  color: gray;
+  color: rgb(224, 219, 219);
   border-bottom: 1px solid rgb(234, 228, 228); 
 }
 
-
-/* .postContainer {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: #f9f9f9;
-} */
-
-/* .sameSpan{
-  display: flex;
+ 
+@media (max-width: 1280px) {
+  .section {
+    margin-left: 100px;
+  }
 }
 
-.userName{
-  padding-left: 10px;
-}
-
-.time {
-  color: #a0aec0;
-  padding-left: 10px;
- } */
  

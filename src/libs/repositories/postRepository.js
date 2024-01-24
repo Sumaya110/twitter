@@ -13,21 +13,20 @@ const create = async (content ) => {
   return post;
 };
 
-
-//.sort({createdAt: -1})
 const find = async (userId ) => {
   const response = await Post.find({userId})
   return response;
 };
 
 const findById = async (postId ) => {
+
   console.log("post id from repo", postId)
+  
   const response = await Post.findById({postId});
   return response;
 };
 
 const findOneAndUpdate = async (updateData) => {
-  // console.log("repo :", updateData)
  
   const response = await Post.findOneAndUpdate(
     { _id: updateData.postId }, 

@@ -84,6 +84,8 @@ const Post = ({ id, post }) => {
 //   }
 // };
 
+
+
    
 
   const handleRoute = () => {
@@ -135,7 +137,7 @@ const Post = ({ id, post }) => {
         </div>
       )}
 
-      {/* <div className={styles.combined8}>
+      <div className={styles.combined8}>
         <div className={styles.combined9}>
           <BsChat
             className={styles.combined10}
@@ -175,7 +177,7 @@ const Post = ({ id, post }) => {
           {likes.length > 0 && (<span className={`${liked }`}>{likes.length}</span>)}
         </div>
         <AiOutlineShareAlt className={styles.combined10} />
-      </div> */}
+      </div>
     </div>
   );
 };

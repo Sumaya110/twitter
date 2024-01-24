@@ -13,14 +13,6 @@ const TrendingList = () => {
       </div>
 
       <div>
-      {/* <Image
-  className={styles.rounded}
-  src="/trending-1.jfif"
-  height={120} // Remove "px" from height and width
-  width={120}
-  alt="Description of the image"
-/> */}
-
       </div>
     </div>
   );

@@ -10,7 +10,7 @@ import {
     try {
       const response = await createNewUser(data);
 
-      console.log("response from action", response)
+      // console.log("response from action", response)
       return response.data;
     } catch (error) {
       throw Error(error.response.data);
@@ -24,6 +24,7 @@ import {
       const response = await getNewUser(data);
       
       console.log("get Action",response)
+
       return response.data;
     } catch (error) {
       throw Error(error.response.data);

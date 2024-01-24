@@ -24,6 +24,10 @@ export const getPosts = async (req, res) => {
 export const getPost = async (req, res) => {
   try {
     const postId = req.query._id
+
+    console.log("service : ", postId)
+
+    
     const response = await PostRepository.findById(postId);
     return res.status(200).json(response);
   } catch (error) {

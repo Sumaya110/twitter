@@ -21,9 +21,34 @@ export const getNewUser = (payload) => API.get('/api/users', payload);
 
 export const createNewPost = (payload) => API.post('/api/posts', payload);
 
-export const getNewPost = (payload) => API.get('/api/posts', {params:{_id:payload}});
-
-export const getNewPosts = (payload) => API.get('/api/posts', {params:{_id:payload}});
-
 export const updateNewPost = (payload) => API.patch('/api/posts', payload);
+
+// export const getNewPost = (payload) => API.get('/api/posts', {params:{_id:payload}});
+
+// export const getNewPosts = (payload) => API.get('/api/posts', {params:{_id:payload}});
+
+export const getNewPost = (payload) => {
+  const headers = {
+    "x-purpose": "get-single-post",
+  };
+
+  return API.get('/api/posts', {params:{_id:payload}}, { headers });
+};
+
+export const getNewPosts = (payload) => {
+  const config = {
+    params: { _id: payload },
+    headers: {
+      "x-purpose": "get-all-posts",
+    },
+  };
+
+  console.log("from route:", config.headers);
+
+  return API.get('/api/posts', config);
+};
+
+
+
+
 

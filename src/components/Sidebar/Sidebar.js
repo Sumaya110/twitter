@@ -36,17 +36,10 @@ const Sidebar = () => {
       <button className={styles.tweetButton}>Post</button>
 
       <div className={styles.signOutDiv} onClick={signOut}>
-        {/* <Image
-          src={session?.user?.image}
-          alt=""
-          className={styles.userImage}
-          width={100}
-          height={100}
-        /> */}
+        
 
         {session?.user?.image ? (
           <Image
-            // className={styles.combined10}
             src={session?.user?.image}
             alt=""
             className={styles.userImage}
@@ -54,7 +47,6 @@ const Sidebar = () => {
             height={40}
           />
         ) : (
-          // Render a placeholder or alternative content if the image is not available
           <div>No image available</div>
         )}
 

@@ -1,8 +1,9 @@
 .combined {
-  display: none;
+  /* display: none; */
   display: block;
   width: 350px;
   margin-top: 2rem;
+  padding-left: 50px;
 }
 
 .combined2 {
@@ -52,3 +53,16 @@
   font-weight: 900;
 
 }
+
+
+@media (max-width: 1000px) {
+  .combined2, .combined4 {
+    display: none;
+  }
+}
+
+/* @media (min-width: 601px) and (max-width: 900px) {
+  body {
+    font-size: 18px;
+  }
+} */

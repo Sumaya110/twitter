@@ -5,7 +5,7 @@ import React from 'react'
 
 const home = ({user}) => {
 
-  console.log("home page user : ", user)
+  // console.log("home page user : ", user)
   
    return <HomePage user={user} />;
   

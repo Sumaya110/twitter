@@ -7,13 +7,10 @@ const Trending = () => {
     return (
 
         <div className={styles.combined}>
-
             <div className={styles.combined2}>
                 <FiSearch />
                 <input className={styles.combined3} type="text" placeholder='Search' />
             </div>
-
-
             <div className={styles.combined4}>
                 <h1 className={styles.combined5}>Trends for you</h1>
 
@@ -24,7 +21,6 @@ const Trending = () => {
                 <TrendingList />
 
             </div>
-
         </div>
     )
 }

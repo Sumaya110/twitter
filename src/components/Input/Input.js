@@ -19,7 +19,6 @@ const Input = () => {
   const [loading, setLoading] = useState(false);
   const [formattedTimestamp, setFormattedTimestamp] = useState(null);
   const [image, setImage] = useState(null);
-  const [createObjectURL, setCreateObjectURL] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
   const addImageToPost = (e) => {
@@ -30,7 +29,6 @@ const Input = () => {
 
       const i = e.target.files[0];
       setImage(i);
-      // setCreateObjectURL(URL.createObjectURL(i));
     }
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
@@ -62,9 +60,6 @@ const Input = () => {
       setFormattedTimestamp(moment(new Date()).fromNow());
 
       if (selectedFile) {
-        // console.log("selected files  : ", selectedFile);
-        // const imageUrl = await uploadImage(selectedFile, postId);
-        // await updatePostImage(postId, imageUrl);
 
         const body = new FormData();
         body.append("file", image);
@@ -92,7 +87,7 @@ const Input = () => {
   };
 
   const updatePostImage = async (postId, imageUrl) => {
-    await updatePost(postId, {imageUrl: imageUrl});
+    await updatePost(postId, {imageUrl: imageUrl,});
   };
 
   return (
@@ -129,7 +124,6 @@ const Input = () => {
               >
                 <AiOutlineClose className={styles.combined4} />
               </div>
-              {/* <img src={createObjectURL} alt="" className={styles.combined5} />  */}
               <Image
                 src={selectedFile}
                 alt=""

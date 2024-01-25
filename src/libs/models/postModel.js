@@ -9,15 +9,30 @@ const postSchema = new Schema({
   image: String,
   timestamp: Date,
   imageUrl: String,
-  // likes: [ObjectId],
+  likes: [
+    {
+      postId: String,
+      userId: String,
+      username: String,
+      userImg: String,
+    },
+  ],
   comments: [
     {
-      id: String,
+      postId: String,
       username: String,
       userImg: String,
       text: String,
       timestamp: Date,
-      // likes: [ObjectId],
+
+      likes: [
+        {
+          postId: String,
+          userId: String,
+          username: String,
+          userImg: String,
+        },
+      ],
       replies: [
         {
           id: String,
@@ -25,7 +40,14 @@ const postSchema = new Schema({
           userImg: String,
           text: String,
           timestamp: Date,
-          // likes: [ObjectId],
+          likes: [
+            {
+              postId: String,
+              userId: String,
+              username: String,
+              userImg: String,
+            },
+          ],
         },
       ],
     },
@@ -35,3 +57,4 @@ const postSchema = new Schema({
 const Posts = models.post || model("post", postSchema);
 
 export default Posts;
+

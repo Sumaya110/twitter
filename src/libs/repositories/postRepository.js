@@ -1,6 +1,6 @@
 import Post from "../models/postModel";
 
-const create = async (content ) => {
+const create = async (content) => {
   const post = await Post.create({
     userId: content.userId,
     username: content.username,
@@ -13,33 +13,37 @@ const create = async (content ) => {
   return post;
 };
 
-const find = async (userId ) => {
-  const response = await Post.find({userId})
+const find = async ({ userId }) => {
+  const response = await Post.find({ userId });
   return response;
 };
 
-const findById = async (postId ) => {
-
-  console.log("post id from repo", postId)
-  
-  const response = await Post.findById({postId});
+const findById = async (postId) => {
+  const response = await Post.findById({ _id: postId });
   return response;
 };
 
 const findOneAndUpdate = async (updateData) => {
- 
   const response = await Post.findOneAndUpdate(
-    { _id: updateData.postId }, 
-   updateData.imageUrl,
-    { new: true } 
+    { _id: updateData.postId },
+    updateData.updateData,
+    { new: true }
   );
   return response;
 };
 
-
+const findOneAndDelete = async (postId) => {
+  console.log("repo  : ", postId)
+  const response = await Post.findOneAndDelete({ _id: postId });
+  return response;
+};
 
 const PostRepository = {
-  create, find, findOneAndUpdate, findById
+  create,
+  find,
+  findOneAndUpdate,
+  findById,
+  findOneAndDelete,
 };
 
 export default PostRepository;

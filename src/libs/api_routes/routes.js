@@ -5,8 +5,9 @@ const API = axios.create({
 });
 
 API.interceptors.request.use((req)=>{
-    req.headers["Content-Type"] = "application/json";
-    return req;
+  if(!req.url.includes('/api/posts'))
+      req.headers["Content-Type"] = "application/json";
+  return req;
 })
 
 API.interceptors.response.use((res)=>{
@@ -23,32 +24,10 @@ export const createNewPost = (payload) => API.post('/api/posts', payload);
 
 export const updateNewPost = (payload) => API.patch('/api/posts', payload);
 
-// export const getNewPost = (payload) => API.get('/api/posts', {params:{_id:payload}});
+ export const getNewPost = (payload) => API.get('/api/posts', {params:{_id:payload, purpose: "get-single-post" }});
 
-// export const getNewPosts = (payload) => API.get('/api/posts', {params:{_id:payload}});
-
-export const getNewPost = (payload) => {
-  const headers = {
-    "x-purpose": "get-single-post",
-  };
-
-  return API.get('/api/posts', {params:{_id:payload}}, { headers });
-};
-
-export const getNewPosts = (payload) => {
-  const config = {
-    params: { _id: payload },
-    headers: {
-      "x-purpose": "get-all-posts",
-    },
-  };
-
-  console.log("from route:", config.headers);
-
-  return API.get('/api/posts', config);
-};
+ export const getNewPosts = (payload) => API.get('/api/posts', {params:{_id:payload, purpose:"get-all-posts" }});
 
 
-
-
+ export const deleteNewPost = (payload) => API.delete('/api/posts', {params:{_id:payload}});
 

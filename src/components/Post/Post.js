@@ -4,89 +4,118 @@ import { FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart, AiOutlineShareAlt, AiFillHeart } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Moment from "react-moment";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 import styles from "@/components/Post/Post.module.css";
 import Image from "next/image";
 import "moment-timezone";
-import { getPost } from "@/libs/action/postAction";
+import { deletePost, getPost, updatePost } from "@/libs/action/postAction";
+import { useDispatch } from "react-redux";
+import { openModal } from "@/action/action";
 
 const Post = ({ id, post }) => {
+  const dispatch = useDispatch();
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [comments, setComments] = useState([]);
 
   const { data: session } = useSession();
-  const router = useRouter();
+  const userId = session.user.uid;
+  const username = session.user.username;
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const post = await getPost(id);
 
-  useEffect(() =>{
+        const comments = post.comments;
+        const likes = post.likes;
 
-    const fetchComments = async () => {
-        try {
-          // console.log("hellll", id)
-          const post = await getPost(id)
-          return post.comments;
-        } catch (error) {
-          console.error('Error fetching comments:', error);
-          throw error;
+        setComments(comments);
+        setLikes(likes);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+
+  useEffect(() => {
+    const checkIfLiked = (likes, userId) => {
+      return likes.some((like) => like.id === userId);
+    };
+
+    const likeOrUnlikePost = async () => {
+      try {
+        const post = await getPost(id);
+
+        if (checkIfLiked(post.likes, userId)) {
+          post.likes = post.likes.filter((like) => like.id !== userId);
+        } else {
+          post.likes.push({ id: userId, username });
         }
-      };
 
-      fetchComments()
+        await updatePost(id, {
+          likes: likes,
+          comments: comments,
+        });
+      } catch (error) {
+        console.error("Error updating likes:", error);
+        throw error;
+      }
+    };
 
-  }, [])
+    likeOrUnlikePost();
+  }, [likes]);
 
-  // Fetch comments for a post
-// const fetchComments = async (postId) => {
-//   try {
-//     const post = await Posts.findById(postId);
-//     return post.comments;
-//   } catch (error) {
-//     console.error('Error fetching comments:', error);
-//     throw error;
-//   }
-// };
+  const likePost = async () => {
+    try {
+      const post = await getPost(id);
 
-// Fetch likes for a post
-// const fetchLikes = async (postId) => {
-//   try {
-//     const post = await Posts.findById(postId);
-//     return post.likes;
-//   } catch (error) {
-//     console.error('Error fetching likes:', error);
-//     throw error;
-//   }
-// };
+      if (!post) {
+        return console.error("Post not found");
+      }
 
-// // Check if the current user has liked the post
-// const checkIfLiked = (likes, userId) => {
-//   return likes.some((like) => like.id === userId);
-// };
+      const likedIndex = post.likes.findIndex(
+        (like) => like.userId === session.user.uid
+      );
+      // console.log("liked index", likedIndex)
 
-// // Like or unlike a post
-// const likeOrUnlikePost = async (postId, userId, username) => {
-//   try {
-//     const post = await Posts.findById(postId);
+      if (likedIndex !== -1) {
+        post.likes.splice(likedIndex, 1);
+        // console.log("unlike :", post.likes)
+      } else {
+        post.likes.push({
+          userId: session.user.uid,
+          username: session.user.username,
+          userImg: session.user.userImg,
+        });
+      }
 
-//     if (checkIfLiked(post.likes, userId)) {
-//       // Unlike the post
-//       post.likes = post.likes.filter((like) => like.id !== userId);
-//     } else {
-//       // Like the post
-//       post.likes.push({ id: userId, username });
-//     }
+      // console.log("post likes  : ", post.likes)
 
-//     await post.save();
-//   } catch (error) {
-//     console.error('Error updating likes:', error);
-//     throw error;
-//   }
-// };
+      await updatePost(id, {
+        likes: post.likes,
+      });
+      console.log("Post liked/unliked successfully");
+    } catch (error) {
+      console.error("Error liking/unliking post:", error);
+    }
+  };
 
+  const handleChatIconClick = () => {
+    // e.stopPropagation();
+    dispatch(openModal(post, id));
+  };
 
-
-   
+  const handleDeletePost = async () => {
+    try {
+      console.log("idd  :", id);
+      await deletePost(id);
+    } catch (error) {
+      console.error("Error deleting document:", error);
+    }
+  };
 
   const handleRoute = () => {
     // router.push(`/${id}`);
@@ -107,20 +136,15 @@ const Post = ({ id, post }) => {
               />
 
               <div className={styles.topBottom}>
-
-              <span className={styles.userName}>{post.username}</span>
-              <span className={styles.tag}>@{session?.user?.tag}</span>
-
+                <span className={styles.userName}>{post.username}</span>
+                <span className={styles.tag}>@{session?.user?.tag}</span>
               </div>
-             
-
 
               <Moment fromNow className={styles.time}>
                 {post.timestamp}
               </Moment>
             </div>
-            
-            
+
             <div>{post.text}</div>
 
             {post.imageUrl && (
@@ -143,21 +167,21 @@ const Post = ({ id, post }) => {
             className={styles.combined10}
             onClick={(e) => {
               e.stopPropagation();
-              openModal();
+              handleChatIconClick();
             }}
           />
           {comments.length > 0 && (
             <span className={styles.textSm}>{comments.length}</span>
           )}
         </div>
-        {session.user.uid !== post?.id ? (
+        {session.user.uid !== post?.userId ? (
           <FaRetweet className={styles.combined10} />
         ) : (
           <RiDeleteBin5Line
             className={styles.combined10}
             onClick={(e) => {
               e.stopPropagation();
-              deleteDoc(doc(db, "posts", id));
+              handleDeletePost();
             }}
           />
         )}
@@ -173,8 +197,15 @@ const Post = ({ id, post }) => {
           ) : (
             <AiOutlineHeart className={styles.combined13} />
           )}
-          {likes.length > 0 && (<span className={`${liked && styles.textPink } {styles.textSm}`}>{likes.length}</span>)}
-          {likes.length > 0 && (<span className={`${liked }`}>{likes.length}</span>)}
+          {likes && likes.length > 0 && (
+            <span className={`${liked && styles.textPink} ${styles.textSm}`}>
+              {likes.length}
+            </span>
+          )}
+
+          {likes && likes.length > 0 && (
+            <span className={`${liked}`}>{likes.length}</span>
+          )}
         </div>
         <AiOutlineShareAlt className={styles.combined10} />
       </div>

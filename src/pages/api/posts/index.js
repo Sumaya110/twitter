@@ -4,6 +4,7 @@ import {
   getPosts,
   getPost,
   updatePost,
+  deletePost,
 } from "@/libs/services/post-service";
 
 export default async function handler(req, res) {
@@ -13,9 +14,7 @@ export default async function handler(req, res) {
       case "POST":
         return await createPost(req, res);
       case "GET":
-        const purposeHeader = req.headers["x-purpose"];
-        console.log("purposeHeader  ", purposeHeader, req.headers)
-        switch (purposeHeader) {
+        switch (req.query.purpose) {
           case "get-single-post":
             return await getPost(req, res);
 
@@ -27,6 +26,9 @@ export default async function handler(req, res) {
         }
       case "PATCH":
         return await updatePost(req, res);
+      case "DELETE":
+        console.log("i am here ", req.query)
+        return await deletePost(req, res);
     }
   } catch (error) {
     return res.status(500).json({ error });

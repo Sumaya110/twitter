@@ -38,12 +38,32 @@ const findOneAndDelete = async (postId) => {
   return response;
 };
 
+
+
+// postId: id,
+//       username: session.user.name,
+//       userImg: session.user.image,
+//       text: input,
+//       timestamp: new Date(),
+
+const createComment = async (content) => {
+  const comment = await Post.create({
+    postId: content.postId,
+    username: content.username,
+    userImg: content.userImg,
+    text: content.text,
+    timestamp: content.timestamp,
+  });
+  return comment;
+};
+
 const PostRepository = {
   create,
   find,
   findOneAndUpdate,
   findById,
   findOneAndDelete,
+  createComment
 };
 
 export default PostRepository;

@@ -59,6 +59,16 @@ export const deletePost = async (req, res) => {
 };
 
 
+export const createComment = async (req, res) => {
+  try {
+    const response = await PostRepository.create(req.body);
+    return res.status(200).json(response._id);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+};
+
+
 
 
 

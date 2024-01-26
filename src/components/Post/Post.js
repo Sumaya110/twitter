@@ -9,14 +9,15 @@ import styles from "@/components/Post/Post.module.css";
 import Image from "next/image";
 import "moment-timezone";
 import { deletePost, getPost, updatePost } from "@/libs/action/postAction";
-import { useDispatch } from "react-redux";
-import { openModal } from "@/action/action";
+import Modal from "../Modal/Modal";
+import { useRouter } from 'next/router'
 
 const Post = ({ id, post }) => {
-  const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [comments, setComments] = useState([]);
+  const router = useRouter()
 
   const { data: session } = useSession();
   const userId = session.user.uid;
@@ -27,6 +28,8 @@ const Post = ({ id, post }) => {
       try {
         const post = await getPost(id);
 
+        
+        console.log("postt  : ", post.comments)
         const comments = post.comments;
         const likes = post.likes;
 
@@ -51,8 +54,10 @@ const Post = ({ id, post }) => {
 
         if (checkIfLiked(post.likes, userId)) {
           post.likes = post.likes.filter((like) => like.id !== userId);
+          // setLiked(false);
         } else {
           post.likes.push({ id: userId, username });
+          // setLiked(true);
         }
 
         await updatePost(id, {
@@ -65,47 +70,51 @@ const Post = ({ id, post }) => {
       }
     };
 
+
+
     likeOrUnlikePost();
+
+    // console.log("like or unlike : ", liked, id)
   }, [likes]);
 
   const likePost = async () => {
     try {
       const post = await getPost(id);
 
-      if (!post) {
-        return console.error("Post not found");
-      }
-
       const likedIndex = post.likes.findIndex(
         (like) => like.userId === session.user.uid
       );
-      // console.log("liked index", likedIndex)
 
       if (likedIndex !== -1) {
         post.likes.splice(likedIndex, 1);
-        // console.log("unlike :", post.likes)
+
+        setLiked(false)
       } else {
+        setLiked(true);
         post.likes.push({
           userId: session.user.uid,
           username: session.user.username,
           userImg: session.user.userImg,
         });
       }
-
-      // console.log("post likes  : ", post.likes)
-
       await updatePost(id, {
         likes: post.likes,
       });
-      console.log("Post liked/unliked successfully");
+      console.log("Post liked/unliked successfully", liked, id);
     } catch (error) {
       console.error("Error liking/unliking post:", error);
     }
   };
 
   const handleChatIconClick = () => {
-    // e.stopPropagation();
-    dispatch(openModal(post, id));
+    // dispatch(openModal(post, id));
+    {
+      /* <button onClick={() => setShowModal(true)}>Open Modal</button>
+
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>Hello from the modal!</Modal>
+      )} */
+    }
   };
 
   const handleDeletePost = async () => {
@@ -165,11 +174,16 @@ const Post = ({ id, post }) => {
         <div className={styles.combined9}>
           <BsChat
             className={styles.combined10}
-            onClick={(e) => {
-              e.stopPropagation();
-              handleChatIconClick();
-            }}
+            // onClick={(e) => {
+            //   e.stopPropagation();
+            //   handleChatIconClick();
+            // }}
+
+            onClick={() => setShowModal(true)}
           />
+          {showModal && <Modal onClose={() => setShowModal(false)} id={id} post={post} />}
+
+
           {comments.length > 0 && (
             <span className={styles.textSm}>{comments.length}</span>
           )}
@@ -197,14 +211,9 @@ const Post = ({ id, post }) => {
           ) : (
             <AiOutlineHeart className={styles.combined13} />
           )}
-          {likes && likes.length > 0 && (
-            <span className={`${liked && styles.textPink} ${styles.textSm}`}>
-              {likes.length}
-            </span>
-          )}
 
           {likes && likes.length > 0 && (
-            <span className={`${liked}`}>{likes.length}</span>
+            <span className={styles.textPink}>{likes.length}</span>
           )}
         </div>
         <AiOutlineShareAlt className={styles.combined10} />

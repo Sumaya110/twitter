@@ -1,0 +1,13 @@
+.combined {
+    position: relative;
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .combined2 {
+    display: flex;
+    gap: 6px;
+   }
+   
+  

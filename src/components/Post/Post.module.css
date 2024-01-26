@@ -49,7 +49,7 @@
   padding-left: 10px;
 }
 .textPink{
-  color: #b83280;
+  color: #b8323b;
 }
 .textSm {
   font-size: 0.875rem;
@@ -120,25 +120,26 @@
   width: 28px;
   height: 28px;
   padding: 4px;
-  color: #c552e6;
+  color: #e60914;
   cursor: pointer;
 }
 
 .combined12:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(225, 10, 10, 0.1);
 }
 
 .combined13 {
   width: 28px;
   height: 28px;
   padding: 4px;
+  color: rgb(1, 11, 11);
 }
 
 .combined13:hover {
 }
 
 .textPink {
-  color: #c51162;
+  color: #ef0a0a;
 }
 
 .userDetails {

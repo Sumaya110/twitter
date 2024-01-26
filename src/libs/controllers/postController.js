@@ -65,10 +65,23 @@ const deletePost = async (req, res) => {
   res.status(200).json(deletedPost);
 };
 
+
+// create a new comment
+const createComment = async (req, res) => {
+  try {
+    const comment = await PostRepository.createComment(req.body);
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+
 module.exports = {
   getPosts,
   getPost,
   createPost,
   updatePost,
   deletePost,
+  createComment
 };

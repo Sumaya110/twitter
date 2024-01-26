@@ -127,7 +127,7 @@ const Post = ({ id, post }) => {
   };
 
   const handleRoute = () => {
-    // router.push(`/${id}`);
+    router.push(`/${id}`);
   };
 
   return (

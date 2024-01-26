@@ -86,7 +86,7 @@ export default function PrivatePage() {
               <AiOutlineClose className={styles.combined4} />
             </div>
 
-            <img src={createObjectURL} alt="" className={styles.combined5} /> 
+            {/* <img src={createObjectURL} alt="" className={styles.combined5} />  */}
              {/* <Image
               src={selectedFile}
               alt=""

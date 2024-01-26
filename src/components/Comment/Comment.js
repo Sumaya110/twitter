@@ -4,7 +4,7 @@ import { BsBarChart,  BsChatDots } from "react-icons/bs"
 import Moment from "react-moment";
 import styles from "@/components/Comment/Comment.module.css"
 
-function Comment({ comment }) {
+function Comment({key, id, comment }) {
     return (
         <div className={styles.combined}>
             <image

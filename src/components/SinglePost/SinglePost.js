@@ -12,7 +12,7 @@ const SinglePost = () => {
     const [post, setPost] = useState([])
     const [comments, setComments] = useState([])
     const router = useRouter()
-    const { id } = router.query;
+    // const { id } = router.query;
     // console.log("idd  : ", id )
 
     useEffect(() => {
@@ -49,9 +49,9 @@ const SinglePost = () => {
                     <div className={styles.pb}>
                         {comments.map((comment) => (
                             <Comment
-                                key={comment.id}
-                                id={comment.id}
-                                comment={comment.data()}
+                                key={comment._id}
+                                id={comment._id}
+                                comment={comment.text}
                             />
                         ))}
                     </div>

@@ -158,6 +158,14 @@
   color: #6e767d;
 } 
 
+.combined3a {
+  border-top: 1px solid #4a4a4a;
+ }
+
+ .pb {
+  padding-bottom: 72px;
+}
+
 @media (min-width: 640px) {
   .combined3 {
     display: flex;

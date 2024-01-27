@@ -11,6 +11,7 @@ import "moment-timezone";
 import { deletePost, getPost, updatePost } from "@/libs/action/postAction";
 import Modal from "../Modal/Modal";
 import { useRouter } from 'next/router'
+import Comment from "../Comment/Comment";
 
 const Post = ({ id, post }) => {
   const [showModal, setShowModal] = useState(false);
@@ -28,7 +29,7 @@ const Post = ({ id, post }) => {
       try {
         const post = await getPost(id);
 
-        
+
         console.log("postt  : ", post.comments)
         const comments = post.comments;
         const likes = post.likes;
@@ -127,7 +128,7 @@ const Post = ({ id, post }) => {
   };
 
   const handleRoute = () => {
-    router.push(`/${id}`);
+    // router.push(`/${id}`);
   };
 
   return (
@@ -218,6 +219,19 @@ const Post = ({ id, post }) => {
         </div>
         <AiOutlineShareAlt className={styles.combined10} />
       </div>
+
+      <div className={styles.combined3}>
+        {comments.length > 0 && (
+          <div className={styles.pb}>
+            {comments.map((comment) => (
+              <Comment
+                comment={comment}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+
     </div>
   );
 };

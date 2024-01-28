@@ -1,10 +1,36 @@
-.combined {
+/* .combined {
   padding: 1rem;
   display: flex;
+  width: 100%;
   cursor: pointer;
   border-bottom: 1px solid #4a5568;
+} */
+
+.combined {
+  margin-top: 1rem;
+  border-top: 1px solid #a0aec0;
+  padding: 1rem 0.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  cursor: pointer;
+  width: 100%;
+
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
 }
 
+
+
+.commentContainer{
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  /* margin-bottom: 10px; */
+  background-color: #f9f9f9;
+}
 .combined2 {
   border-radius: 50%;
   margin-right: 1rem;
@@ -14,8 +40,9 @@
 .combined3 {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* 8px space between items */
+  gap: 0.5rem;
   width: 100%;
+  /* border-bottom: 1px solid #a0aec0; */
 }
 
 .combined4 {
@@ -45,6 +72,16 @@
 .combined8 {
   margin-left: 0.375rem;
   font-size: 0.875rem;
+ 
+  /* border-bottom: 1px solid #a0aec0; */
+}
+
+.fullContainer {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  /* background-color: #f9f9f9; */
 }
 
 .combined9 {
@@ -67,34 +104,11 @@
   flex-shrink: 0;
 }
 
-.combined11 {
-  height: 5rem;
-  color: #6e767d;
-}
-
-.combined11:hover,
-.combined11:focus {
-  color: #1d9bf0;
-}
-
-
-.combined12 {
-    color: #6e767d;
-    display: flex;
-    justify-content: space-between;
-    width: 83.33%; 
-  }
-
   .iconGroup2 {
-    display: inline-flex; 
     gap: 1rem; 
     align-items: center; 
   }
 
-  .combined13 {
-    height: 5rem;
-    transition: color 0.3s ease-in-out; 
-  }
   
  
   .group:hover .combined13 {
@@ -104,7 +118,7 @@
   .group {
     display: flex;
     align-items: center;
-    gap: 0.25rem; /* 4px gap, equivalent to Tailwind's space-x-1 */
+    gap: 0.25rem;
   }
 
   .pic{
@@ -113,55 +127,14 @@
   
 
   .icon {
-    background-color: rgba(236, 95, 125, 0.1); /* bg-pink-600/10 */
+    background-color: rgba(236, 95, 125, 0.1);
   }
   
   .icon:hover {
-    background-color: rgba(236, 95, 125, 0.6); /* Darker pink on hover */
+    background-color: rgba(236, 95, 125, 0.6);
   }
   
 
-  .combined14 {
-    height: 5rem; /* h-5 sets height to 150px */
-    color: #c23995; /* Group hover text color */
-  }
-  
-  .combined14:hover,
-  .combined14:focus {
-    color: #e850b5; /* Hover/focus text color */
-  }
-
-
-  .combined15 {
-    font-size: 1rem; /* Assuming text-sm is 1rem */
-  }
-  
-  .combined15:hover,
-  .combined15:hover ~ .my-class {
-    color: #e85a70; /* Assuming text-pink-600 is #e85a70 */
-  }
-  
-  
-  .combined16 {
-    height: 1.25rem; /* h-5 equivalent */
-    color: black; /* Default text color */
-    transition: color 0.2s ease-in-out; /* Smooth color transition on hover */
-  }
-  
-  .combined16:hover,
-  .combined16:focus {
-    color: #1d9bf0; /* Group hover text color */
-  }
-  
-  
-  .combined17 {
-    height: 5rem;
-    color: #1d9bf0;
-  }
-  
-  .combined17:hover {
-    color: #1d9bf0;
-  }
   
 
 @media (min-width: 640px) {
@@ -181,3 +154,90 @@
     font-size: 16px;
   }
 }
+
+
+
+.comment8 {
+  border-top: 1px solid #a0aec0;
+  border-bottom: 1px solid #a0aec0;
+  display: flex;
+  justify-content: space-between;
+  font-size: 20px;
+  /* margin-left: 4rem; */
+  width: 100%;
+  /* gap:5.35rem; */
+}
+
+.comment9 {
+  display: flex;
+  /* gap: 1rem; */
+  align-items: center;
+}
+
+.comment10 {
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+}
+
+.comment10:hover {
+}
+
+.textSm {
+  font-size: 1rem;
+}
+
+.comment11 {
+  display: flex;
+  /* gap: 1rem; */
+  align-items: center;
+}
+
+.comment12 {
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  color: #e60914;
+  cursor: pointer;
+}
+
+.comment12:hover {
+  background-color: rgba(225, 10, 10, 0.1);
+}
+
+.comment13 {
+  width: 28px;
+  height: 28px;
+  padding: 4px;
+  color: rgb(1, 11, 11);
+}
+
+.comment:hover {
+}
+
+.textPink {
+  color: #ef0a0a;
+}
+
+.pb {
+  width: 95%;}
+
+  .sameSpan {
+    display: flex;
+  }
+  
+  .userName {
+    padding-left: 10px;
+    font-weight: bolder;
+  }
+  
+  .time {
+    color: #a0aec0;
+    padding-left: 10px;
+  }
+
+  
+.tag{
+  padding-left: 5px;
+  color: #6e767d;
+} 

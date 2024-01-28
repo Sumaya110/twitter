@@ -13,15 +13,17 @@ import Image from "next/image";
 import { createComment, updatePost } from "@/libs/action/postAction";
 
 
-const Modal = ({ onClose, id, post }) => {
+const Modal = ({ onClose, id, post, comment, option }) => {
   const [input, setInput] = useState("");
   const { data: session } = useSession();
   const timestamp = new Date(post?.timestamp);
 
+  const commentId= comment._id;
+
 
   const sendComment = async () => {
-
-  const comment = ({
+    const comment = ({
+      userId: session.user.uid,
       username: session.user.name,
       userImg: session.user.image,
       text: input,
@@ -30,10 +32,28 @@ const Modal = ({ onClose, id, post }) => {
 
 
 
-    await updatePost(id, {
-      $push: { comments: comment }
-    });
-    
+    if (option === 1) {
+      await updatePost(id, {
+        $push: { comments: comment }
+      });
+    }
+    else {
+      const updatedComments = post.comments.map((c) =>
+        c._id === commentId
+          ? {
+            ...c,
+            replies: [...c.replies, comment],
+          }
+          : c
+      );
+
+      await updatePost(id, {
+        $set: {
+          comments: updatedComments,
+        },
+      });
+
+    };
 
   };
 
@@ -121,7 +141,7 @@ const Modal = ({ onClose, id, post }) => {
               <button
                 className={styles.combined8}
                 disabled={!input.trim()}
-                onClick={ () =>sendComment()}
+                onClick={() => sendComment()}
               >
                 Reply
               </button>

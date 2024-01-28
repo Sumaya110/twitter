@@ -1,16 +1,31 @@
 .combined {
   margin-top: 1rem;
   border-top: 1px solid #a0aec0;
+  /* border-bottom: 1px solid #a0aec0; */
   padding: 1rem 0.5rem;
   padding-top: 1.5rem;
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
   cursor: pointer;
+
+   border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  /* margin-bottom: 10px; */
+  background-color: rgb(253, 251, 247);
+}
+
+.full{
+  /* border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: wheat; */
 }
 
 .myGridContainer {
   display: grid;
   grid-template-columns: 48px 1fr;
-  gap: 4px;
+  gap: 2px;
 }
 
 .image {
@@ -31,7 +46,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
   background-color: #f9f9f9;
 }
 
@@ -83,17 +98,19 @@
   margin-top: 0.5rem;
 }
 .combined8 {
+  border-top: 1px solid #a0aec0;
+  border-bottom: 1px solid #a0aec0;
   display: flex;
   justify-content: space-between;
   font-size: 20px;
   margin-top: 1rem;
   /* margin-bottom: 1rem; */
-  margin-left: 3rem;
-  width: 80%;
+  /* margin-left: 3rem; */
+  width: 100%;
 }
 .combined9 {
   display: flex;
-  gap: 1rem;
+  /* gap: .5rem; */
   align-items: center;
 }
 
@@ -112,7 +129,7 @@
 
 .combined11 {
   display: flex;
-  gap: 1rem;
+  /* gap: .5rem; */
   align-items: center;
 }
 
@@ -163,12 +180,13 @@
  }
 
  .pb {
-  padding-bottom: 72px;
+  width: 95%;
+  /* padding-bottom: 72px; */
 }
 
 @media (min-width: 640px) {
   .combined3 {
     display: flex;
-    gap: 1rem;
+    /* gap: .5rem; */
   }
 }

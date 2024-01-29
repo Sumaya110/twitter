@@ -11,9 +11,12 @@ import "moment-timezone";
 import { deletePost, getPost, updatePost } from "@/libs/action/postAction";
 import Modal from "../Modal/Modal";
 import Comment from "../Comment/Comment";
+import { FaEdit } from "react-icons/fa";
+import EditModal from "@/components/EditModal/EditModal"
 
 const Post = ({ id, post }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [comments, setComments] = useState([]);
@@ -39,7 +42,6 @@ const Post = ({ id, post }) => {
     fetchData();
   }, [id]);
 
-
   const likePost = async () => {
     try {
       const post = await getPost(id);
@@ -51,7 +53,7 @@ const Post = ({ id, post }) => {
       if (likedIndex !== -1) {
         post.likes.splice(likedIndex, 1);
 
-        setLiked(false)
+        setLiked(false);
       } else {
         setLiked(true);
         post.likes.push({
@@ -70,8 +72,6 @@ const Post = ({ id, post }) => {
     }
   };
 
-
-
   const handleDeletePost = async () => {
     try {
       console.log("idd  for delete:", id);
@@ -81,9 +81,21 @@ const Post = ({ id, post }) => {
     }
   };
 
+  const handleEdit = async () => {
+    try {
+      await updatePost(id, {
+        text: editedText,
+        imageUrl: editedImage,
+      });
+
+      console.log("Post edited successfully", id);
+    } catch (error) {
+      console.error("Error editing post:", error);
+    }
+  };
+
   return (
     <div className={styles.combined}>
-
       <div className={styles.full}>
         {post && (
           <div>
@@ -105,6 +117,20 @@ const Post = ({ id, post }) => {
                 <Moment fromNow className={styles.time}>
                   {post.timestamp}
                 </Moment>
+
+                {/* <FaEdit  className={styles.edit}  onClick={() => handleEdit()}/> */}
+
+                <FaEdit
+                  className={styles.edit}
+                  onClick={() => setShowEditModal(true)}
+                />
+                {showEditModal && (
+                  < EditModal
+                    onClose={() => setShowEditModal(false)}
+                    id={id}
+                    post={post}
+                  />
+                )}
               </div>
 
               <div>{post.text}</div>
@@ -129,13 +155,18 @@ const Post = ({ id, post }) => {
               className={styles.combined10}
               onClick={() => setShowModal(true)}
             />
-            {showModal && <Modal onClose={() => setShowModal(false)} id={id} post={post} option={1} />}
-
+            {showModal && (
+              <Modal
+                onClose={() => setShowModal(false)}
+                id={id}
+                post={post}
+                option={1}
+              />
+            )}
 
             {comments.length > 0 && (
               <span className={styles.textSm}>{comments.length}</span>
             )}
-
           </div>
           {session.user.uid !== post?.userId ? (
             <FaRetweet className={styles.combined10} />
@@ -167,7 +198,6 @@ const Post = ({ id, post }) => {
           </div>
           <AiOutlineShareAlt className={styles.combined10} />
         </div>
-
       </div>
 
       <div className={styles.combined3}>
@@ -185,7 +215,6 @@ const Post = ({ id, post }) => {
           </div>
         )}
       </div>
-
     </div>
   );
 };

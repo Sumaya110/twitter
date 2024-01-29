@@ -11,7 +11,6 @@ const postSchema = new Schema({
   imageUrl: String,
   likes: [
     {
-      // Id: String,
       userId: String,
       username: String,
       userImg: String,
@@ -19,16 +18,16 @@ const postSchema = new Schema({
   ],
   comments: [
     {
-      // Id: String,
       userId: String,
       username: String,
       userImg: String,
+      tag: String,
       text: String,
       timestamp: Date,
+      imageUrl: String,
 
       likes: [
         {
-          // Id: String,
           userId: String,
           username: String,
           userImg: String,
@@ -36,15 +35,15 @@ const postSchema = new Schema({
       ],
       replies: [
         {
-          // Id: String,
           userId: String,
           username: String,
           userImg: String,
+          tag: String,
           text: String,
           timestamp: Date,
+          imageUrl: String,
           likes: [
             {
-              // replyId: String,
               userId: String,
               username: String,
               userImg: String,

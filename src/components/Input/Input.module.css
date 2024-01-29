@@ -13,8 +13,8 @@
 
 .combined3 {
   position: absolute;
-  width: 8px;
-  height: 8px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%; 
   display: flex;
   align-items: center;
@@ -31,19 +31,12 @@
 }
 
 .combined5 {
-  border-radius: 1.5rem; 
-  max-height: 80px;
-  object-fit: contain;
+  height: 100%;
+  width: 100%;
 }
 
 .combined6 {
-  /* width: 460px;
-  background-color: transparent;
-  outline: none;
-  font-size: 20px;
-  border: none; 
-  border-bottom: 1px solid #e7ebed; */
-
+ 
  width: 100%;
  background-color: transparent;
  outline: none;

@@ -10,7 +10,7 @@ import Modal from "../Modal/Modal";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Reply from "@/components/Reply/Reply"
-import { BsArrowReturnRight } from "react-icons/bs";
+import { FaEdit } from "react-icons/fa";
 
 
 function Comment({ comment, postId, comments, post }) {
@@ -55,7 +55,7 @@ function Comment({ comment, postId, comments, post }) {
             );
 
             if (likedIndex !== -1) {
-                post.likes.splice(likedIndex, 1);
+                comment.likes.splice(likedIndex, 1);
 
                 setLiked(false)
             } else {
@@ -85,32 +85,43 @@ function Comment({ comment, postId, comments, post }) {
 
     return (
         <div className={styles.combined}>
-            {/* <BsArrowReturnRight /> */}
-
-
+           
             <div className={styles.commentContainer}>
                 <div className={styles.sameSpan}>
                     <Image
                         className={styles.image}
-                        src={post.userImg}
-                        alt={`${post.username}'s avatar`}
+                        src={comment.userImg}
+                        alt={`${comment.username}'s avatar`}
                         width={40}
                         height={40}
                     />
 
                     <div className={styles.topBottom}>
-                        <span className={styles.userName}>{post.username}</span>
-                        <span className={styles.tag}>@{session?.user?.tag}</span>
+                        <span className={styles.userName}>{comment.username}</span>
+                        <span className={styles.tag}>@{comment.tag}</span>
                     </div>
 
                     <Moment fromNow className={styles.time}>
-                        {post.timestamp}
+                        {comment.timestamp}
                     </Moment>
+
+                    <FaEdit  className={styles.edit} />
                 </div>
 
-                <p className={styles.combined10}>
+                <div className={styles.text}>
                     {comment?.text}
-                </p>
+                </div>
+
+                {comment.imageUrl && (
+                <Image
+                  className={styles.image2}
+                  src={comment.imageUrl}
+                  alt=""
+                  width={300}
+                  height={200}
+                  priority
+                />
+              )}
             </div>
 
 

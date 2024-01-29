@@ -64,8 +64,6 @@ const Input = () => {
         const body = new FormData();
         body.append("file", image);
 
-        console.log("ekhon dekhao", body);
-
         const response = await fetch("/api/upload", {
           method: "POST",
           body,
@@ -118,6 +116,7 @@ const Input = () => {
 
           {selectedFile && (
             <div className={styles.combined2}>
+              
               <div
                 className={styles.combined3}
                 onClick={() => setSelectedFile(null)}
@@ -174,6 +173,7 @@ const Input = () => {
               <Picker onEmojiSelect={addEmoji} data={data} />
             </div>
           )}
+
         </div>
       </div>
 

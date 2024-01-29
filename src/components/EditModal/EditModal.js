@@ -14,7 +14,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { updatePost } from "@/libs/action/postAction";
 
-const Modal = ({ onClose, id, post, comment, option }) => {
+const Modal = ({ onClose, id, post }) => {
   const [input, setInput] = useState("");
   const { data: session } = useSession();
   const timestamp = new Date(post?.timestamp);
@@ -22,7 +22,7 @@ const Modal = ({ onClose, id, post, comment, option }) => {
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
 
-  const addImageToCommentReply = (e) => {
+  const addImageToPost = (e) => {
     const reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
@@ -43,7 +43,7 @@ const Modal = ({ onClose, id, post, comment, option }) => {
     setInput(input + emoji);
   };
 
-  const sendComment = async () => {
+  const updatePostButton = async () => {
     let commentReply;
 
     if (selectedFile) {
@@ -77,28 +77,9 @@ const Modal = ({ onClose, id, post, comment, option }) => {
       };
     }
 
-    if (option === 1) {
       await updatePost(id, {
         $push: { comments: commentReply },
       });
-    } else {
-      const commentId = comment._id;
-      console.log("comment  : ", comment);
-      const updatedComments = post.comments.map((c) =>
-        c._id === commentId
-          ? {
-              ...c,
-              replies: [...c.replies, commentReply],
-            }
-          : c
-      );
-
-      await updatePost(id, {
-        $set: {
-          comments: updatedComments,
-        },
-      });
-    }
   };
 
   const closeModal = (e) => {
@@ -133,46 +114,41 @@ const Modal = ({ onClose, id, post, comment, option }) => {
               </h2>
             </div>
 
-            {option === 1 && (
-              <div>
-                <p className={styles.text}>{post?.text}</p>
-
-                {post?.imageUrl && (
-                  <Image
-                    src={post?.imageUrl}
-                    className={styles.imageStyle2}
-                    alt="image"
-                    width={200}
-                    height={200}
-                  />
-                )}
-
-                <p className={styles.combined3}>
-                  Replying to:{" "}
-                  <span className={styles.textColor}>@{post?.tag}</span>
-                </p>
+            <form onSubmit={() => handleSubmit()}>
+              <div className={styles.formSubmit}>
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  value={
+                    post.imageUrl
+                      ? `${post.text} || ${post.imageUrl}`
+                      : post.text
+                  }
+                  onChange={(e) => {
+                    const newValue = e.target.value.split(" || ");
+                    setTitle(newValue[0]);
+                    setImageUrl(newValue[1] || "");
+                  }}
+                  required
+                />
               </div>
-            )}
-            {option === 2 && (
-              <div>
-                <p className={styles.text}>{comment?.text}</p>
+              <button type="submit">Update Task</button>
+            </form>
 
-                {comment?.imageUrl && (
-                  <Image
-                    src={comment?.imageUrl}
-                    className={styles.imageStyle2}
-                    alt="image"
-                    width={200}
-                    height={200}
-                  />
-                )}
+            <div>
+              <p className={styles.text}>{post?.text}</p>
 
-                <p className={styles.combined3}>
-                  Replying to:{" "}
-                  <span className={styles.textColor}>@{comment?.tag}</span>
-                </p>
-              </div>
-            )}
+              {post?.imageUrl && (
+                <Image
+                  src={post?.imageUrl}
+                  className={styles.imageStyle2}
+                  alt="image"
+                  width={200}
+                  height={200}
+                />
+              )}
+            </div>
           </div>
 
           <div className={styles.mt}>
@@ -189,8 +165,8 @@ const Modal = ({ onClose, id, post, comment, option }) => {
             <textarea
               className={styles.textAreaStyle}
               rows="4"
-              placeholder="Post your reply"
-              value={input}
+            
+              value={post.text}
               onChange={(e) => setInput(e.target.value)}
             />
 
@@ -205,8 +181,8 @@ const Modal = ({ onClose, id, post, comment, option }) => {
                 <Image
                   src={selectedFile}
                   alt=""
-                  width={200}
-                  height={200}
+                  width={500}
+                  height={500}
                   className={styles.modal5}
                 />
               </div>
@@ -214,8 +190,6 @@ const Modal = ({ onClose, id, post, comment, option }) => {
 
             <div className={styles.combined4}>
               <div className={styles.combined12}>
-
-
                 <label htmlFor="comment">
                   <BsImage className={styles.clickable} />
                 </label>
@@ -224,7 +198,7 @@ const Modal = ({ onClose, id, post, comment, option }) => {
                   id="comment"
                   type="file"
                   hidden
-                  onChange={addImageToCommentReply}
+                  onChange={addImageToPost}
                 />
 
                 <div className={styles.combined13}>
@@ -249,7 +223,7 @@ const Modal = ({ onClose, id, post, comment, option }) => {
                   sendComment();
                 }}
               >
-                Reply
+                Update
               </button>
 
               {showEmojis && (

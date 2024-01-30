@@ -89,7 +89,6 @@
   display: grid;
   grid-template-columns: 48px 1fr;
   gap: 1rem;
-  
 }
 
 .combinedInput {
@@ -99,7 +98,6 @@
   padding-left: 300px;
   max-width: 320px;
 }
-
 
 .imageStyle {
   border-radius: 50%;
@@ -121,6 +119,8 @@
 }
 
 .text {
+  width: 500px;
+  word-wrap: break-word;
   font-size: 12px;
 }
 
@@ -152,7 +152,7 @@
   font-size: 18px;
   border: none;
 
- border-bottom: 1px solid #e7ebed;
+  border-bottom: 1px solid #e7ebed;
 }
 
 .combined4 {
@@ -244,19 +244,17 @@
   transform: rotate(90deg);
 }
 
-
 .modal3 {
   position: absolute;
   width: 20px;
   height: 20px;
-  border-radius: 50%; 
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   top: 1px;
   left: 1px;
   cursor: pointer;
-  
 }
 
 .modal4 {
@@ -267,18 +265,11 @@
 .modal5 {
   height: 30%;
   width: 50%;
-  
 }
 .modal2 {
   position: relative;
   margin-bottom: 1rem;
 }
-
-/* .modal5 {
-  border-radius: 1.5rem; 
-  max-height: 80px;
-  object-fit: contain;
-} */
 
 .image2 {
   height: 500px;

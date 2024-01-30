@@ -10,7 +10,10 @@ import { useSession } from "next-auth/react";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 
+import ReplyEditModal from "@/components/ReplyEditModal/ReplyEditModal";
+
 function Reply({ comment, postId, comments, post, reply }) {
+  const [showEditModal, setShowEditModal] = useState(false);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
 
@@ -109,21 +112,35 @@ function Reply({ comment, postId, comments, post, reply }) {
               {reply.timestamp}
             </Moment>
 
-            <FaEdit className={styles.edit} />
+            <FaEdit
+              className={styles.edit}
+              onClick={() => setShowEditModal(true)}
+            />
+            {showEditModal && (
+              <ReplyEditModal
+                onClose={() => setShowEditModal(false)}
+                postId={postId}
+                commentId={commentId}
+                replyId={replyId}
+                post={post}
+                comment={comment}
+                reply={reply}
+              />
+            )}
           </div>
 
           <div className={styles.text}>{reply?.text}</div>
 
           {reply.imageUrl && (
-                <Image
-                  className={styles.image2}
-                  src={reply.imageUrl}
-                  alt=""
-                  width={300}
-                  height={200}
-                  priority
-                />
-              )}
+            <Image
+              className={styles.image2}
+              src={reply.imageUrl}
+              alt=""
+              width={300}
+              height={300}
+              priority
+            />
+          )}
         </div>
 
         <div className={styles.combined3}>

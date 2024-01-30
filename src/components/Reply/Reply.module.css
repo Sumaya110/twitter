@@ -242,11 +242,13 @@
 
 .text {
   margin-top: 10px;
-  margin-left: 70px;
   font-size: medium;
+  width: 440px;
+  word-wrap: break-word;
 }
+
 .image2 {
-  height: 200px;
+  height: 300px;
   width: 300px;
   border-radius: 30px;
   margin-left: 60px;

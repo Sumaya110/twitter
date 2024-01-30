@@ -118,8 +118,6 @@ const Post = ({ id, post }) => {
                   {post.timestamp}
                 </Moment>
 
-                {/* <FaEdit  className={styles.edit}  onClick={() => handleEdit()}/> */}
-
                 <FaEdit
                   className={styles.edit}
                   onClick={() => setShowEditModal(true)}
@@ -133,7 +131,7 @@ const Post = ({ id, post }) => {
                 )}
               </div>
 
-              <div>{post.text}</div>
+              <div className={styles.textStyle}>{post.text}</div>
 
               {post.imageUrl && (
                 <Image

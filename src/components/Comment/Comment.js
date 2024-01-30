@@ -1,20 +1,21 @@
-// import { BiDotsHorizontalRounded } from "react-icons/bi"
 import { AiOutlineHeart, AiOutlineShareAlt, AiFillHeart } from "react-icons/ai"
 import { BsChat } from "react-icons/bs"
 import Moment from "react-moment";
 import styles from "@/components/Comment/Comment.module.css";
 import Image from "next/image";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { getPost, updatePost } from "@/libs/action/postAction";
+import {  updatePost } from "@/libs/action/postAction";
 import Modal from "../Modal/Modal";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Reply from "@/components/Reply/Reply"
 import { FaEdit } from "react-icons/fa";
+import CommentEditModal from "@/components/CommentEditModal/CommentEditModal"
 
 
 function Comment({ comment, postId, comments, post }) {
     const [showModal, setShowModal] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
     const [likes, setLikes] = useState([]);
     const [liked, setLiked] = useState(false);
     const [replies, setReplies] = useState([]);
@@ -105,10 +106,24 @@ function Comment({ comment, postId, comments, post }) {
                         {comment.timestamp}
                     </Moment>
 
-                    <FaEdit  className={styles.edit} />
+                    <FaEdit
+                  className={styles.edit}
+                  onClick={() => setShowEditModal(true)}
+                />
+                {showEditModal && (
+                  < CommentEditModal
+                    onClose={() => setShowEditModal(false)}
+                   postId={postId}
+                   commentId={commentId}
+                    post={post}
+                    comment={comment}
+                  />
+                )}
+
+                   
                 </div>
 
-                <div className={styles.text}>
+                <div className={styles.textStyle}>
                     {comment?.text}
                 </div>
 
@@ -118,7 +133,7 @@ function Comment({ comment, postId, comments, post }) {
                   src={comment.imageUrl}
                   alt=""
                   width={300}
-                  height={200}
+                  height={300}
                   priority
                 />
               )}
@@ -185,10 +200,6 @@ function Comment({ comment, postId, comments, post }) {
                     </div>
                 )}
             </div>
-
-            {/* </div> */}
-
-
         </div>
     );
 }

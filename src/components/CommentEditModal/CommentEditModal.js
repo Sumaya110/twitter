@@ -1,7 +1,6 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import styles from "@/components/EditModal/EditModal.module.css";
-import { useSession } from "next-auth/react";
+import styles from "@/components/CommentEditModal/CommentEditModal.module.css";
 import { MdClose } from "react-icons/md";
 import { BsImage, BsEmojiSmile } from "react-icons/bs";
 import { AiOutlineGif, AiOutlineClose } from "react-icons/ai";
@@ -14,12 +13,12 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { updatePost } from "@/libs/action/postAction";
 
-const Modal = ({ onClose, id, post }) => {
-  const [input, setInput] = useState(post.text);
-  const timestamp = new Date(post?.timestamp);
+const Modal = ({ onClose, postId, commentId, post, comment }) => {
+  const [input, setInput] = useState(comment.text);
+  const timestamp = new Date(comment?.timestamp);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(post.imageUrl);
+  const [selectedFile, setSelectedFile] = useState(comment.imageUrl);
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -31,8 +30,6 @@ const Modal = ({ onClose, id, post }) => {
     }
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
-
-      // console.log("sele", selectedFile);
     };
   };
 
@@ -45,36 +42,42 @@ const Modal = ({ onClose, id, post }) => {
   };
 
   const updatePostButton = async () => {
+    try {
+      const updatedComment = { ...comment };
 
-    if(selectedFile=== post.imageUrl) 
-    {
-      await updatePost(id, {
-        text: input,
+      if(selectedFile === comment.imageUrl)
+      {
+        updatedComment.text = input;
+      }
+      else
+      {
+        let url=null;
+        if (selectedFile) {
+            const body = new FormData();
+            body.append("file", image);
+            const response = await fetch("/api/upload", {
+              method: "POST",
+              body,
+            });
+    
+            url = await response.json();
+    
+            updatedComment.imageUrl = url;
+            
+          }
+      }
+      await updatePost(postId, {
+        comments: post.comments.map((c) =>
+          c._id === updatedComment._id ? updatedComment : c
+        ),
       });
+  
+      console.log("Comment updated successfully.");
+    } catch (error) {
+      console.error("Error updating comment:", error);
     }
-    else{
-      let url=null;
-    if (selectedFile) {
-      const body = new FormData();
-      body.append("file", image);
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body,
-      });
-
-      url = await response.json();
-    }
-
-    await updatePost(id, {
-      text: input,
-      imageUrl: url,
-     
-    });
-
-
-  }
-
-  }
+  };
+  
 
   const closeModal = (e) => {
     e.preventDefault();
@@ -97,7 +100,6 @@ const Modal = ({ onClose, id, post }) => {
               alt=""
               width={40}
               height={40}
-
               priority={true}
             />
           </div>
@@ -162,8 +164,8 @@ const Modal = ({ onClose, id, post }) => {
 
               <button
                 className={styles.combined8}
-                disabled={(input===post.text && selectedFile===post.imageUrl) ||
-                  (!input.trim() && !selectedFile)}
+                disabled={(input===comment.text && selectedFile===comment.imageUrl) ||
+                    (!input.trim() && !selectedFile)}
                 onClick={(e) => {
                   e.stopPropagation();
                   updatePostButton();

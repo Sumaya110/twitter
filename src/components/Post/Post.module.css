@@ -1,25 +1,19 @@
 .combined {
   margin-top: 1rem;
   border-top: 1px solid #a0aec0;
-  /* border-bottom: 1px solid #a0aec0; */
-  padding: 1rem 0.5rem;
-  padding-top: 1.5rem;
-  /* padding-bottom: 1rem; */
+  /* padding: 1rem 0.5rem; */
+  /* padding-top: 1.5rem; */
   cursor: pointer;
-
-   border: 1px solid #ccc;
+  border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
-  /* margin-bottom: 10px; */
   background-color: rgb(253, 251, 247);
+
+  /* width: 96.5%; */
 }
 
-.full{
-  /* border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  background-color: wheat; */
+.full {
+ 
 }
 
 .myGridContainer {
@@ -39,7 +33,6 @@
   width: 500px;
   border-radius: 30px;
   margin-left: 40px;
-  /* padding-left: 40px; */
   margin-top: 1rem;
 }
 
@@ -47,7 +40,6 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
-  /* margin-bottom: 10px; */
   background-color: #f9f9f9;
 }
 
@@ -64,13 +56,12 @@
   color: #a0aec0;
   padding-left: 10px;
 }
-.textPink{
+.textPink {
   color: #b8323b;
 }
 .textSm {
   font-size: 0.875rem;
 }
-
 
 .combined2 {
   height: 12px;
@@ -105,8 +96,7 @@
   justify-content: space-between;
   font-size: 20px;
   margin-top: 1rem;
-  /* margin-bottom: 1rem; */
-  /* margin-left: 3rem; */
+
   width: 100%;
 }
 .combined9 {
@@ -171,21 +161,21 @@
   color: #6e767d;
 } */
 
-.tag{
+.tag {
   padding-left: 5px;
   color: #6e767d;
-} 
+}
 
 .combined3a {
   border-top: 1px solid #4a4a4a;
- }
+}
 
- .pb {
+.pb {
   width: 95%;
 }
 
-.edit{
-  margin-left:150px;
+.edit {
+  margin-left: 150px;
 }
 
 @media (min-width: 640px) {
@@ -194,3 +184,12 @@
   }
 }
 
+
+.textStyle{
+  padding-left: 10px;
+  width: 510px;
+  margin-top: 10px;
+  font-size: medium;
+  word-wrap: break-word;
+
+}

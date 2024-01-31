@@ -10,7 +10,7 @@ import {
     try {
       const response = await createNewUser(data);
 
-      // console.log("response from action", response)
+      console.log("response : ", response)
       return response.data;
     } catch (error) {
       throw Error(error.response.data);

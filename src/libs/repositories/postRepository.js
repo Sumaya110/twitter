@@ -40,11 +40,6 @@ const findOneAndDelete = async (postId) => {
 
 
 
-// postId: id,
-//       username: session.user.name,
-//       userImg: session.user.image,
-//       text: input,
-//       timestamp: new Date(),
 
 const createComment = async (content) => {
   const comment = await Post.create({

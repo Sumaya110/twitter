@@ -10,7 +10,6 @@ import { getUser } from "@/libs/action/userAction";
 const HomePage = ({ user }) => {
   const [existUser, setExistUser] = useState();
   const router= useRouter()
-
   const [pic, setPic] = useState(null)
 
 
@@ -31,7 +30,7 @@ const HomePage = ({ user }) => {
       try {
         const User = await getUser(user?.email);
         setPic(User?.profilePicture)
-        console.log("user after from sidebar :", pic)
+        // console.log("user after from sidebar :", pic)
       } catch (error) {
         console.error("Error fetching data:", error);
       }

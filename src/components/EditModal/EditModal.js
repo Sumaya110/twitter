@@ -1,4 +1,4 @@
-import React, {useState } from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "@/components/EditModal/EditModal.module.css";
 import { useSession } from "next-auth/react";
@@ -12,14 +12,18 @@ import Moment from "react-moment";
 import Image from "next/image";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
-import { updatePost } from "@/libs/action/postAction";
+import { getPosts, updatePost } from "@/libs/action/postAction";
+import { setPosts } from "@/actions/actions";
+import { useDispatch } from 'react-redux';
 
-const Modal = ({ onClose, id, post }) => {
-  const [input, setInput] = useState(post.text);
+const Modal = ({ onClose, id, post, user }) => {
+  const [input, setInput] = useState(post?.text);
   const timestamp = new Date(post?.timestamp);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(post.imageUrl);
+  const [selectedFile, setSelectedFile] = useState(post?.imageUrl);
+
+  const dispatch = useDispatch();
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -31,8 +35,6 @@ const Modal = ({ onClose, id, post }) => {
     }
     reader.onload = (readerEvent) => {
       setSelectedFile(readerEvent.target.result);
-
-      // console.log("sele", selectedFile);
     };
   };
 
@@ -46,38 +48,40 @@ const Modal = ({ onClose, id, post }) => {
 
   const updatePostButton = async () => {
 
-    if(selectedFile=== post.imageUrl) 
-    {
+    if (selectedFile === post?.imageUrl) {
       await updatePost(id, {
         text: input,
       });
+
+      const data = await getPosts(user?.uid);
+      dispatch(setPosts(data));
     }
-    else{
-      let url=null;
-    if (selectedFile) {
-      const body = new FormData();
-      body.append("file", image);
-      const response = await fetch("/api/upload", {
-        method: "POST",
-        body,
+    else {
+      let url = null;
+      if (selectedFile) {
+        const body = new FormData();
+        body.append("file", image);
+        const response = await fetch("/api/upload", {
+          method: "POST",
+          body,
+        });
+
+        url = await response.json();
+      }
+
+      await updatePost(id, {
+        text: input,
+        imageUrl: url,
+
       });
 
-      url = await response.json();
+      const data = await getPosts(user?.uid);
+      dispatch(setPosts(data));
     }
 
-    await updatePost(id, {
-      text: input,
-      imageUrl: url,
-     
-    });
-
-
   }
 
-  }
-
-  const closeModal = (e) => {
-    e.preventDefault();
+  const closeModal = () => {
     onClose();
   };
 
@@ -87,7 +91,10 @@ const Modal = ({ onClose, id, post }) => {
         className={styles.stopPropagation}
         onClick={(e) => e.stopPropagation()}
       >
-        <MdClose className={styles.mdClose} onClick={closeModal} />
+        <MdClose className={styles.mdClose} onClick={(e) => {
+          e.stopPropagation();
+          closeModal();
+        }} />
 
         <div className={styles.combined}>
           <div className={styles.padding}>
@@ -162,11 +169,12 @@ const Modal = ({ onClose, id, post }) => {
 
               <button
                 className={styles.combined8}
-                disabled={(input===post.text && selectedFile===post.imageUrl) ||
+                disabled={(input === post.text && selectedFile === post?.imageUrl) ||
                   (!input.trim() && !selectedFile)}
                 onClick={(e) => {
                   e.stopPropagation();
                   updatePostButton();
+                  closeModal();
                 }}
               >
                 Update

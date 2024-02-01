@@ -14,7 +14,7 @@ const create = async (content) => {
 };
 
 const find = async ({ userId }) => {
-  const response = await Post.find({ userId });
+  const response = await Post.find({ userId }).sort({ timestamp: -1 });
   return response;
 };
 

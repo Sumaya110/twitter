@@ -17,24 +17,6 @@ import { getUser } from "@/libs/action/userAction";
 
 const Sidebar = ( {user, pic }) => {
 
-  // const [pic, setPic] = useState(null)
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const User = await getUser(user?.email);
-  //       setPic(User?.profilePicture)
-  //       console.log("user after from sidebar :", pic)
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-
-  // }, [user])
-
-  // if(!pic)
-  //   return <div>loading...</div>
 
   return (
     <div className={styles.mainDiv}>

@@ -4,150 +4,149 @@ import Moment from "react-moment";
 import styles from "@/components/Comment/Comment.module.css";
 import Image from "next/image";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import {  updatePost } from "@/libs/action/postAction";
+import { getPosts, updatePost } from "@/libs/action/postAction";
 import Modal from "../Modal/Modal";
 import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Reply from "@/components/Reply/Reply"
 import { FaEdit } from "react-icons/fa";
 import CommentEditModal from "@/components/CommentEditModal/CommentEditModal"
+import { setPosts } from "@/actions/actions";
+import { useDispatch } from 'react-redux';
 
 
-function Comment({ comment, postId, comments, post, pic }) {
+
+function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
-    const [likes, setLikes] = useState([]);
+    // const [likes, setLikes] = useState([]);
     const [liked, setLiked] = useState(false);
-    const [replies, setReplies] = useState([]);
+    // const [replies, setReplies] = useState([]);
+    const dispatch = useDispatch();
 
     const { data: session } = useSession()
-    const userId = session.user.uid;
-    const username = session.user.username;
+    const commentId = comment?._id;
 
-    const commentId = comment._id;
-
-    useEffect(() => {
-        const likes = comment.likes;
-        setLikes(likes);
-
-        const replies = comment.replies;
-        setReplies(replies)
-    }, []);
-
+    // useEffect(() => {
+    //     const likes = comment.likes;
+    //     setLikes(likes);
+    //     const replies = comment.replies;
+    //     setReplies(replies)
+    // }, []);
 
 
     const handleDeleteComment = async () => {
-        try {
+        await updatePost(postId, {
+            $pull: {
+                comments: { _id: commentId }
+            }
+        })
 
-            await updatePost(postId, {
-                $pull: {
-                    comments: { _id: commentId }
-                }
-            })
-        } catch (error) {
-            console.error("Error deleting document:", error);
-        }
+        fetchData()
+
+        // const data = await getPosts(user.uid);
+        // console.log("dataaa :  ", data)
+
+        // dispatch(setPosts(data));
     };
 
     const likeComment = async () => {
-        try {
-            const likedIndex = comment.likes.findIndex(
-                (like) => like.userId === session.user.uid
-            );
+        const likedIndex = comment?.likes?.findIndex(
+            (like) => like?.userId === session?.user?.uid
+        );
 
-            if (likedIndex !== -1) {
-                comment.likes.splice(likedIndex, 1);
-
-                setLiked(false)
-            } else {
-                setLiked(true);
-                comment.likes.push({
-                    userId: session.user.uid,
-                    username: session.user.username,
-                    userImg: session.user.userImg,
-                });
-            }
-
-            const updatedLikes = comment.likes;
-            const updatedComments = post.comments.map((c) =>
-                c._id === commentId ? { ...c, likes: updatedLikes } : c
-            );
-
-            await updatePost(postId, {
-                $set: {
-                    comments: updatedComments,
-                },
+        if (likedIndex !== -1) {
+            comment?.likes?.splice(likedIndex, 1);
+            setLiked(false)
+        } else {
+            setLiked(true);
+            comment?.likes?.push({
+                userId: session.user.uid,
+                username: session.user.username,
+                userImg: session.user.userImg,
             });
-
-        } catch (error) {
-            console.error("Error liking/unliking post:", error);
         }
+
+        const updatedLikes = comment?.likes;
+        const updatedComments = post?.comments?.map((c) =>
+            c._id === commentId ? { ...c, likes: updatedLikes } : c
+        );
+
+        await updatePost(postId, {
+            $set: {
+                comments: updatedComments,
+            },
+        });
+
+        const data = await getPosts(user?.uid);
+        dispatch(setPosts(data));
     };
 
     return (
         <div className={styles.combined}>
-           
+
             <div className={styles.commentContainer}>
                 <div className={styles.sameSpan}>
 
-                    {comment?.userImg ? ( <Image
+                    {comment?.userImg ? (<Image
                         className={styles.image}
-                        src={comment.userImg}
-                        alt={`${comment.username}'s avatar`}
+                        src={comment?.userImg}
+                        alt={`${comment?.username}'s avatar`}
                         width={40}
                         height={40}
-                    />):
-                    (
-                        <Image
-                        className={styles.image}
-                        src={pic}
-                        alt={`${comment.username}'s avatar`}
-                        width={40}
-                        height={40}
-                    />
-                    )}
-                   
+                    />) :
+                        (
+                            <Image
+                                className={styles.image}
+                                src={pic}
+                                alt={`${comment?.username}'s avatar`}
+                                width={40}
+                                height={40}
+                            />
+                        )}
+
 
                     <div className={styles.topBottom}>
-                        <span className={styles.userName}>{comment.username}</span>
-                        <span className={styles.tag}>@{comment.tag}</span>
+                        <span className={styles.userName}>{comment?.username}</span>
+                        <span className={styles.tag}>@{comment?.tag}</span>
                     </div>
 
                     <Moment fromNow className={styles.time}>
-                        {comment.timestamp}
+                        {comment?.timestamp}
                     </Moment>
 
                     <FaEdit
-                  className={styles.edit}
-                  onClick={() => setShowEditModal(true)}
-                />
-                {showEditModal && (
-                  < CommentEditModal
-                    onClose={() => setShowEditModal(false)}
-                   postId={postId}
-                   commentId={commentId}
-                    post={post}
-                    comment={comment}
-                  />
-                )}
+                        className={styles.edit}
+                        onClick={() => setShowEditModal(true)}
+                    />
+                    {showEditModal && (
+                        < CommentEditModal
+                            onClose={() => setShowEditModal(false)}
+                            postId={postId}
+                            commentId={commentId}
+                            post={post}
+                            comment={comment}
+                            user={user}
+                        />
+                    )}
 
-                   
+
                 </div>
 
                 <div className={styles.textStyle}>
                     {comment?.text}
                 </div>
 
-                {comment.imageUrl && (
-                <Image
-                  className={styles.image2}
-                  src={comment.imageUrl}
-                  alt=""
-                  width={300}
-                  height={300}
-                  priority
-                />
-              )}
+                {comment?.imageUrl && (
+                    <Image
+                        className={styles.image2}
+                        src={comment?.imageUrl}
+                        alt=""
+                        width={300}
+                        height={300}
+                        priority
+                    />
+                )}
             </div>
 
 
@@ -158,11 +157,11 @@ function Comment({ comment, postId, comments, post, pic }) {
                         className={styles.comment10}
                         onClick={() => setShowModal(true)}
                     />
-                    {showModal && <Modal onClose={() => setShowModal(false)} id={postId} post={post} comment={comment} pic={pic} option={2} />}
+                    {showModal && <Modal onClose={() => setShowModal(false)} id={postId} post={post} comment={comment} pic={pic} user={user} option={2} />}
 
 
-                    {replies.length > 0 && (
-                        <span className={styles.textSm}>{replies.length}</span>
+                    {comment?.replies?.length > 0 && (
+                        <span className={styles.textSm}>{comment?.replies?.length}</span>
                     )}
                 </div>
 
@@ -187,25 +186,26 @@ function Comment({ comment, postId, comments, post, pic }) {
                         <AiOutlineHeart className={styles.comment13} />
                     )}
 
-                    {likes && likes.length > 0 && (
-                        <span className={styles.textPink}>{likes.length}</span>
+                    {comment?.likes && comment?.likes?.length > 0 && (
+                        <span className={styles.textPink}>{comment?.likes?.length}</span>
                     )}
                 </div>
                 <AiOutlineShareAlt className={styles.comment10} />
             </div>
 
             <div className={styles.combined3}>
-                {replies.length > 0 && (
+                {comment?.replies?.length > 0 && (
                     <div className={styles.pb}>
-                        {replies.map((reply) => (
+                        {comment?.replies.map((reply) => (
 
                             <Reply
-                                key={reply._id}
+                                key={reply?._id}
                                 comment={comment}
                                 postId={postId}
                                 comments={comments}
                                 post={post}
                                 reply={reply}
+                                user={user}
                                 pic={pic}
                             />
                         ))}

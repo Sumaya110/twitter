@@ -12,15 +12,19 @@ import Moment from "react-moment";
 import Image from "next/image";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
-import { updatePost } from "@/libs/action/postAction";
+import { getPosts, updatePost } from "@/libs/action/postAction";
+import { setPosts } from "@/actions/actions";
+import { useDispatch } from 'react-redux';
 
-const Modal = ({ onClose, id, post, comment, pic, option }) => {
+const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
   const [input, setInput] = useState("");
   const { data: session } = useSession();
   const timestamp = new Date(post?.timestamp);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  const dispatch = useDispatch();
 
   const addImageToCommentReply = (e) => {
     const reader = new FileReader();
@@ -65,7 +69,7 @@ const Modal = ({ onClose, id, post, comment, pic, option }) => {
         timestamp: new Date(),
       };
 
-      console.log("comment Reply:  ", commentReply);
+      // console.log("comment Reply:  ", commentReply);
     } else {
       commentReply = {
         userId: session.user.uid,
@@ -81,9 +85,12 @@ const Modal = ({ onClose, id, post, comment, pic, option }) => {
       await updatePost(id, {
         $push: { comments: commentReply },
       });
+
+      const data = await getPosts(user.uid);
+      dispatch(setPosts(data));
+
     } else {
       const commentId = comment._id;
-      // console.log("comment  : ", comment);
       const updatedComments = post.comments.map((c) =>
         c._id === commentId
           ? {
@@ -98,16 +105,23 @@ const Modal = ({ onClose, id, post, comment, pic, option }) => {
           comments: updatedComments,
         },
       });
+
+      const data = await getPosts(user.uid);
+      dispatch(setPosts(data));
+
     }
   };
 
-  const closeModal = (e) => {
-    e.preventDefault();
+  const closeModal = () => {
+    // e.preventDefault();
     onClose();
   };
 
   const modalContent = (
-    <div className={styles.closeModal} onClick={closeModal}>
+    <div className={styles.closeModal}  onClick={(e) => {
+      e.stopPropagation();
+      closeModal();
+    }}>
       <div
         className={styles.stopPropagation}
         onClick={(e) => e.stopPropagation()}
@@ -118,13 +132,13 @@ const Modal = ({ onClose, id, post, comment, pic, option }) => {
           <div className={styles.padding}>
 
             {post?.userImg ? (
-            <Image
-              className={styles.imageStyle}
-              src={post?.userImg}
-              alt=""
-              width={40}
-              height={40}
-            />) : (
+              <Image
+                className={styles.imageStyle}
+                src={post?.userImg}
+                alt=""
+                width={40}
+                height={40}
+              />) : (
               <Image
                 className={styles.imageStyle}
                 src={pic}
@@ -134,7 +148,7 @@ const Modal = ({ onClose, id, post, comment, pic, option }) => {
               />
             )}
 
-            
+
 
           </div>
 
@@ -191,24 +205,24 @@ const Modal = ({ onClose, id, post, comment, pic, option }) => {
           <div className={styles.mt}>
 
             {session?.user?.image ? (
-               <Image
-               className={styles.imageStyle}
-               src={session?.user?.image}
-               alt=""
-               width={40}
-               height={40}
-             />
-
-            ):(
               <Image
-              className={styles.imageStyle}
-              src={pic}
-              alt=""
-              width={40}
-              height={40}
-            />
+                className={styles.imageStyle}
+                src={session?.user?.image}
+                alt=""
+                width={40}
+                height={40}
+              />
+
+            ) : (
+              <Image
+                className={styles.imageStyle}
+                src={pic}
+                alt=""
+                width={40}
+                height={40}
+              />
             )}
-           
+
           </div>
 
           <div className={styles.mt}>
@@ -270,9 +284,12 @@ const Modal = ({ onClose, id, post, comment, pic, option }) => {
               <button
                 className={styles.combined8}
                 disabled={!input.trim() && !selectedFile}
+
+               
                 onClick={(e) => {
                   e.stopPropagation();
                   sendComment();
+                  closeModal();
                 }}
               >
                 Reply

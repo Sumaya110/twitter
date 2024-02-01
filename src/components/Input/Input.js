@@ -9,10 +9,12 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import Image from "next/image";
 import styles from "@/components/Input/Input.module.css";
-import { createPost, updatePost } from "@/libs/action/postAction";
+import { createPost, getPosts, updatePost } from "@/libs/action/postAction";
 import moment from "moment";
+import { setPosts } from "@/actions/actions";
+import { useDispatch } from 'react-redux';
 
-const Input = ({pic} ) => {
+const Input = ({pic, user} ) => {
   const { data: session } = useSession();
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] = useState("");
@@ -20,8 +22,7 @@ const Input = ({pic} ) => {
   const [formattedTimestamp, setFormattedTimestamp] = useState(null);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-
-  // console.log("pp : ", pic)
+  const dispatch = useDispatch();
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -59,6 +60,9 @@ const Input = ({pic} ) => {
         timestamp: new Date(),
       });
 
+      const data = await getPosts(user.uid);
+      dispatch(setPosts(data));
+
       setFormattedTimestamp(moment(new Date()).fromNow());
 
       if (selectedFile) {
@@ -72,9 +76,11 @@ const Input = ({pic} ) => {
         });
 
         const url = await response.json();
-
-        console.log("post id and url ", postId, url)
         updatePostImage(postId, url);
+
+        const data = await getPosts(user.uid);
+        dispatch(setPosts(data));
+
       }
     } catch (error) {
       console.error("Error sending post:", error);
@@ -88,6 +94,9 @@ const Input = ({pic} ) => {
 
   const updatePostImage = async (postId, imageUrl) => {
     await updatePost(postId, {imageUrl: imageUrl,});
+    const data = await getPosts(user.uid);
+    dispatch(setPosts(data));
+
   };
 
   return (

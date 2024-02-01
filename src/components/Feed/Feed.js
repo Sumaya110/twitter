@@ -5,25 +5,28 @@ import { HiOutlineSparkles } from "react-icons/hi";
 import { getPosts } from "@/libs/action/postAction";
 import Post from "../Post/Post";
 import "moment-timezone";
-import { getUser } from "@/libs/action/userAction";
+import { useDispatch, useSelector } from 'react-redux';
+import { setPosts } from "@/actions/actions";
 
 const Feed = ({ user, pic }) => {
-  const [posts, setPosts] = useState([]);
-  const [pp, setPp] =useState(null)
+  const dispatch = useDispatch();
+  const posts = useSelector((state) => state.posts.posts);
 
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getPosts(user.uid);
-        setPosts(data);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
-  }, [user.uid]);
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      const data = await getPosts(user.uid);
+      dispatch(setPosts(data));
+
+      console.log("posts  :  ", data)
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
   return (
     <section className={styles.section}>
@@ -32,13 +35,13 @@ const Feed = ({ user, pic }) => {
         <HiOutlineSparkles />
       </div>
 
-      <Input pic={pic} />
+      <Input pic={pic} user={user} />
 
-      {posts
-        .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
-        .map((post) => (
-          <Post key={post._id} id={post._id} post={post} pic={pic} />
-        ))}
+      {posts?.map((post) => (
+        <Post key={post._id} id={post._id} post={post} pic={pic} user={user} fetchData={()=>fetchData()} />
+      )) }
+
+
     </section>
   );
 };

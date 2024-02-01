@@ -1,11 +1,7 @@
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import modalReducer from './reducers/reducers';
+// store.js
+import { createStore } from 'redux';
+import rootReducer from './reducers';
 
-
-const store = createStore(
-    modalReducer, 
-    // applyMiddleware(thunk) 
-);
+const store = createStore(rootReducer);
 
 export default store;

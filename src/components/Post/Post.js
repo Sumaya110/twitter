@@ -8,77 +8,70 @@ import { useSession } from "next-auth/react";
 import styles from "@/components/Post/Post.module.css";
 import Image from "next/image";
 import "moment-timezone";
-import { deletePost, getPost, updatePost } from "@/libs/action/postAction";
+import { deletePost, getPost, getPosts, updatePost } from "@/libs/action/postAction";
 import Modal from "../Modal/Modal";
 import Comment from "../Comment/Comment";
 import { FaEdit } from "react-icons/fa";
 import EditModal from "@/components/EditModal/EditModal"
+import { setPosts } from "@/actions/actions";
+import { useDispatch } from 'react-redux';
 
-const Post = ({ id, post, pic }) => {
+
+const Post = ({ id, post, pic, user , fetchData}) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  const [likes, setLikes] = useState([]);
+  // const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
-  const [comments, setComments] = useState([]);
-
+  // const [comments, setComments] = useState([]);
   const { data: session } = useSession();
-  const userId = session.user.uid;
-  const username = session.user.username;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const post = await getPost(id);
-        const comments = post.comments;
-        const likes = post.likes;
+  const dispatch = useDispatch();
 
-        setComments(comments);
-        setLikes(likes);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
 
-    fetchData();
-  }, [id]);
+  // useEffect(() => {
+  //   const comments = post.comments;
+  //   const likes = post.likes;
+
+  //   setComments(comments);
+  //   setLikes(likes);
+  // }, [id]);
+
+
 
   const likePost = async () => {
-    try {
-      const post = await getPost(id);
+    const likedIndex = post?.likes?.findIndex(
+      (like) => like.userId === session.user.uid
+    );
 
-      const likedIndex = post.likes.findIndex(
-        (like) => like.userId === session.user.uid
-      );
+    if (likedIndex !== -1) {
+      post?.likes?.splice(likedIndex, 1);
 
-      if (likedIndex !== -1) {
-        post.likes.splice(likedIndex, 1);
+      setLiked(false);
+    } else {
+      setLiked(true);
+      post?.likes?.push({
+        // userId: session.user.uid,
+        // username: session.user.username,
+        // userImg: session.user.userImg,
 
-        setLiked(false);
-      } else {
-        setLiked(true);
-        post.likes.push({
-          userId: session.user.uid,
-          username: session.user.username,
-          userImg: session.user.userImg,
-        });
-      }
-      await updatePost(id, {
-        likes: post.likes,
+        userId: user?.uid,
+        username: user?.username,
+        userImg: user?.userImg,
       });
-
-      console.log("Post liked/unliked successfully", liked, id);
-    } catch (error) {
-      console.error("Error liking/unliking post:", error);
     }
+
+    await updatePost(id, {
+      likes: post?.likes,
+    });
+
+    const data = await getPosts(user?.uid);
+    dispatch(setPosts(data));
   };
 
   const handleDeletePost = async () => {
-    try {
-      console.log("idd  for delete:", id);
-      await deletePost(id);
-    } catch (error) {
-      console.error("Error deleting document:", error);
-    }
+    await deletePost(id);
+    const data = await getPosts(user?.uid);
+    dispatch(setPosts(data));
   };
 
   return (
@@ -86,35 +79,35 @@ const Post = ({ id, post, pic }) => {
       <div className={styles.full}>
         {post && (
           <div>
-            <div key={post._id} className={styles.postContainer}>
+            <div key={post?._id} className={styles.postContainer}>
               <div className={styles.sameSpan}>
 
                 {post?.userImg ? (
-                <Image
-                  className={styles.image}
-                  src={post.userImg}
-                  alt={`${post.username}'s avatar`}
-                  width={40}
-                  height={40}
-                />
-                ):(
-                <Image
-                  className={styles.image}
-                  src={pic}
-                  alt={`${post.username}'s avatar`}
-                  width={40}
-                  height={40}
-                />
+                  <Image
+                    className={styles.image}
+                    src={post?.userImg}
+                    alt={`${post?.username}'s avatar`}
+                    width={40}
+                    height={40}
+                  />
+                ) : (
+                  <Image
+                    className={styles.image}
+                    src={pic}
+                    alt={`${post?.username}'s avatar`}
+                    width={40}
+                    height={40}
+                  />
 
                 )}
 
                 <div className={styles.topBottom}>
-                  <span className={styles.userName}>{post.username}</span>
+                  <span className={styles.userName}>{post?.username}</span>
                   <span className={styles.tag}>@{session?.user?.tag}</span>
                 </div>
 
                 <Moment fromNow className={styles.time}>
-                  {post.timestamp}
+                  {post?.timestamp}
                 </Moment>
 
                 <FaEdit
@@ -126,16 +119,17 @@ const Post = ({ id, post, pic }) => {
                     onClose={() => setShowEditModal(false)}
                     id={id}
                     post={post}
+                    user={user}
                   />
                 )}
               </div>
 
-              <div className={styles.textStyle}>{post.text}</div>
+              <div className={styles.textStyle}>{post?.text}</div>
 
-              {post.imageUrl && (
+              {post?.imageUrl && (
                 <Image
                   className={styles.image2}
-                  src={post.imageUrl}
+                  src={post?.imageUrl}
                   alt=""
                   width={500}
                   height={500}
@@ -158,15 +152,16 @@ const Post = ({ id, post, pic }) => {
                 id={id}
                 post={post}
                 pic={pic}
+                user={user}
                 option={1}
               />
             )}
 
-            {comments.length > 0 && (
-              <span className={styles.textSm}>{comments.length}</span>
+            {post?.comments?.length > 0 && (
+              <span className={styles.textSm}>{post?.comments?.length}</span>
             )}
           </div>
-          {session.user.uid !== post?.userId ? (
+          {session?.user?.uid !== post?.userId ? (
             <FaRetweet className={styles.combined10} />
           ) : (
             <RiDeleteBin5Line
@@ -190,8 +185,8 @@ const Post = ({ id, post, pic }) => {
               <AiOutlineHeart className={styles.combined13} />
             )}
 
-            {likes && likes.length > 0 && (
-              <span className={styles.textPink}>{likes.length}</span>
+            {post?.likes && post?.likes?.length > 0 && (
+              <span className={styles.textPink}>{post?.likes?.length}</span>
             )}
           </div>
           <AiOutlineShareAlt className={styles.combined10} />
@@ -199,16 +194,18 @@ const Post = ({ id, post, pic }) => {
       </div>
 
       <div className={styles.combined3}>
-        {comments.length > 0 && (
+        {post?.comments?.length > 0 && (
           <div className={styles.pb}>
-            {comments.map((comment) => (
+            {post?.comments?.map((comment) => (
               <Comment
-                key={comment._id}
+                key={comment?._id}
                 comment={comment}
                 postId={id}
-                comments={post.comments}
+                comments={post?.comments}
                 post={post}
                 pic={pic}
+                user={user}
+                fetchData={()=>fetchData()}
               />
             ))}
           </div>

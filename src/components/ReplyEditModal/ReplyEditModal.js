@@ -11,7 +11,10 @@ import Moment from "react-moment";
 import Image from "next/image";
 import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
-import { updatePost } from "@/libs/action/postAction";
+import { getPosts, updatePost } from "@/libs/action/postAction";
+import { setPosts } from "@/actions/actions";
+import { useDispatch } from 'react-redux';
+
 
 const Modal = ({
   onClose,
@@ -21,12 +24,15 @@ const Modal = ({
   post,
   comment,
   reply,
+  user,
 }) => {
   const [input, setInput] = useState(reply.text);
   const timestamp = new Date(reply?.timestamp);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(reply.imageUrl);
+
+const dispatch = useDispatch();
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -62,6 +68,9 @@ const Modal = ({
 
     if (selectedFile === reply.imageUrl) {
         await updatePost(postId, { comments: post.comments });
+        const data = await getPosts(user.uid);
+        dispatch(setPosts(data));
+
     } else {
       let url = null;
       if (selectedFile) {
@@ -80,6 +89,9 @@ const Modal = ({
 
 
       await updatePost(postId, { comments: post.comments });
+      const data = await getPosts(user.uid);
+      dispatch(setPosts(data));
+
 
     }
   };
@@ -174,6 +186,7 @@ const Modal = ({
                 onClick={(e) => {
                   e.stopPropagation();
                   updatePostButton();
+                  closeModal();
                 }}
               >
                 Update

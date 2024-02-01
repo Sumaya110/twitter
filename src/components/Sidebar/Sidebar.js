@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/components/Sidebar/Sidebar.module.css";
 import { FaXTwitter } from "react-icons/fa6";
 import SidebarLink from "../SidebarLink/SidebarLink";
@@ -13,9 +13,28 @@ import {
   HiOutlineDotsCircleHorizontal,
 } from "react-icons/hi";
 import { signOut, useSession } from "next-auth/react";
+import { getUser } from "@/libs/action/userAction";
 
-const Sidebar = () => {
-  const { data: session } = useSession();
+const Sidebar = ( {user, pic }) => {
+
+  // const [pic, setPic] = useState(null)
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const User = await getUser(user?.email);
+  //       setPic(User?.profilePicture)
+  //       console.log("user after from sidebar :", pic)
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   fetchData();
+
+  // }, [user])
+
+  // if(!pic)
+  //   return <div>loading...</div>
 
   return (
     <div className={styles.mainDiv}>
@@ -35,28 +54,40 @@ const Sidebar = () => {
 
       <button className={styles.tweetButton}>Post</button>
 
-      <div className={styles.signOutDiv} onClick={signOut}>
-        
+      <div className={styles.signOutDiv} >
 
-        {session?.user?.image ? (
+
+        {user?.image ? (
           <Image
-            src={session?.user?.image}
+            src={user?.image}
             alt=""
             className={styles.userImage}
             width={40}
             height={40}
           />
         ) : (
-          <div>No image available</div>
+          <Image
+            src={pic}
+            alt=""
+            className={styles.userImage}
+            width={40}
+            height={40}
+          />
         )}
 
         <div className={styles.userDetails}>
-          <h4>{session?.user?.name}</h4>
-          <p>@{session?.user?.tag}</p>
+          <h4>{user?.name}</h4>
+          <p>@{user?.tag}</p>
         </div>
 
         <BsThreeDots className={styles.dotsIcon} />
+       
       </div>
+      <button onClick={signOut} className={styles.signoutButton}> SignOut</button>
+
+      
+
+
     </div>
   );
 };

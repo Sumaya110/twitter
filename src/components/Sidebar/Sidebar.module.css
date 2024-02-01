@@ -63,6 +63,11 @@
 .signOutDiv:hover {
 }
 
+.signoutButton{
+  margin-left:100px ;
+  margin-bottom: 20px;
+}
+
 .userImage {
   height: auto;
   width: auto;

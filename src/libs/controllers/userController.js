@@ -80,6 +80,15 @@ const loginUser = async (req, res) => {
 };
 
 
+const getUser = async (req, res) => {
+  const email = req.params;
+  const user = await UserRepository.findOne({ email });
+
+  console.log("user from controller : ", user)
+  res.status(200).json(user);
+};
+
+
 const checkToken = async (token) =>{
   try {
     const check = await UserRepository.tokenFindOne({ verify_token: token} );
@@ -91,4 +100,4 @@ const checkToken = async (token) =>{
   }
 }
 
-module.exports = { signupUser, loginUser , checkToken};
+module.exports = { signupUser, loginUser , checkToken, getUser};

@@ -5,6 +5,11 @@ const userSchema = new Schema({
     email: String,
     password: String,
     verify_token: String,
+
+    profilePicture: {
+        type: String,
+        default: '/images/blank-profile-picture.webp',
+    },
 })
 
 const Users = models.user || model('user', userSchema);

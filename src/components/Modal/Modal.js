@@ -14,7 +14,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { updatePost } from "@/libs/action/postAction";
 
-const Modal = ({ onClose, id, post, comment, option }) => {
+const Modal = ({ onClose, id, post, comment, pic, option }) => {
   const [input, setInput] = useState("");
   const { data: session } = useSession();
   const timestamp = new Date(post?.timestamp);
@@ -83,13 +83,13 @@ const Modal = ({ onClose, id, post, comment, option }) => {
       });
     } else {
       const commentId = comment._id;
-      console.log("comment  : ", comment);
+      // console.log("comment  : ", comment);
       const updatedComments = post.comments.map((c) =>
         c._id === commentId
           ? {
-              ...c,
-              replies: [...c.replies, commentReply],
-            }
+            ...c,
+            replies: [...c.replies, commentReply],
+          }
           : c
       );
 
@@ -116,13 +116,26 @@ const Modal = ({ onClose, id, post, comment, option }) => {
 
         <div className={styles.combined}>
           <div className={styles.padding}>
+
+            {post?.userImg ? (
             <Image
               className={styles.imageStyle}
               src={post?.userImg}
               alt=""
               width={40}
               height={40}
-            />
+            />) : (
+              <Image
+                className={styles.imageStyle}
+                src={pic}
+                alt=""
+                width={40}
+                height={40}
+              />
+            )}
+
+            
+
           </div>
 
           <div>
@@ -176,13 +189,26 @@ const Modal = ({ onClose, id, post, comment, option }) => {
           </div>
 
           <div className={styles.mt}>
-            <Image
+
+            {session?.user?.image ? (
+               <Image
+               className={styles.imageStyle}
+               src={session?.user?.image}
+               alt=""
+               width={40}
+               height={40}
+             />
+
+            ):(
+              <Image
               className={styles.imageStyle}
-              src={session?.user?.image}
+              src={pic}
               alt=""
               width={40}
               height={40}
             />
+            )}
+           
           </div>
 
           <div className={styles.mt}>

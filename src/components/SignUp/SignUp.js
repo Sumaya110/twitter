@@ -4,6 +4,7 @@ import { createUser } from "@/libs/action/userAction";
 
 const SignIn = () => {
   const [show, setShow] = useState({ password: false });
+  const [verificationSent, setVerificationSent] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +17,7 @@ const SignIn = () => {
     try {
       const handleCreate = async () => {
         const userId = await createUser(formData);
+        setVerificationSent(true);
       };
       handleCreate();
     } catch (error) {
@@ -26,7 +28,7 @@ const SignIn = () => {
   return (
     <div className={styles.container}>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
-        
+
         <div>
           <input
             type="email"
@@ -50,6 +52,13 @@ const SignIn = () => {
             SignUp
           </button>
         </div>
+
+        {verificationSent && (
+          <div style={styles.myElement}>
+            A verification mail has been sent.
+          </div>
+        )}
+
       </form>
     </div>
   );

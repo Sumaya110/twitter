@@ -12,7 +12,7 @@ import { FaEdit } from "react-icons/fa";
 
 import ReplyEditModal from "@/components/ReplyEditModal/ReplyEditModal";
 
-function Reply({ comment, postId, comments, post, reply }) {
+function Reply({ comment, postId, comments, post, reply, pic }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
@@ -95,13 +95,24 @@ function Reply({ comment, postId, comments, post, reply }) {
       <div className={styles.combined}>
         <div className={styles.replyContainer}>
           <div className={styles.sameSpan}>
-            <Image
-              className={styles.image}
-              src={reply.userImg}
-              alt={`${reply.username}'s avatar`}
-              width={40}
-              height={40}
-            />
+            {reply?.userImg ? (
+              <Image
+                className={styles.image}
+                src={reply.userImg}
+                alt={`${reply.username}'s avatar`}
+                width={40}
+                height={40}
+              />
+            ) : (
+              <Image
+                className={styles.image}
+                src={pic}
+                alt={`${reply.username}'s avatar`}
+                width={40}
+                height={40}
+              />
+            )}
+
 
             <div className={styles.topBottom}>
               <span className={styles.userName}>{reply.username}</span>
@@ -125,6 +136,7 @@ function Reply({ comment, postId, comments, post, reply }) {
                 post={post}
                 comment={comment}
                 reply={reply}
+                pic={pic}
               />
             )}
           </div>

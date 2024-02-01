@@ -5,16 +5,17 @@ import { HiOutlineSparkles } from "react-icons/hi";
 import { getPosts } from "@/libs/action/postAction";
 import Post from "../Post/Post";
 import "moment-timezone";
+import { getUser } from "@/libs/action/userAction";
 
-const Feed = ({ user }) => {
+const Feed = ({ user, pic }) => {
   const [posts, setPosts] = useState([]);
+  const [pp, setPp] =useState(null)
+
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const data = await getPosts(user.uid);
-
-        // console.log("feed data :", data[0]._id)
         setPosts(data);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -31,12 +32,12 @@ const Feed = ({ user }) => {
         <HiOutlineSparkles />
       </div>
 
-      <Input />
+      <Input pic={pic} />
 
       {posts
         .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
         .map((post) => (
-          <Post key={post._id} id={post._id} post={post} />
+          <Post key={post._id} id={post._id} post={post} pic={pic} />
         ))}
     </section>
   );

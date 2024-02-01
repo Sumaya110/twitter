@@ -12,7 +12,7 @@ import styles from "@/components/Input/Input.module.css";
 import { createPost, updatePost } from "@/libs/action/postAction";
 import moment from "moment";
 
-const Input = () => {
+const Input = ({pic} ) => {
   const { data: session } = useSession();
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] = useState("");
@@ -20,6 +20,8 @@ const Input = () => {
   const [formattedTimestamp, setFormattedTimestamp] = useState(null);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  // console.log("pp : ", pic)
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -101,7 +103,13 @@ const Input = () => {
               height={40}
             />
           ) : (
-            <div>No image available</div>
+            <Image
+              className={styles.combined10}
+              src={pic}
+              alt=""
+              width={40}
+              height={40}
+            />
           )}
         </div>
 

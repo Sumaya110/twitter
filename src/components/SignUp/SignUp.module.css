@@ -1,139 +1,119 @@
+.signin-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
+.signin-label {
+  margin-bottom: 10px;
+}
 
-  
-  .signin-form {
-    /* Your form styles */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .signin-label {
-    /* Your label styles */
-    margin-bottom: 10px;
-  }
-  
-  .signin-input {
-    /* Your input styles */
-    padding: 8px;
-    margin: 5px 0;
-  }
-  
-  .signin-button {
-    /* Your button styles for the sign-in form */
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #007bff; /* Choose your desired button background color */
-    color: #fff; /* Choose your desired button text color */
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
-  .signup-button {
-    /* Your button styles for the create account button */
-    padding: 10px;
-    margin-top: 10px;
-    /* background-color: #007bff; Choose your desired button background color */
-    color: #fff; 
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    margin-bottom: 20px;
-  }
+.signin-input {
+  padding: 8px;
+  margin: 5px 0;
+}
 
-  .toggleButton {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font: inherit;
-    color: #007bff; /* Choose your desired text color */
-    cursor: pointer;
-  }
-  
-  .toggleText {
-    margin-top: 10px;
-    text-align: center;
-    color: #007bff; /* Choose your desired text color */
-    cursor: pointer;
-  }
+.signin-button {
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.signup-button {
+  padding: 10px;
+  margin-top: 10px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.toggleButton {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #007bff;
+  cursor: pointer;
+}
+
+.toggleText {
+  margin-top: 10px;
+  text-align: center;
+  color: #007bff;
+  cursor: pointer;
+}
 
 
 .overlay {
-  /* position: fixed; */
-  /* position: relative; */
   top: 0;
   left: 0;
   width: 30%;
   height: 30%;
   background-color: rgba(61, 191, 21, 0.475);
-  /* z-index: 10; */
   align-items: center;
   font-weight: bold;
 }
 
 .popUpContainer {
-  /* position: fixed; */
-  position:absolute;
+  position: absolute;
   height: 60%;
   width: 30%;
   background-color: rgb(36, 221, 238);
   align-items: center;
 }
 
-/* Login.module.css */
-
 .container {
-    display: flex;
-    flex-direction: column; 
-    align-items: left;
-    justify-content: center;
-    margin-top: 20px;
-   
-  }
-  
-  .loginForm {
-    max-width: 250px;
-    padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px; /* Add some margin to separate the form and the signup link */
-  }
-  
-  .inputField {
-    width: 100%;
-    padding: 5px;
-    margin-bottom: 5px;
-    font-size: 18px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-  }
-  
-  .loginButton {
-    width: 100%;
-    padding: 5px;
-    background-color: #4caf50;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 18px;
-    
-  }
-  
-  .loginButton:hover {
-    background-color: #45a049;
-  }
-  
-  
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  margin-top: 20px;
+
+}
+
+.loginForm {
+  max-width: 250px;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.inputField {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.loginButton {
+  width: 100%;
+  padding: 5px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 18px;
+
+}
+
+.loginButton:hover {
+  background-color: #45a049;
+}
 
 
-
-
-
-
-
-
- 
+.myElement {
+  color: red;
+  margin-top: 10px;
+}

@@ -1,5 +1,4 @@
 import { IncomingForm } from 'formidable';
-import { promises as fs } from 'fs';
 const mv = require('mv');
 
 export const config = {
@@ -16,7 +15,7 @@ const handleFileUpload = async (req, res) => {
       form.parse(req, (err, fields, files) => {
         if (err) return reject(err);
         console.log(fields, files);
-        // console.log(files.file.filepath);
+      
         var oldPath = files.file[0].filepath;
        
        
@@ -28,9 +27,7 @@ const handleFileUpload = async (req, res) => {
       });
     });
 
-    // console.log("data", data);
-
-    // return res.status(200).json(`./images/${data.files.file[0].originalFilename}`);
+ 
   } catch (error) {
     console.error('Error during file upload:', error);
     res.status(500).json({ error: 'Internal Server Error' });

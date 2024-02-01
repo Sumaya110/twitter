@@ -13,7 +13,7 @@ import { FaEdit } from "react-icons/fa";
 import CommentEditModal from "@/components/CommentEditModal/CommentEditModal"
 
 
-function Comment({ comment, postId, comments, post }) {
+function Comment({ comment, postId, comments, post, pic }) {
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [likes, setLikes] = useState([]);
@@ -89,13 +89,24 @@ function Comment({ comment, postId, comments, post }) {
            
             <div className={styles.commentContainer}>
                 <div className={styles.sameSpan}>
-                    <Image
+
+                    {comment?.userImg ? ( <Image
                         className={styles.image}
                         src={comment.userImg}
                         alt={`${comment.username}'s avatar`}
                         width={40}
                         height={40}
+                    />):
+                    (
+                        <Image
+                        className={styles.image}
+                        src={pic}
+                        alt={`${comment.username}'s avatar`}
+                        width={40}
+                        height={40}
                     />
+                    )}
+                   
 
                     <div className={styles.topBottom}>
                         <span className={styles.userName}>{comment.username}</span>
@@ -147,7 +158,7 @@ function Comment({ comment, postId, comments, post }) {
                         className={styles.comment10}
                         onClick={() => setShowModal(true)}
                     />
-                    {showModal && <Modal onClose={() => setShowModal(false)} id={postId} post={post} comment={comment} option={2} />}
+                    {showModal && <Modal onClose={() => setShowModal(false)} id={postId} post={post} comment={comment} pic={pic} option={2} />}
 
 
                     {replies.length > 0 && (
@@ -195,6 +206,7 @@ function Comment({ comment, postId, comments, post }) {
                                 comments={comments}
                                 post={post}
                                 reply={reply}
+                                pic={pic}
                             />
                         ))}
                     </div>

@@ -11,14 +11,15 @@ const create = async ({ email, password }) => {
   return user;
 };
 
-const findOne = async ({ email }) => {
+const findOne = async ( {email} ) => {
   const user = await Users.findOne({ email });
+  // console.log("user repo : ", user)
   return user;
 };
 
 const tokenFindOne = async ({ verify_token }) => {
   const user = await Users.findOne({ verify_token });
-  console.log("user from repo: ", user)
+  // console.log("user from repo: ", user)
   return user;
 };
 

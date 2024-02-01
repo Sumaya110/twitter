@@ -13,7 +13,7 @@ export default home
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-
+ 
   return {
     props: {
       user: session?.user||null,

@@ -14,7 +14,7 @@ import Comment from "../Comment/Comment";
 import { FaEdit } from "react-icons/fa";
 import EditModal from "@/components/EditModal/EditModal"
 
-const Post = ({ id, post }) => {
+const Post = ({ id, post, pic }) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [likes, setLikes] = useState([]);
@@ -81,19 +81,6 @@ const Post = ({ id, post }) => {
     }
   };
 
-  const handleEdit = async () => {
-    try {
-      await updatePost(id, {
-        text: editedText,
-        imageUrl: editedImage,
-      });
-
-      console.log("Post edited successfully", id);
-    } catch (error) {
-      console.error("Error editing post:", error);
-    }
-  };
-
   return (
     <div className={styles.combined}>
       <div className={styles.full}>
@@ -101,6 +88,8 @@ const Post = ({ id, post }) => {
           <div>
             <div key={post._id} className={styles.postContainer}>
               <div className={styles.sameSpan}>
+
+                {post?.userImg ? (
                 <Image
                   className={styles.image}
                   src={post.userImg}
@@ -108,6 +97,16 @@ const Post = ({ id, post }) => {
                   width={40}
                   height={40}
                 />
+                ):(
+                <Image
+                  className={styles.image}
+                  src={pic}
+                  alt={`${post.username}'s avatar`}
+                  width={40}
+                  height={40}
+                />
+
+                )}
 
                 <div className={styles.topBottom}>
                   <span className={styles.userName}>{post.username}</span>
@@ -158,6 +157,7 @@ const Post = ({ id, post }) => {
                 onClose={() => setShowModal(false)}
                 id={id}
                 post={post}
+                pic={pic}
                 option={1}
               />
             )}
@@ -208,6 +208,7 @@ const Post = ({ id, post }) => {
                 postId={id}
                 comments={post.comments}
                 post={post}
+                pic={pic}
               />
             ))}
           </div>

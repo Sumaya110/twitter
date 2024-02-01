@@ -23,7 +23,7 @@ const Login = () => {
         redirect: false,
         email,
         password,
-        // callbackUrl: "",
+
       });
 
       console.log("status  :", status);

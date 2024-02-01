@@ -1,11 +1,6 @@
-// Inside Index.jsx
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import Login from "@/components/Login/Login";
-import Sidebar from "@/components/Sidebar/Sidebar";
-import Feed from "@/components/Feed/Feed";
-import Trending from "../Trending/Trending";
-import styles from "@/components/Index/Index.module.css";
 import { useRouter } from "next/router";
 import HomePage from "../HomePage/HomePage";
 
@@ -13,7 +8,8 @@ const Index = ({ user }) => {
   const [noUser, setNoUser] = useState(false);
   const router = useRouter();
   const { data: session } = useSession();
-  console.log("user ", user);
+
+  console.log("user ", session);
 
   useEffect(() => {
     const replace = async () => {

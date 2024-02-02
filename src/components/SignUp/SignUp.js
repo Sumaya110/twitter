@@ -10,6 +10,7 @@ const SignIn = () => {
     e.preventDefault();
 
     const formData = {
+      username: e.target.username.value,
       email: e.target.email.value,
       password: e.target.password.value,
     };
@@ -28,6 +29,16 @@ const SignIn = () => {
   return (
     <div className={styles.container}>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
+
+
+      <div>
+          <input
+            type="username"
+            name="username"
+            placeholder="username"
+            className={styles.inputField}
+          />
+        </div>
 
         <div>
           <input
@@ -54,7 +65,7 @@ const SignIn = () => {
         </div>
 
         {verificationSent && (
-          <div style={styles.myElement}>
+          <div className={styles.myElement}>
             A verification mail has been sent.
           </div>
         )}

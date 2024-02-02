@@ -1,6 +1,7 @@
 import {
     createNewUser,
     getNewUser,
+    updateNewUser,
    
   } from "@/libs/api_routes/routes"
   
@@ -29,7 +30,18 @@ import {
       throw Error(error.response.data);
     }
   }
+
+
+  async function updateUser(userId, updateData) {
+    try {
+      console.log("action : ", userId, updateData)
+      const response = await updateNewUser({userId, updateData});
+      return response.data;
+    } catch (error) {
+      throw Error(error.response.data);
+    }
+  }
   
   
   
-  export { createUser,  getUser};
+  export { createUser,  getUser, updateUser};

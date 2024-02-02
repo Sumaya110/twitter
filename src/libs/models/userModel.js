@@ -10,6 +10,11 @@ const userSchema = new Schema({
         type: String,
         default: '/images/blank-profile-picture.webp',
     },
+
+    coverPicture: {
+        type: String,
+        default: '/images/TT.png',
+    },
 })
 
 const Users = models.user || model('user', userSchema);

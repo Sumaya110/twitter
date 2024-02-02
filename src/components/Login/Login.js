@@ -7,7 +7,7 @@ import styles from "@/components/Login/Login.module.css";
 import SignUp from "@/components/SignUp/SignUp";
 import { useRouter } from "next/router";
 
-const Login = () => {
+const Login = (  ) => {
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -54,7 +54,6 @@ const Login = () => {
             className={styles.googleLoginButton}
             onClick={() => {
               signIn("google");
-              // router.replace("/home");
             }}
           >
             <FcGoogle className={styles.googleIcon} />
@@ -65,7 +64,6 @@ const Login = () => {
             className={styles.githubLoginButton}
             onClick={() => {
               signIn("github");
-              //router.replace("/home");
             }}
           >
             <FaGithub className={styles.githubIcon} />
@@ -78,6 +76,10 @@ const Login = () => {
         <div className={styles.container}>
           <div className={styles.signUpLink}>
             <p>Already have an account?</p>
+{/* 
+            {verificationSent && (
+              <p> After verification Login here.</p>
+            )} */}
 
             <form className={styles.loginForm} onSubmit={handleSubmit}>
               <div>

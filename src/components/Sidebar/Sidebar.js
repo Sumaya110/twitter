@@ -7,16 +7,22 @@ import { BsBell, BsBookmark } from "react-icons/bs";
 import { BsThreeDots } from "react-icons/bs";
 import { AiFillHome, AiOutlineInbox, AiOutlineUser } from "react-icons/ai";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 import {
   HiOutlineClipboardList,
   HiOutlineDotsCircleHorizontal,
 } from "react-icons/hi";
 import { signOut, useSession } from "next-auth/react";
-import { getUser } from "@/libs/action/userAction";
 
-const Sidebar = ( {user, pic }) => {
+const Sidebar = ({ user, pic}) => {
+  const router = useRouter();
+   
+  const profileId= user.uid;
 
+  const handleEditProfile = () => {
+    router.push(`/profileId/${profileId}`);
+  };
 
   return (
     <div className={styles.mainDiv}>
@@ -30,15 +36,17 @@ const Sidebar = ( {user, pic }) => {
         <SidebarLink text="Messages" Icon={AiOutlineInbox} />
         <SidebarLink text="Bookmarks" Icon={BsBookmark} />
         <SidebarLink text="Lists" Icon={HiOutlineClipboardList} />
-        <SidebarLink text="Profile" Icon={AiOutlineUser} />
+
+        <button className={styles.profileButton} onClick={handleEditProfile}>
+          <SidebarLink text="Profile" Icon={AiOutlineUser} />
+        </button>
+
         <SidebarLink text="More" Icon={HiOutlineDotsCircleHorizontal} />
       </div>
 
       <button className={styles.tweetButton}>Post</button>
 
-      <div className={styles.signOutDiv} >
-
-
+      <div className={styles.signOutDiv}>
         {user?.image ? (
           <Image
             src={user?.image}
@@ -63,13 +71,11 @@ const Sidebar = ( {user, pic }) => {
         </div>
 
         <BsThreeDots className={styles.dotsIcon} />
-       
       </div>
-      <button onClick={signOut} className={styles.signoutButton}> SignOut</button>
-
-      
-
-
+      <button onClick={signOut} className={styles.signoutButton}>
+        {" "}
+        SignOut
+      </button>
     </div>
   );
 };

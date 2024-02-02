@@ -100,4 +100,27 @@ const checkToken = async (token) =>{
   }
 }
 
-module.exports = { signupUser, loginUser , checkToken, getUser};
+
+const updateUser = async (req, res) => {
+
+
+  const { id } = req.params;
+
+
+  console.log("cont : ", id)
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "No such user" });
+  }
+
+  const updatedUser = await UserRepository.findOneAndUpdate({
+    userId: id,
+    updateData: req.body.updateData,
+  });
+
+  if (!updatedUser) {
+    return res.status(400).json({ error: "No such post" });
+  }
+  res.status(200).json(updatedUser);
+};
+
+module.exports = { signupUser, loginUser , checkToken, updateUser, getUser};

@@ -4,9 +4,10 @@ import { getPosts } from "@/libs/action/postAction";
 import Post from "../Post/Post";
 import "moment-timezone";
 import { useDispatch, useSelector } from "react-redux";
-import { setPosts } from "@/actions/actions";
+import { setPosts, setUsers } from "@/actions/actions";
 import Image from "next/image";
 import ProfileEditModal from "@/components/EditProfileModal/EditProfileModal";
+import { getUser } from "@/libs/action/userAction";
 
 const UserFeed = ({ user, pic }) => {
   const dispatch = useDispatch();
@@ -14,22 +15,26 @@ const UserFeed = ({ user, pic }) => {
   const [showModal, setShowModal] = useState(false);
 
 
-// _id: '65bca6711f038b7408140291', 
-// email: 'sumaya.tamima.cse110@gmail.com',
-//  profilePicture: '/images/blank-profile-picture.webp', coverPicture: '/images/TT.png'}
-// coverPicture
-// : 
-// "/images/TT.png"
-
   useEffect(() => {
     fetchData();
+    // fetchUser();
   }, []);
 
   const fetchData = async () => {
     try {
       const data = await getPosts(user._id);
-    //   console.log("user:", user);
       dispatch(setPosts(data));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  const fetchUser = async () => {
+    try {
+      const data = await getUser(user.email);
+
+      console.log("data  :", data)
+      dispatch(setUsers(data));
     } catch (error) {
       console.error("Error fetching data:", error);
     }

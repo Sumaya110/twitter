@@ -53,15 +53,10 @@ export const getUserId = async (id) => {
   try {
     console.log("service : ", id);
     const userId = id;
-
-    console.log("from service id : ", userId);
     const response = await UserRepository.findById({ userId });
     console.log("user repo : ", response);
-
-    // Return the response if found
     return response;
   } catch (error) {
-    // Throw the error to be caught where the function is called
     throw new Error(error.message);
   }
 };
@@ -69,10 +64,7 @@ export const getUserId = async (id) => {
 
 export const updateUser = async (req, res) => {
   try {
-    // console.log("ser  : ", req.body)
     const response = await UserRepository.findOneAndUpdate(req.body);
-
-    // console.log("ser 2 : ", response)
     
     return res.status(200).json(response);
   } catch (error) {

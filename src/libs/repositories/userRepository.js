@@ -24,7 +24,7 @@ const tokenFindOne = async ({ verify_token }) => {
 
 const findById = async ( {userId} ) => {
   const user = await Users.findOne({_id: userId });
-  console.log("user repo : ", user)
+  // console.log("user repo : ", user)
   return user;
 };
 

@@ -82,7 +82,6 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
 
 
   const closeModal = (e) => {
-    // e.preventDefault();
     onClose();
   };
 

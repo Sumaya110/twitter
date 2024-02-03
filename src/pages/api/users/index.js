@@ -1,6 +1,5 @@
 import connectMongo from "@/confiig/ConnectDB/ConnectDB";
-import { updateUser } from "@/libs/action/userAction";
-import { createUser, getUser } from "@/libs/services/user-service";
+import { createUser, getUser, updateUser } from "@/libs/services/user-service";
 
 export default async function handler(req, res) {
   try {

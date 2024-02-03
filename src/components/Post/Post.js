@@ -20,22 +20,10 @@ import { useDispatch } from 'react-redux';
 const Post = ({ id, post, pic, user , fetchData}) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
-  // const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
-  // const [comments, setComments] = useState([]);
   const { data: session } = useSession();
 
   const dispatch = useDispatch();
-
-
-  // useEffect(() => {
-  //   const comments = post.comments;
-  //   const likes = post.likes;
-
-  //   setComments(comments);
-  //   setLikes(likes);
-  // }, [id]);
-
 
 
   const likePost = async () => {
@@ -50,10 +38,7 @@ const Post = ({ id, post, pic, user , fetchData}) => {
     } else {
       setLiked(true);
       post?.likes?.push({
-        // userId: session.user.uid,
-        // username: session.user.username,
-        // userImg: session.user.userImg,
-
+  
         userId: user?.uid,
         username: user?.username,
         userImg: user?.userImg,

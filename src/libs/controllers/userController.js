@@ -107,7 +107,7 @@ const updateUser = async (req, res) => {
   const { id } = req.params;
 
 
-  console.log("cont : ", id)
+  console.log("controller : ", id)
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No such user" });
   }

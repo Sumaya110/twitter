@@ -8,19 +8,25 @@ import { BsThreeDots } from "react-icons/bs";
 import { AiFillHome, AiOutlineInbox, AiOutlineUser } from "react-icons/ai";
 import Image from "next/image";
 import { useRouter } from "next/router";
-
+import { signOut} from "next-auth/react";
+import { useDispatch } from 'react-redux';
 import {
   HiOutlineClipboardList,
   HiOutlineDotsCircleHorizontal,
 } from "react-icons/hi";
-import { signOut, useSession } from "next-auth/react";
+import { getUser } from "@/libs/action/userAction";
+import { setUsers } from "@/actions/actions";
+
 
 const Sidebar = ({ user, pic}) => {
   const router = useRouter();
+  const dispatch= useDispatch()
    
   const profileId= user.uid;
 
-  const handleEditProfile = () => {
+  const handleEditProfile = async() => {
+    // const data = await getUser(user?.email);
+    // dispatch(setUsers(data));
     router.push(`/profileId/${profileId}`);
   };
 

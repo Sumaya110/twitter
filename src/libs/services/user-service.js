@@ -4,8 +4,7 @@ const bcrypt = require("bcrypt")
 export const createUser = async (req, res) => {
   try {
     
-    // console.log("user  : ",req.body )
-    const { username, email, password,  verify_token } = req.body;
+    const { name, username, email, password,  verify_token } = req.body;
     const existingUser = await UserRepository.findOne({ email });
 
     if (existingUser) {
@@ -18,6 +17,7 @@ export const createUser = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
     const newUser = await UserRepository.create({
+      name,
       username,
       email,
       password: hashedPassword,
@@ -38,11 +38,8 @@ export const createUser = async (req, res) => {
 export const getUser = async (req, res) => {
   try {
     const email = req.query.email
-
-    // console.log("from service email : ", email)
     const response = await UserRepository.findOne({email});
-    // console.log("from service response : ", response)
-
+   
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -51,9 +48,9 @@ export const getUser = async (req, res) => {
 
 export const getUserId = async (id) => {
   try {
-    console.log("service : ", id);
+    console.log("service hh : ", id);
     const userId = id;
-    const response = await UserRepository.findById({ userId });
+    const response = await UserRepository.findById( userId );
     console.log("user repo : ", response);
     return response;
   } catch (error) {
@@ -71,5 +68,12 @@ export const updateUser = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
+
+export const existOrCreate = async ({name, email, image}) => {
+
+  const response = await UserRepository.existOrCreate({name , email, image});
+  return response
+}
 
 

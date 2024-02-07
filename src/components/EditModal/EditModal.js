@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "@/components/EditModal/EditModal.module.css";
-import { useSession } from "next-auth/react";
 import { MdClose } from "react-icons/md";
 import { BsImage, BsEmojiSmile } from "react-icons/bs";
 import { AiOutlineGif, AiOutlineClose } from "react-icons/ai";
@@ -53,7 +52,7 @@ const Modal = ({ onClose, id, post, user }) => {
         text: input,
       });
 
-      const data = await getPosts(user?.uid);
+      const data = await getPosts(user?._id);
       dispatch(setPosts(data));
     }
     else {
@@ -75,7 +74,7 @@ const Modal = ({ onClose, id, post, user }) => {
 
       });
 
-      const data = await getPosts(user?.uid);
+      const data = await getPosts(user?._id);
       dispatch(setPosts(data));
     }
 

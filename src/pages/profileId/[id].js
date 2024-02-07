@@ -16,7 +16,6 @@ export default Identity;
 export async function getServerSideProps(context) {
   try {
     const id = context.query.id;
-    // console.log("id  : ", id);
     const profileData = await getUserId(id);
 
     const serializableProfileData = {

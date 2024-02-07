@@ -8,7 +8,7 @@ import "moment-timezone";
 import { useDispatch, useSelector } from 'react-redux';
 import { setPosts } from "@/actions/actions";
 
-const Feed = ({ user, pic }) => {
+const Feed = ({ user }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
 
@@ -19,10 +19,10 @@ const Feed = ({ user, pic }) => {
 
   const fetchData = async () => {
     try {
-      const data = await getPosts(user.uid);
+      const data = await getPosts(user._id);
       dispatch(setPosts(data));
 
-      console.log("posts  :  ", data)
+      // console.log("posts  :  ", data)
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -35,10 +35,10 @@ const Feed = ({ user, pic }) => {
         <HiOutlineSparkles />
       </div>
 
-      <Input pic={pic} user={user} />
+      <Input user={user} />
 
       {posts?.map((post) => (
-        <Post key={post._id} id={post._id} post={post} pic={pic} user={user} fetchData={()=>fetchData()} />
+        <Post key={post._id} id={post._id} post={post} user={user} fetchData={()=>fetchData()} />
       )) }
 
 

@@ -10,9 +10,7 @@ import { getUser } from "@/libs/action/userAction";
 const HomePage = ({ user }) => {
   const [existUser, setExistUser] = useState();
   const router= useRouter()
-  const [pic, setPic] = useState(null)
-
-
+  
   useEffect(() => {
     const replace = async () => {
       if (!user) {
@@ -29,8 +27,8 @@ const HomePage = ({ user }) => {
     const fetchData = async () => {
       try {
         const User = await getUser(user?.email);
-        setPic(User?.profilePicture)
-        // console.log("user after from sidebar :", pic)
+       
+      
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -40,20 +38,18 @@ const HomePage = ({ user }) => {
 
   }, [user])
 
-  if(!pic)
-    return <div>loading...</div>
-
+ 
   return (
     <div>
       {existUser ? (
         
         <main className={styles.main}>
           <div className={styles.sidebar}>
-            <Sidebar  user ={user} pic={pic}/>
+            <Sidebar  user ={user} />
           </div>
 
           <div className={styles.container}>
-            <Feed user={user} pic={pic}/>
+            <Feed user={user}/>
             <Trending />
           </div>
         </main>

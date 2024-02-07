@@ -73,7 +73,7 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
       ),
     });
 
-    const data = await getPosts(user.uid);
+    const data = await getPosts(user?._id);
     dispatch(setPosts(data));
 
 

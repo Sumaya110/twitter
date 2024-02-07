@@ -22,9 +22,7 @@ import {
   
   async function getUser(data) {
     try {
-      // console.log("data  : ", data)
       const response = await getNewUser(data);
-      // console.log("get Action",response)
       return response.data;
     } catch (error) {
       throw Error(error.response.data);

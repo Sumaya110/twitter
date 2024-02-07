@@ -42,5 +42,6 @@
   "devDependencies": {
     "eslint": "^8",
     "eslint-config-next": "14.0.4"
-  }
+  },
+  "browser": { "fs": false, "os": false, "path": false } 
 }

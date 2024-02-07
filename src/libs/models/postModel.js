@@ -4,7 +4,6 @@ const postSchema = new Schema({
   userId: String,
   username: String,
   userImg: String,
-  tag: String,
   text: String,
   image: String,
   timestamp: Date,
@@ -21,7 +20,7 @@ const postSchema = new Schema({
       userId: String,
       username: String,
       userImg: String,
-      tag: String,
+     
       text: String,
       timestamp: Date,
       imageUrl: String,
@@ -38,7 +37,7 @@ const postSchema = new Schema({
           userId: String,
           username: String,
           userImg: String,
-          tag: String,
+         
           text: String,
           timestamp: Date,
           imageUrl: String,

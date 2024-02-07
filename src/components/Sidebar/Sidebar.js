@@ -18,11 +18,11 @@ import { getUser } from "@/libs/action/userAction";
 import { setUsers } from "@/actions/actions";
 
 
-const Sidebar = ({ user, pic}) => {
+const Sidebar = ({ user}) => {
   const router = useRouter();
   const dispatch= useDispatch()
    
-  const profileId= user.uid;
+  const profileId= user._id;
 
   const handleEditProfile = async() => {
     // const data = await getUser(user?.email);
@@ -53,9 +53,9 @@ const Sidebar = ({ user, pic}) => {
       <button className={styles.tweetButton}>Post</button>
 
       <div className={styles.signOutDiv}>
-        {user?.image ? (
+        {user?.profilePicture ? (
           <Image
-            src={user?.image}
+            src={user?.profilePicture}
             alt=""
             className={styles.userImage}
             width={40}
@@ -63,7 +63,7 @@ const Sidebar = ({ user, pic}) => {
           />
         ) : (
           <Image
-            src={pic}
+            src={user.blankPicture}
             alt=""
             className={styles.userImage}
             width={40}
@@ -73,7 +73,7 @@ const Sidebar = ({ user, pic}) => {
 
         <div className={styles.userDetails}>
           <h4>{user?.name}</h4>
-          <p>@{user?.tag}</p>
+          <p>@{user?.username}</p>
         </div>
 
         <BsThreeDots className={styles.dotsIcon} />

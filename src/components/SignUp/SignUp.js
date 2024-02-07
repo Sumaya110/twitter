@@ -10,6 +10,7 @@ const SignIn = () => {
     e.preventDefault();
 
     const formData = {
+      name: e.target.name.value,
       username: e.target.username.value,
       email: e.target.email.value,
       password: e.target.password.value,
@@ -30,8 +31,18 @@ const SignIn = () => {
     <div className={styles.container}>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
 
-
       <div>
+          <input
+            type="name"
+            name="name"
+            placeholder="name"
+            className={styles.inputField}
+          />
+        </div>
+
+
+
+        <div>
           <input
             type="username"
             name="username"

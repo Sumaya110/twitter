@@ -1,6 +1,7 @@
 import { Schema, model, models } from 'mongoose';
 
 const userSchema = new Schema({
+    name: String,
     username : String,
     email: String,
     password: String,
@@ -14,6 +15,11 @@ const userSchema = new Schema({
     coverPicture: {
         type: String,
         default: '/images/TT.png',
+    },
+
+   blankPicture: {
+        type: String,
+        default: '/images/blank-profile-picture.webp',
     },
 })
 

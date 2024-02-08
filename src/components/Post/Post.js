@@ -4,7 +4,6 @@ import { FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart, AiOutlineShareAlt, AiFillHeart } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Moment from "react-moment";
-import { useSession } from "next-auth/react";
 import styles from "@/components/Post/Post.module.css";
 import Image from "next/image";
 import "moment-timezone";
@@ -21,14 +20,14 @@ const Post = ({ id, post, pic, user , fetchData}) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [liked, setLiked] = useState(false);
-  const { data: session } = useSession();
+  
 
   const dispatch = useDispatch();
 
 
   const likePost = async () => {
     const likedIndex = post?.likes?.findIndex(
-      (like) => like.userId === session.user.uid
+      (like) => like.userId === user?._id
     );
 
     if (likedIndex !== -1) {
@@ -39,7 +38,7 @@ const Post = ({ id, post, pic, user , fetchData}) => {
       setLiked(true);
       post?.likes?.push({
   
-        userId: user?.uid,
+        userId: user?._id,
         username: user?.username,
         userImg: user?.userImg,
       });
@@ -49,13 +48,13 @@ const Post = ({ id, post, pic, user , fetchData}) => {
       likes: post?.likes,
     });
 
-    const data = await getPosts(user?.uid);
+    const data = await getPosts(user?._id);
     dispatch(setPosts(data));
   };
 
   const handleDeletePost = async () => {
     await deletePost(id);
-    const data = await getPosts(user?.uid);
+    const data = await getPosts(user?._id);
     dispatch(setPosts(data));
   };
 
@@ -87,8 +86,8 @@ const Post = ({ id, post, pic, user , fetchData}) => {
                 )}
 
                 <div className={styles.topBottom}>
-                  <span className={styles.userName}>{post?.username}</span>
-                  <span className={styles.tag}>@{session?.user?.tag}</span>
+                  <span className={styles.userName}>{user?.name}</span>
+                  <span className={styles.tag}>@{user?.username}</span>
                 </div>
 
                 <Moment fromNow className={styles.time}>
@@ -146,7 +145,7 @@ const Post = ({ id, post, pic, user , fetchData}) => {
               <span className={styles.textSm}>{post?.comments?.length}</span>
             )}
           </div>
-          {session?.user?.uid !== post?.userId ? (
+          {user?._id !== post?.userId ? (
             <FaRetweet className={styles.combined10} />
           ) : (
             <RiDeleteBin5Line

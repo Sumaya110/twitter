@@ -9,26 +9,26 @@ import { AiFillHome, AiOutlineInbox, AiOutlineUser } from "react-icons/ai";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { signOut} from "next-auth/react";
-import { useDispatch } from 'react-redux';
 import {
   HiOutlineClipboardList,
   HiOutlineDotsCircleHorizontal,
 } from "react-icons/hi";
-import { getUser } from "@/libs/action/userAction";
-import { setUsers } from "@/actions/actions";
 
 
 const Sidebar = ({ user, pic}) => {
+
+  console.log("pic  :", pic)
   const router = useRouter();
-  const dispatch= useDispatch()
    
-  const profileId= user.uid;
+  const profileId= user._id;
 
   const handleEditProfile = async() => {
-    // const data = await getUser(user?.email);
-    // dispatch(setUsers(data));
     router.push(`/profileId/${profileId}`);
   };
+
+  const handleHome = async() => {
+    router.push("/home")
+  }
 
   return (
     <div className={styles.mainDiv}>
@@ -36,7 +36,11 @@ const Sidebar = ({ user, pic}) => {
         <FaXTwitter className={styles.twitterIcon} />
       </div>
       <div className={styles.sidebar}>
-        <SidebarLink text="Home" Icon={AiFillHome} />
+
+      <button className={styles.profileButton} onClick={handleHome}>
+      <SidebarLink text="Home" Icon={AiFillHome} />
+        </button>
+        
         <SidebarLink text="Explore" Icon={BiHash} />
         <SidebarLink text="Notifications" Icon={BsBell} />
         <SidebarLink text="Messages" Icon={AiOutlineInbox} />
@@ -53,9 +57,9 @@ const Sidebar = ({ user, pic}) => {
       <button className={styles.tweetButton}>Post</button>
 
       <div className={styles.signOutDiv}>
-        {user?.image ? (
+        {user?.profilePicture ? (
           <Image
-            src={user?.image}
+            src={user?.profilePicture}
             alt=""
             className={styles.userImage}
             width={40}
@@ -63,7 +67,7 @@ const Sidebar = ({ user, pic}) => {
           />
         ) : (
           <Image
-            src={pic}
+            src={user.blankPicture}
             alt=""
             className={styles.userImage}
             width={40}
@@ -73,7 +77,7 @@ const Sidebar = ({ user, pic}) => {
 
         <div className={styles.userDetails}>
           <h4>{user?.name}</h4>
-          <p>@{user?.tag}</p>
+          <p>@{user?.username}</p>
         </div>
 
         <BsThreeDots className={styles.dotsIcon} />

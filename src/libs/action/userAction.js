@@ -7,11 +7,11 @@ import {
   
   async function createUser(data) {
 
-    console.log("dataa  :", data)
+    // console.log("dataa  :", data)
     try {
       const response = await createNewUser(data);
 
-      console.log("response : ", response)
+      // console.log("response : ", response)
       return response.data;
     } catch (error) {
       throw Error(error.response.data);
@@ -34,7 +34,7 @@ import {
 
   async function updateUser(userId, updateData) {
     try {
-      console.log("action : ", userId, updateData)
+      // console.log("action : ", userId, updateData)
       const response = await updateNewUser({userId, updateData});
       return response.data;
     } catch (error) {

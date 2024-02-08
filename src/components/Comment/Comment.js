@@ -6,8 +6,7 @@ import Image from "next/image";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { getPosts, updatePost } from "@/libs/action/postAction";
 import Modal from "../Modal/Modal";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { useState } from "react";
 import Reply from "@/components/Reply/Reply"
 import { FaEdit } from "react-icons/fa";
 import CommentEditModal from "@/components/CommentEditModal/CommentEditModal"
@@ -19,21 +18,10 @@ import { useDispatch } from 'react-redux';
 function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
-    // const [likes, setLikes] = useState([]);
     const [liked, setLiked] = useState(false);
-    // const [replies, setReplies] = useState([]);
     const dispatch = useDispatch();
 
-    const { data: session } = useSession()
     const commentId = comment?._id;
-
-    // useEffect(() => {
-    //     const likes = comment.likes;
-    //     setLikes(likes);
-    //     const replies = comment.replies;
-    //     setReplies(replies)
-    // }, []);
-
 
     const handleDeleteComment = async () => {
         await updatePost(postId, {
@@ -43,16 +31,11 @@ function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
         })
 
         fetchData()
-
-        // const data = await getPosts(user.uid);
-        // console.log("dataaa :  ", data)
-
-        // dispatch(setPosts(data));
     };
 
     const likeComment = async () => {
         const likedIndex = comment?.likes?.findIndex(
-            (like) => like?.userId === session?.user?.uid
+            (like) => like?.userId === user?._id
         );
 
         if (likedIndex !== -1) {
@@ -61,9 +44,9 @@ function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
         } else {
             setLiked(true);
             comment?.likes?.push({
-                userId: session.user.uid,
-                username: session.user.username,
-                userImg: session.user.userImg,
+                userId: user._id,
+                username: user.username,
+                userImg: user.userImg,
             });
         }
 
@@ -78,7 +61,7 @@ function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
             },
         });
 
-        const data = await getPosts(user?.uid);
+        const data = await getPosts(user?._id);
         dispatch(setPosts(data));
     };
 

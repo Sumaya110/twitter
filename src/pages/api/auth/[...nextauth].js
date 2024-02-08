@@ -4,6 +4,7 @@ import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import Users from "@/libs/models/userModel";
 import connectMongo from "@/confiig/ConnectDB/ConnectDB";
+import { existOrCreate } from "@/libs/services/user-service";
 const bcrypt = require('bcrypt')
 
 export const authOptions = {
@@ -47,12 +48,21 @@ export const authOptions = {
 
   callbacks: {
     async session({ session, token }) {
-      // session.user.tag = session.user.name
-      //   .split(" ")
-      //   .join("")
-      //   .toLocaleLowerCase();
+      const result = await existOrCreate({
+        name: session?.user?.name,
+        email: session?.user?.email,
+        image: session?.user?.image,
 
-      session.user.uid = token.sub;
+      })
+      // console.log("next creden", result)
+
+      session.user.username=result?.username;
+      session.user.name= result?.name;
+      session.user._id= result?._id;
+
+      if(result?.image)
+      session.user.image= result.image;
+
       return session;
     },
   },

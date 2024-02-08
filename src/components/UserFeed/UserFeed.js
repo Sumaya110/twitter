@@ -12,29 +12,22 @@ import { getUser } from "@/libs/action/userAction";
 const UserFeed = ({ user, pic }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
+  const User = useSelector((state) => state.users.users);
+  console.log("usersss : ", User)
   const [showModal, setShowModal] = useState(false);
 
 
   useEffect(() => {
     fetchData();
-    // fetchUser();
   }, []);
 
   const fetchData = async () => {
     try {
       const data = await getPosts(user._id);
       dispatch(setPosts(data));
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
 
-  const fetchUser = async () => {
-    try {
-      const data = await getUser(user.email);
-
-      console.log("data  :", data)
-      dispatch(setUsers(data));
+      const user_data = await getUser(user?.email)
+      dispatch(setUsers(user_data));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -44,7 +37,7 @@ const UserFeed = ({ user, pic }) => {
     <section className={styles.section}>
       <div className={styles.coverPictureContainer}>
         <Image
-          src={user?.coverPicture}
+          src={User?.coverPicture}
           alt=""
           className={styles.userImage2}
           width={200}
@@ -52,7 +45,7 @@ const UserFeed = ({ user, pic }) => {
         />
         <div className={styles.profilePictureOverlay}>
           <Image
-            src={user?.profilePicture}
+            src={User?.profilePicture}
             alt=""
             className={styles.userImage}
             width={200}
@@ -65,7 +58,7 @@ const UserFeed = ({ user, pic }) => {
         {showModal && (
           <ProfileEditModal
             onClose={() => setShowModal(false)}
-            user={user}
+            user={User}
           />
         )}
       </div>
@@ -85,7 +78,7 @@ const UserFeed = ({ user, pic }) => {
             id={post._id}
             post={post}
             pic={pic}
-            user={user}
+            user={User}
             fetchData={() => fetchData()}
           />
         ))}

@@ -1,15 +1,12 @@
 import { AiOutlineHeart, AiOutlineShareAlt, AiFillHeart } from "react-icons/ai";
-import { BsChat } from "react-icons/bs";
 import Moment from "react-moment";
 import styles from "@/components/Reply/Reply.module.css";
 import Image from "next/image";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { getPosts, updatePost } from "@/libs/action/postAction";
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import {  useState } from "react";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
-
 import ReplyEditModal from "@/components/ReplyEditModal/ReplyEditModal";
 import { setPosts } from "@/actions/actions";
 import { useDispatch } from 'react-redux';
@@ -17,21 +14,15 @@ import { useDispatch } from 'react-redux';
 
 function Reply({ comment, postId, comments, post, reply, pic, user }) {
   const [showEditModal, setShowEditModal] = useState(false);
-  // const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
 
 const dispatch = useDispatch();
 
-  const { data: session } = useSession();
  
   const replyId = reply?._id;
   const commentId = comment?._id;
 
-  // useEffect(() => {
-  //   const likes = reply.likes;
-  //   setLikes(likes);
-  // }, []);
-
+ 
   const handleDeleteReply = async () => {
 
     const commentToUpdate = post?.comments?.find(
@@ -44,7 +35,7 @@ const dispatch = useDispatch();
     );
 
     await updatePost(postId, { comments: post.comments });
-    const data = await getPosts(user?.uid);
+    const data = await getPosts(user?._id);
     dispatch(setPosts(data));
 
   };
@@ -60,7 +51,7 @@ const dispatch = useDispatch();
     );
 
     const likedIndex = replyToUpdate?.likes?.findIndex(
-      (like) => like.userId === session?.user?.uid
+      (like) => like.userId === user?._id
     );
 
     if (likedIndex !== -1) {
@@ -69,13 +60,13 @@ const dispatch = useDispatch();
     } else {
       setLiked(true);
       replyToUpdate.likes.push({
-        userId: session?.user?.uid,
-        username: session?.user?.username,
-        userImg: session?.user?.userImg,
+        userId: user?._id,
+        username: user?.username,
+        userImg: user?.userImg,
       });
     }
     await updatePost(postId, { comments: post.comments });
-    const data = await getPosts(user?.uid);
+    const data = await getPosts(user?._id);
     dispatch(setPosts(data));
 
 

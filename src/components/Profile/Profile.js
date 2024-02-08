@@ -6,7 +6,7 @@ import UserFeed from "../UserFeed/UserFeed";
 
 const Profile = ({profileId, profileData}) => {
 
-    console.log("profile id  : ", profileData)
+    // console.log("profile id  : ", profileData)
     
   return (
     <div>

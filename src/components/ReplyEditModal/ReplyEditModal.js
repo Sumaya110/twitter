@@ -68,7 +68,7 @@ const dispatch = useDispatch();
 
     if (selectedFile === reply.imageUrl) {
         await updatePost(postId, { comments: post.comments });
-        const data = await getPosts(user.uid);
+        const data = await getPosts(user._id);
         dispatch(setPosts(data));
 
     } else {
@@ -89,7 +89,7 @@ const dispatch = useDispatch();
 
 
       await updatePost(postId, { comments: post.comments });
-      const data = await getPosts(user.uid);
+      const data = await getPosts(user._id);
       dispatch(setPosts(data));
 
 

@@ -4,7 +4,6 @@ import { AiOutlineGif, AiOutlineClose } from "react-icons/ai";
 import { RiBarChart2Line } from "react-icons/ri";
 import { IoCalendarNumberOutline } from "react-icons/io5";
 import { HiOutlineLocationMarker } from "react-icons/hi";
-import { useSession } from "next-auth/react";
 import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import Image from "next/image";
@@ -15,7 +14,6 @@ import { setPosts } from "@/actions/actions";
 import { useDispatch } from 'react-redux';
 
 const Input = ({pic, user} ) => {
-  const { data: session } = useSession();
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -52,15 +50,15 @@ const Input = ({pic, user} ) => {
     setLoading(true);
     try {
       const postId = await createPost({
-        userId: session.user.uid,
-        username: session.user.name,
-        userImg: session.user.image,
-        tag: session.user.tag,
+        userId: user._id,
+        username:user.name,
+        userImg: user.image,
+        username: user.username,
         text: input,
         timestamp: new Date(),
       });
 
-      const data = await getPosts(user.uid);
+      const data = await getPosts(user._id);
       dispatch(setPosts(data));
 
       setFormattedTimestamp(moment(new Date()).fromNow());
@@ -78,7 +76,7 @@ const Input = ({pic, user} ) => {
         const url = await response.json();
         updatePostImage(postId, url);
 
-        const data = await getPosts(user.uid);
+        const data = await getPosts(user._id);
         dispatch(setPosts(data));
 
       }
@@ -94,7 +92,7 @@ const Input = ({pic, user} ) => {
 
   const updatePostImage = async (postId, imageUrl) => {
     await updatePost(postId, {imageUrl: imageUrl,});
-    const data = await getPosts(user.uid);
+    const data = await getPosts(user._id);
     dispatch(setPosts(data));
 
   };
@@ -103,10 +101,10 @@ const Input = ({pic, user} ) => {
     <div className={styles.combined8}>
       <div className={styles.combined9}>
         <div>
-          {session?.user?.image ? (
+          {user?.profilePicture ? (
             <Image
               className={styles.combined10}
-              src={session?.user?.image}
+              src={user?.profilePicture}
               alt=""
               width={40}
               height={40}
@@ -114,7 +112,7 @@ const Input = ({pic, user} ) => {
           ) : (
             <Image
               className={styles.combined10}
-              src={pic}
+              src={user?.blankPicture}
               alt=""
               width={40}
               height={40}

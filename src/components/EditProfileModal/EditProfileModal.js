@@ -13,14 +13,13 @@ import { setUsers } from "@/actions/actions";
 const Modal = ({ onClose, user }) => {
   const [proPic, setProPic] = useState(null);
   const [coverPic, setCoverPic] = useState(null);
-  const [name, setName] = useState(user.username);
+  const [name, setName] = useState(user.name);
   const [selectedProPic, setSelectedProPic] = useState(user.profilePicture);
   const [selectedCoverPic, setSelectedCoverPic] = useState(user.coverPicture);
 
   const dispatch = useDispatch();
 
   const addImageToProPic = (e) => {
-    console.log("cholo");
     const reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
@@ -34,7 +33,6 @@ const Modal = ({ onClose, user }) => {
   };
 
   const addImageToCoverPic = (e) => {
-    console.log("hello");
     const reader = new FileReader();
     if (e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
@@ -62,7 +60,9 @@ const Modal = ({ onClose, user }) => {
         profilePicture: url,
       });
 
-      const data = await getUser(user?._id);
+  
+      const data = await getUser(user?.email);
+      console.log("data after change : ", data)
       dispatch(setUsers(data));
     }
 
@@ -80,16 +80,15 @@ const Modal = ({ onClose, user }) => {
       });
 
       const data = await getUser(user?.email);
-      // console.log("dataaaaaaaa : ", data)
       dispatch(setUsers(data));
-      // console.log("user :  ", users)
     }
 
-    if (name !== user.username) {
+    if (name !== user.name) {
       await updateUser(user?._id, {
-        username: name,
+        name:name,
       });
 
+  
       const data = await getUser(user?.email);
       dispatch(setUsers(data));
     }

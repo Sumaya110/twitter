@@ -33,4 +33,3 @@ export const updateNewPost = (payload) => API.patch('/api/posts', payload);
  export const getNewPosts = (payload) => API.get('/api/posts', {params:{_id:payload, purpose:"get-all-posts" }});
 
  export const deleteNewPost = (payload) => API.delete('/api/posts', {params:{_id:payload}});
-

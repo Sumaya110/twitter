@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "@/components/Modal/Modal.module.css";
-import { useSession } from "next-auth/react";
 import { MdClose } from "react-icons/md";
 import { BsImage, BsEmojiSmile } from "react-icons/bs";
 import { AiOutlineGif, AiOutlineClose } from "react-icons/ai";
@@ -18,7 +17,6 @@ import { useDispatch } from 'react-redux';
 
 const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
   const [input, setInput] = useState("");
-  const { data: session } = useSession();
   const timestamp = new Date(post?.timestamp);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
@@ -60,22 +58,21 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
 
       const url = await response.json();
       commentReply = {
-        userId: session.user.uid,
-        username: session.user.name,
-        userImg: session.user.image,
-        tag: session.user.tag,
+        userId: user?._id,
+        username: user?.name,
+        userImg: user?.profilePicture,
+        tag: user?.username,
         imageUrl: url,
         text: input,
         timestamp: new Date(),
       };
 
-      // console.log("comment Reply:  ", commentReply);
     } else {
       commentReply = {
-        userId: session.user.uid,
-        username: session.user.name,
-        userImg: session.user.image,
-        tag: session.user.tag,
+        userId: user?._id,
+        username: user?.name,
+        userImg: user?.profilePicture,
+        tag: user?.username,
         text: input,
         timestamp: new Date(),
       };
@@ -86,7 +83,7 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
         $push: { comments: commentReply },
       });
 
-      const data = await getPosts(user.uid);
+      const data = await getPosts(user._id);
       dispatch(setPosts(data));
 
     } else {
@@ -106,7 +103,7 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
         },
       });
 
-      const data = await getPosts(user.uid);
+      const data = await getPosts(user._id);
       dispatch(setPosts(data));
 
     }
@@ -204,10 +201,10 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
 
           <div className={styles.mt}>
 
-            {session?.user?.image ? (
+            {user?.image ? (
               <Image
                 className={styles.imageStyle}
-                src={session?.user?.image}
+                src={user?.image}
                 alt=""
                 width={40}
                 height={40}

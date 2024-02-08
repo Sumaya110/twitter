@@ -68,11 +68,9 @@
 
 .combined10 {
 
-  height: 3rem; 
- width: 3rem;
- border-radius: 50%;
- object-fit: contain;
-  
+
+ border-radius: 100%;
+
 }
 
 .combined11 {

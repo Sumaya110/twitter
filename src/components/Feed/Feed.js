@@ -19,7 +19,7 @@ const Feed = ({ user, pic }) => {
 
   const fetchData = async () => {
     try {
-      const data = await getPosts(user.uid);
+      const data = await getPosts(user._id);
       dispatch(setPosts(data));
 
       console.log("posts  :  ", data)

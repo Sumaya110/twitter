@@ -30,7 +30,7 @@ const HomePage = ({ user }) => {
       try {
         const User = await getUser(user?.email);
         setPic(User?.profilePicture)
-        // console.log("user after from sidebar :", pic)
+       
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -54,7 +54,7 @@ const HomePage = ({ user }) => {
 
           <div className={styles.container}>
             <Feed user={user} pic={pic}/>
-            <Trending />
+            <Trending user={user} />
           </div>
         </main>
       ) :(

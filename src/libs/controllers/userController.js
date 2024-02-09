@@ -83,11 +83,14 @@ const loginUser = async (req, res) => {
 const getUser = async (req, res) => {
   const email = req.params;
   const user = await UserRepository.findOne({ email });
-
-  console.log("user from controller : ", user)
   res.status(200).json(user);
 };
 
+
+const getUsers = async (req, res) => {
+  const user = await UserRepository.find( );
+  res.status(200).json(user);
+};
 
 const checkToken = async (token) =>{
   try {
@@ -118,9 +121,9 @@ const updateUser = async (req, res) => {
   });
 
   if (!updatedUser) {
-    return res.status(400).json({ error: "No such post" });
+    return res.status(400).json({ error: "No such user" });
   }
   res.status(200).json(updatedUser);
 };
 
-module.exports = { signupUser, loginUser , checkToken, updateUser, getUser};
+module.exports = { signupUser, loginUser , checkToken, updateUser, getUser, getUsers};

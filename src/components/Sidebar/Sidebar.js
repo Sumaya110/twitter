@@ -16,10 +16,7 @@ import {
 
 
 const Sidebar = ({ user, pic}) => {
-
-  console.log("pic  :", pic)
   const router = useRouter();
-   
   const profileId= user._id;
 
   const handleEditProfile = async() => {

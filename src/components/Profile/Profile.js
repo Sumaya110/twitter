@@ -4,10 +4,9 @@ import Sidebar from "../Sidebar/Sidebar";
 import Trending from "../Trending/Trending";
 import UserFeed from "../UserFeed/UserFeed";
 
-const Profile = ({profileId, profileData}) => {
+const Profile = ({profileId, profileData, user}) => {
+  // const users = useSelector((state) => state.users.users);
 
-    // console.log("profile id  : ", profileData)
-    
   return (
     <div>
       <main className={styles.main}>
@@ -17,7 +16,7 @@ const Profile = ({profileId, profileData}) => {
 
         <div className={styles.container}>
           <UserFeed user={profileData} pic={profileData.profilePicture} />
-          <Trending />
+          <Trending  user={profileData} />
         </div>
       </main>
      

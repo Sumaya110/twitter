@@ -21,8 +21,6 @@ const Feed = ({ user, pic }) => {
     try {
       const data = await getPosts(user._id);
       dispatch(setPosts(data));
-
-      console.log("posts  :  ", data)
     } catch (error) {
       console.error("Error fetching data:", error);
     }

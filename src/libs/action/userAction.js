@@ -1,17 +1,14 @@
 import {
     createNewUser,
     getNewUser,
+    getNewUsers,
     updateNewUser,
    
   } from "@/libs/api_routes/routes"
   
   async function createUser(data) {
-
-    // console.log("dataa  :", data)
     try {
       const response = await createNewUser(data);
-
-      // console.log("response : ", response)
       return response.data;
     } catch (error) {
       throw Error(error.response.data);
@@ -19,12 +16,19 @@ import {
   }
 
   
-  
   async function getUser(data) {
     try {
-      // console.log("data  : ", data)
       const response = await getNewUser(data);
-      // console.log("get Action",response)
+      return response.data;
+    } catch (error) {
+      throw Error(error.response.data);
+    }
+  }
+
+
+  async function getUsers() {
+    try {
+      const response = await getNewUsers();
       return response.data;
     } catch (error) {
       throw Error(error.response.data);
@@ -34,7 +38,6 @@ import {
 
   async function updateUser(userId, updateData) {
     try {
-      // console.log("action : ", userId, updateData)
       const response = await updateNewUser({userId, updateData});
       return response.data;
     } catch (error) {
@@ -44,4 +47,4 @@ import {
   
   
   
-  export { createUser,  getUser, updateUser};
+  export { createUser,  getUser, updateUser, getUsers};

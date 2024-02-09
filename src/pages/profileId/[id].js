@@ -8,7 +8,7 @@ const Identity = ({ id, profileData, error }) => {
     return <div>Error: {error}</div>;
   }
 
-  return <Profile profileId={id} profileData={profileData} />;
+  return <Profile profileId={id} profileData={profileData} user={profileData} />;
 };
 
 export default Identity;

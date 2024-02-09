@@ -21,6 +21,14 @@ const userSchema = new Schema({
         type: String,
         default: '/images/blank-profile-picture.webp',
     },
+
+    following: [
+        {
+          userId: String,
+          username: String,
+          userImg: String,
+        },
+      ],
 })
 
 const Users = models.user || model('user', userSchema);

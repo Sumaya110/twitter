@@ -4,7 +4,8 @@ import TrendingList from "../TrendingList/TrendingList";
 import styles from "@/components/Trending/Trending.module.css";
 import FollowUser from "@/components/FollowUser/FollowUser";
 
-const Trending = () => {
+const Trending = ( {user} ) => {
+
   return (
     <div className={styles.combined}>
 
@@ -16,7 +17,7 @@ const Trending = () => {
 
       <div className={styles.combined4}>
         <h1 className="text"> You might like</h1>
-        <FollowUser />
+        <FollowUser  user={user} />
 
         <h1 className={styles.combined5}>Trends for you</h1>
 
@@ -24,7 +25,7 @@ const Trending = () => {
         <TrendingList />
         <TrendingList />
         <TrendingList />
-        {/* <TrendingList /> */}
+      
       </div>
     </div>
   );

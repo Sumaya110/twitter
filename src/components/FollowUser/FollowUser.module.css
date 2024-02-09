@@ -1,0 +1,13 @@
+/* FollowUser.module.css */
+
+.userList {
+    list-style: none; /* Remove default list styles */
+    padding: 0; /* Remove default padding */
+  }
+  
+  .userList > li {
+    margin-bottom: 20px; /* Add space between each user */
+  }
+  
+  /* You can add more styling as needed */
+  

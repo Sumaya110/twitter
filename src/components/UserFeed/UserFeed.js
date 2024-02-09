@@ -53,6 +53,17 @@ const UserFeed = ({ user, pic }) => {
           />
 
           <button onClick={() => setShowModal(true)} className={styles.button}> Edit profile</button>
+
+          {/* {currentUser ? (
+            <button onClick={() => setShowModal(true)} className={styles.button}>
+              Edit profile
+            </button>
+          ) : (
+            <button onClick={handleFollow} className={styles.button}>
+              {isFollowing ? "Unfollow" : "Follow"}
+            </button>
+          )} */}
+
         </div>
 
         {showModal && (

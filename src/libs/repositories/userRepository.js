@@ -17,6 +17,11 @@ const findOne = async ({ email }) => {
   return user;
 };
 
+const find = async () => {
+  const user = await Users.find( );
+  return user;
+};
+
 const tokenFindOne = async ({ verify_token }) => {
   const user = await Users.findOne({ verify_token });
   return user;
@@ -29,10 +34,6 @@ const findById = async (userId ) => {
 
 
 const findOneAndUpdate = async (updateData) => {
-  console.log(
-
-    "repo : ", updateData
-  )
   const response = await Users.findOneAndUpdate(
     { _id: updateData.userId },
     updateData.updateData,
@@ -42,11 +43,8 @@ const findOneAndUpdate = async (updateData) => {
 };
 
 const existOrCreate = async ({ name, email, image }) => {
-  // console.log(name, email, image)
   let user;
   user = await Users.findOne({ email });
-
-  //console.log(user)
 
   if (!user) {
     const verify_token = Array.from({ length: 8 }, () =>
@@ -63,6 +61,8 @@ const existOrCreate = async ({ name, email, image }) => {
   return user;
 };
 
+
+
 const UserRepository = {
   findOne,
   create,
@@ -70,6 +70,7 @@ const UserRepository = {
   findById,
   findOneAndUpdate,
   existOrCreate,
+  find,
 };
 
 export default UserRepository;

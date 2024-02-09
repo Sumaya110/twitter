@@ -1,0 +1,56 @@
+.userInfo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profilePicture {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 50%; /* Make the image circular */
+  }
+  
+  .details {
+    margin-left: 10px;
+  }
+  
+  .actions {
+    margin-left: auto;
+  }
+  
+  .followButton,
+  .unfollowButton {
+    background-color: #007bff; /* Blue color for follow button */
+    color: #fff; /* White text color */
+    border: none; /* Remove border */
+    padding: 5px 10px; /* Add padding */
+    cursor: pointer; /* Show pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+    margin-left: 10px; /* Add space between buttons */
+  }
+  
+  .unfollowButton {
+    background-color: #dc3545; /* Red color for unfollow button */
+  }
+  
+  .followButton:hover,
+  .unfollowButton:hover {
+    background-color: #b3001b; /* Darker blue color on hover */
+  }
+  
+
+  .username{
+    color: gray;
+    margin-top:0;
+    /* margin-bottom: 0; */
+   
+  }
+
+  .name{
+    /* margin-top: 0; */
+    margin-bottom: 0;
+  }
+
+  .profileButton{
+    border: none;
+    background-color: white;
+  }

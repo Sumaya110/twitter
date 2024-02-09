@@ -46,12 +46,21 @@ export const getUser = async (req, res) => {
   }
 };
 
+export const getUsers = async (req, res) => {
+  try {
+    const users = await UserRepository.find(); 
+    res.status(200).json(users);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+
+
 export const getUserId = async (id) => {
   try {
-    // console.log("service hh : ", id);
     const userId = id;
     const response = await UserRepository.findById( userId );
-    // console.log("user repo : ", response);
     return response;
   } catch (error) {
     throw new Error(error.message);

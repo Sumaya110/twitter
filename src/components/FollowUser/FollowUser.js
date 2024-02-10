@@ -8,7 +8,7 @@ const FollowUser = ( {user} ) => {
   
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [user]);
 
   const fetchData = async () => {
     try {

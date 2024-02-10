@@ -12,7 +12,7 @@ import { setPosts } from "@/actions/actions";
 import { useDispatch } from 'react-redux';
 
 
-function Reply({ comment, postId, comments, post, reply, pic, user }) {
+function Reply({ comment, postId, comments, post, reply, user }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [liked, setLiked] = useState(false);
 
@@ -91,7 +91,7 @@ const dispatch = useDispatch();
             ) : (
               <Image
                 className={styles.image}
-                src={pic}
+              
                 alt={`${reply?.username}'s avatar`}
                 width={40}
                 height={40}
@@ -121,7 +121,7 @@ const dispatch = useDispatch();
                 post={post}
                 comment={comment}
                 reply={reply}
-                pic={pic}
+              
                 user={user}
               />
             )}

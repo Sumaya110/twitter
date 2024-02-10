@@ -15,9 +15,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 14px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   padding: 0;
+  margin-left: 22px;
 }
 
 .hoverEffect:hover {
@@ -127,9 +128,7 @@
     position: fixed;
   }
 
-  .twitterIconContainer {
-    margin-left: 24px;
-  }
+ 
 
   .tweetButton {
     display: inline;
@@ -145,6 +144,10 @@
 .profileButton{
   border: none;
   background-color: white;
+  border-radius: 30px;
+}
+.profileButton:hover {
+  background-color: lightgray; 
 }
 
 @media (max-width: 640px) {

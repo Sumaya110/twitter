@@ -9,11 +9,11 @@ import { useRouter } from "next/router";
 const EachFollowUser = ({ fuser, user }) => {
 
   const router = useRouter();
-  const profileId= fuser._id;
- const [followed, setFollowed] = useState(
+  const profileId = fuser._id;
+  const [followed, setFollowed] = useState(
     user?.following?.some((follow) => follow?.userId === fuser?._id)
   );
- 
+
 
   const dispatch = useDispatch();
 
@@ -33,7 +33,7 @@ const EachFollowUser = ({ fuser, user }) => {
     const data = await getUser(user?.email);
 
     dispatch(setUsers(data));
-   
+
   };
 
 
@@ -42,7 +42,7 @@ const EachFollowUser = ({ fuser, user }) => {
 
     setFollowed(false)
     console.log("unfollow")
-    
+
     const updatedFollowing = user?.following?.filter(
       (follow) => follow?.userId !== fuser?._id
     );
@@ -53,16 +53,18 @@ const EachFollowUser = ({ fuser, user }) => {
 
     const data = await getUser(user?.email);
     dispatch(setUsers(data));
-   
+
   };
 
-  const handleUser = async() => {
+  const handleUser = async () => {
     router.push(`/profileId/${profileId}`);
   };
 
   return (
     <div>
-      <div className={styles.userInfo}>
+
+      <button className={styles.userInfo} onClick={handleUser}>
+        
         <Image
           src={fuser?.profilePicture}
           alt="Profile"
@@ -71,10 +73,8 @@ const EachFollowUser = ({ fuser, user }) => {
           height={40}
         />
         <div className={styles.details}>
-        <button className={styles.profileButton} onClick={handleUser}>
-        <h3 className={styles.name}>{fuser?.name}</h3>
-        </button>
-         
+
+          <h3 className={styles.name}>{fuser?.name}</h3>
           <p className={styles.username}> @{fuser?.username}</p>
         </div>
 
@@ -95,7 +95,8 @@ const EachFollowUser = ({ fuser, user }) => {
             </button>
           )}
         </div>
-      </div>
+        
+      </button>
     </div>
   );
 };

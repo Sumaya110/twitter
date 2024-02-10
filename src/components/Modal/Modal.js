@@ -138,7 +138,7 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
               />) : (
               <Image
                 className={styles.imageStyle}
-                src={pic}
+               
                 alt=""
                 width={40}
                 height={40}
@@ -213,7 +213,7 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
             ) : (
               <Image
                 className={styles.imageStyle}
-                src={pic}
+               
                 alt=""
                 width={40}
                 height={40}

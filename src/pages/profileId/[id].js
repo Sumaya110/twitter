@@ -1,22 +1,30 @@
 import Profile from '@/components/Profile/Profile';
 import { getUserId } from '@/libs/services/user-service';
 import React from 'react';
+import { getSession } from "next-auth/react";
+// import { getUserId } from "@/libs/services/user-service";
 
-const Identity = ({ id, profileData, error }) => {
+
+const Identity = ({ user_email, id, profileData, error }) => {
   if (error) {
     console.error("Error fetching profile data:", error);
     return <div>Error: {error}</div>;
   }
 
-  return <Profile profileId={id} profileData={profileData} user={profileData} />;
+  return <Profile user_email={user_email} id={id} feedUser={profileData}  />;
 };
 
 export default Identity;
 
 export async function getServerSideProps(context) {
+
+  const session = await getSession(context);
+ 
+  
+
   try {
+    const user_email= session?.user?.email;
     const id = context.query.id;
-    // console.log("id  : ", id);
     const profileData = await getUserId(id);
 
     const serializableProfileData = {
@@ -29,6 +37,7 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
+        user_email,
         id,
         profileData: serializableProfileData,
       },
@@ -37,6 +46,7 @@ export async function getServerSideProps(context) {
     console.error("Error fetching profile data:", error);
     return {
       props: {
+        user_email: null,
         id: null,
         profileData: null,
         error: "Error fetching profile data",

@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux';
 
 
 
-function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
+function Comment({ comment, postId, comments, post, user , fetchData}) {
     const [showModal, setShowModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [liked, setLiked] = useState(false);
@@ -71,23 +71,13 @@ function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
             <div className={styles.commentContainer}>
                 <div className={styles.sameSpan}>
 
-                    {comment?.userImg ? (<Image
+                    <Image
                         className={styles.image}
                         src={comment?.userImg}
                         alt={`${comment?.username}'s avatar`}
                         width={40}
                         height={40}
-                    />) :
-                        (
-                            <Image
-                                className={styles.image}
-                                src={pic}
-                                alt={`${comment?.username}'s avatar`}
-                                width={40}
-                                height={40}
-                            />
-                        )}
-
+                    />
 
                     <div className={styles.topBottom}>
                         <span className={styles.userName}>{comment?.username}</span>
@@ -140,7 +130,7 @@ function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
                         className={styles.comment10}
                         onClick={() => setShowModal(true)}
                     />
-                    {showModal && <Modal onClose={() => setShowModal(false)} id={postId} post={post} comment={comment} pic={pic} user={user} option={2} />}
+                    {showModal && <Modal onClose={() => setShowModal(false)} id={postId} post={post} comment={comment}  user={user} option={2} />}
 
 
                     {comment?.replies?.length > 0 && (
@@ -189,7 +179,7 @@ function Comment({ comment, postId, comments, post, pic, user , fetchData}) {
                                 post={post}
                                 reply={reply}
                                 user={user}
-                                pic={pic}
+                               
                             />
                         ))}
                     </div>

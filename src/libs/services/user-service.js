@@ -39,7 +39,7 @@ export const getUser = async (req, res) => {
   try {
     const email = req.query.email
     const response = await UserRepository.findOne({email});
-   
+  
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);

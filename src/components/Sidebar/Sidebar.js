@@ -8,47 +8,72 @@ import { BsThreeDots } from "react-icons/bs";
 import { AiFillHome, AiOutlineInbox, AiOutlineUser } from "react-icons/ai";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { signOut} from "next-auth/react";
+import { signOut } from "next-auth/react";
 import {
   HiOutlineClipboardList,
   HiOutlineDotsCircleHorizontal,
 } from "react-icons/hi";
 
 
-const Sidebar = ({ user, pic}) => {
+const Sidebar = ({ user }) => {
   const router = useRouter();
-  const profileId= user._id;
+  console.log("userrr :: ", user)
 
-  const handleEditProfile = async() => {
+
+  const profileId = user?._id;
+
+
+
+  const handleEditProfile = async () => {
     router.push(`/profileId/${profileId}`);
   };
 
-  const handleHome = async() => {
+  const handleHome = async () => {
     router.push("/home")
   }
 
   return (
     <div className={styles.mainDiv}>
+     
+      <div className={styles.sidebar}>
+        
       <div className={styles.twitterIconContainer}>
         <FaXTwitter className={styles.twitterIcon} />
       </div>
-      <div className={styles.sidebar}>
 
-      <button className={styles.profileButton} onClick={handleHome}>
-      <SidebarLink text="Home" Icon={AiFillHome} />
+        <button className={styles.profileButton} onClick={handleHome}>
+          <SidebarLink text="Home" Icon={AiFillHome} />
         </button>
-        
-        <SidebarLink text="Explore" Icon={BiHash} />
-        <SidebarLink text="Notifications" Icon={BsBell} />
-        <SidebarLink text="Messages" Icon={AiOutlineInbox} />
-        <SidebarLink text="Bookmarks" Icon={BsBookmark} />
-        <SidebarLink text="Lists" Icon={HiOutlineClipboardList} />
+
+        <button className={styles.profileButton}>
+          <SidebarLink text="Explore" Icon={BiHash} />
+        </button>
+
+       
+        <button className={styles.profileButton}>
+          <SidebarLink text="Notifications" Icon={BsBell} />
+        </button>
+
+        <button className={styles.profileButton}>
+          <SidebarLink text="Messages" Icon={AiOutlineInbox} />
+        </button>
+
+        <button className={styles.profileButton}>
+          <SidebarLink text="Bookmarks" Icon={BsBookmark} />
+        </button>
+
+        <button className={styles.profileButton}>
+          <SidebarLink text="Lists" Icon={HiOutlineClipboardList} />
+        </button>
 
         <button className={styles.profileButton} onClick={handleEditProfile}>
           <SidebarLink text="Profile" Icon={AiOutlineUser} />
         </button>
 
-        <SidebarLink text="More" Icon={HiOutlineDotsCircleHorizontal} />
+        <button className={styles.profileButton}>
+          <SidebarLink text="More" Icon={HiOutlineDotsCircleHorizontal} />
+        </button>
+
       </div>
 
       <button className={styles.tweetButton}>Post</button>
@@ -64,7 +89,7 @@ const Sidebar = ({ user, pic}) => {
           />
         ) : (
           <Image
-            src={user.blankPicture}
+            src={user?.blankPicture}
             alt=""
             className={styles.userImage}
             width={40}

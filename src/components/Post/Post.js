@@ -14,15 +14,29 @@ import { FaEdit } from "react-icons/fa";
 import EditModal from "@/components/EditModal/EditModal"
 import { setPosts } from "@/actions/actions";
 import { useDispatch } from 'react-redux';
+import { getUser } from "@/libs/action/userAction";
+import { IoInformation } from "react-icons/io5";
 
 
-const Post = ({ id, post, pic, user , fetchData}) => {
+const Post = ({ id, post, user, fetchData }) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [liked, setLiked] = useState(false);
-  
+  const [postUser, setPostUser] = useState()
+  // var postUser;
+
+
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchdata = async () =>{
+      const info =await getUser(post.userEmail)
+      // console.log(postUser)
+      setPostUser(info)
+    }
+    fetchdata();
+  }, [])
 
 
   const likePost = async () => {
@@ -37,7 +51,7 @@ const Post = ({ id, post, pic, user , fetchData}) => {
     } else {
       setLiked(true);
       post?.likes?.push({
-  
+
         userId: user?._id,
         username: user?.username,
         userImg: user?.userImg,
@@ -66,28 +80,19 @@ const Post = ({ id, post, pic, user , fetchData}) => {
             <div key={post?._id} className={styles.postContainer}>
               <div className={styles.sameSpan}>
 
-                {post?.userImg ? (
-                  <Image
-                    className={styles.image}
-                    src={post?.userImg}
-                    alt={`${post?.username}'s avatar`}
-                    width={40}
-                    height={40}
-                  />
-                ) : (
-                  <Image
-                    className={styles.image}
-                    src={pic}
-                    alt={`${post?.username}'s avatar`}
-                    width={40}
-                    height={40}
-                  />
 
-                )}
+                <Image
+                  className={styles.image}
+                  src={postUser?.profilePicture}
+                  alt={`${postUser?.username}'s avatar`}
+                  width={40}
+                  height={40}
+                />
+
 
                 <div className={styles.topBottom}>
-                  <span className={styles.userName}>{user?.name}</span>
-                  <span className={styles.tag}>@{user?.username}</span>
+                  <span className={styles.userName}>{postUser?.name}</span>
+                  <span className={styles.tag}>@{postUser?.username}</span>
                 </div>
 
                 <Moment fromNow className={styles.time}>
@@ -135,7 +140,7 @@ const Post = ({ id, post, pic, user , fetchData}) => {
                 onClose={() => setShowModal(false)}
                 id={id}
                 post={post}
-                pic={pic}
+
                 user={user}
                 option={1}
               />
@@ -187,9 +192,9 @@ const Post = ({ id, post, pic, user , fetchData}) => {
                 postId={id}
                 comments={post?.comments}
                 post={post}
-                pic={pic}
+
                 user={user}
-                fetchData={()=>fetchData()}
+                fetchData={() => fetchData()}
               />
             ))}
           </div>

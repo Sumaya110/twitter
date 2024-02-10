@@ -13,7 +13,7 @@ import moment from "moment";
 import { setPosts } from "@/actions/actions";
 import { useDispatch } from 'react-redux';
 
-const Input = ({pic, user} ) => {
+const Input = ({ user} ) => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -51,8 +51,9 @@ const Input = ({pic, user} ) => {
     try {
       const postId = await createPost({
         userId: user._id,
+        userEmail: user.email,
         username:user.name,
-        userImg: user.image,
+        // userImg: user.image,
         username: user.username,
         text: input,
         timestamp: new Date(),

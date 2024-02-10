@@ -1,56 +1,63 @@
 .userInfo {
-    display: flex;
-    align-items: center;
-  }
-  
-  .profilePicture {
-    width: 50px; /* Adjust size as needed */
-    height: 50px; /* Adjust size as needed */
-    border-radius: 50%; /* Make the image circular */
-  }
-  
-  .details {
-    margin-left: 10px;
-  }
-  
-  .actions {
-    margin-left: auto;
-  }
-  
-  .followButton,
-  .unfollowButton {
-    background-color: #007bff; /* Blue color for follow button */
-    color: #fff; /* White text color */
-    border: none; /* Remove border */
-    padding: 5px 10px; /* Add padding */
-    cursor: pointer; /* Show pointer cursor on hover */
-    border-radius: 5px; /* Rounded corners */
-    margin-left: 10px; /* Add space between buttons */
-  }
-  
-  .unfollowButton {
-    background-color: #dc3545; /* Red color for unfollow button */
-  }
-  
-  .followButton:hover,
-  .unfollowButton:hover {
-    background-color: #b3001b; /* Darker blue color on hover */
-  }
-  
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 30px;
+  width: 100%;
+  padding: 10px 20px;
+}
 
-  .username{
-    color: gray;
-    margin-top:0;
-    /* margin-bottom: 0; */
-   
-  }
+.userInfo:hover {
+  background-color: #dbd4d7;
+}
 
-  .name{
-    /* margin-top: 0; */
-    margin-bottom: 0;
-  }
+.profilePicture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
 
-  .profileButton{
-    border: none;
-    background-color: white;
-  }
+.details {
+  margin-left: 10px;
+  align-items: left;
+  /* margin-right: 10px; */
+}
+
+.actions {
+  margin-left: auto;
+  display: flex; 
+  align-items:left;
+}
+
+.followButton,
+.unfollowButton,
+.profileButton {
+  background-color: #000102;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 30px;
+
+  right: 90%;
+  font-weight: bolder;
+}
+
+.followButton:hover,
+.unfollowButton:hover,
+.profileButton:hover {
+  background-color: #535152;
+}
+
+.username {
+  color: gray;
+  margin-top: 0;
+}
+
+.name {
+  margin-bottom: 0;
+}
+
+.name:hover{
+  text-decoration: underline;
+}

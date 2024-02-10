@@ -7,19 +7,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { setPosts, setUsers } from "@/actions/actions";
 import Image from "next/image";
 import ProfileEditModal from "@/components/EditProfileModal/EditProfileModal";
-import { getUser } from "@/libs/action/userAction";
+import { getUser, updateUser } from "@/libs/action/userAction";
 
-const UserFeed = ({ user, pic }) => {
+
+const UserFeed = ({ user, sessionUser }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
   const User = useSelector((state) => state.users.users);
-  console.log("usersss : ", User)
   const [showModal, setShowModal] = useState(false);
 
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [user]);
 
   const fetchData = async () => {
     try {
@@ -32,6 +32,8 @@ const UserFeed = ({ user, pic }) => {
       console.error("Error fetching data:", error);
     }
   };
+
+ 
 
   return (
     <section className={styles.section}>
@@ -52,7 +54,11 @@ const UserFeed = ({ user, pic }) => {
             height={200}
           />
 
-          <button onClick={() => setShowModal(true)} className={styles.button}> Edit profile</button>
+          {user?._id===sessionUser?._id ? ( <button onClick={() => setShowModal(true)} className={styles.button}> Edit profile</button>):(
+             <button  className={styles.button}> Follow</button>
+          )}
+
+           {/* <button onClick={() => setShowModal(true)} className={styles.button}> Edit profile</button> */}
 
           {/* {currentUser ? (
             <button onClick={() => setShowModal(true)} className={styles.button}>
@@ -88,7 +94,7 @@ const UserFeed = ({ user, pic }) => {
             key={post._id}
             id={post._id}
             post={post}
-            pic={pic}
+           
             user={User}
             fetchData={() => fetchData()}
           />

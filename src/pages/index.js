@@ -15,7 +15,7 @@ export default IndexPage;
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  // console.log("session ", session?.user);
+ 
   let existUser = null;
   
   if (session?.user?._id) {

@@ -1,25 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "@/components/Profile/Profile.module.css";
 import Sidebar from "../Sidebar/Sidebar";
 import Trending from "../Trending/Trending";
 import UserFeed from "../UserFeed/UserFeed";
+import { getUser } from "@/libs/action/userAction";
 
-const Profile = ({profileId, profileData, user}) => {
-  // const users = useSelector((state) => state.users.users);
+const Profile = ({ user_email, feedUser }) => {
+  const [user, setUser] = useState(null)
+
+  console.log("lll ", feedUser)
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const info = await getUser(user_email)
+      setUser(info)
+    }
+    fetchdata();
+  }, [])
+
 
   return (
     <div>
       <main className={styles.main}>
         <div className={styles.sidebar}>
-          <Sidebar user={profileData} pic={profileData.profilePicture} />
+          <Sidebar user={user} />
         </div>
 
         <div className={styles.container}>
-          <UserFeed user={profileData} pic={profileData.profilePicture} />
-          <Trending  user={profileData} />
+          <UserFeed user={feedUser} sessionUser={user} />
+          <Trending user={user} />
         </div>
       </main>
-     
+
     </div>
   );
 };

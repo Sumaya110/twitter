@@ -10,7 +10,6 @@ const getPosts = async (req, res) => {
 
 // GET post
 const getPost = async (req, res) => {
-  // console.log("post controller : ", req);
   const postId = req.params;
   const posts = await PostRepository.findById({ postId });
   res.status(200).json(posts);

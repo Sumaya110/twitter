@@ -3,8 +3,9 @@ import Post from "../models/postModel";
 const create = async (content) => {
   const post = await Post.create({
     userId: content.userId,
+    userEmail: content.userEmail,
     username: content.username,
-    userImg: content.userImg,
+   
     tag: content.tag,
     text: content.text,
     timestamp: content.timestamp,

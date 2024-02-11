@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { BsChat } from "react-icons/bs";
 import { FaRetweet } from "react-icons/fa";
-import { AiOutlineHeart, AiOutlineShareAlt, AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import Moment from "react-moment";
 import styles from "@/components/Post/Post.module.css";
 import Image from "next/image";
 import "moment-timezone";
-import { deletePost, getPost, getPosts, updatePost } from "@/libs/action/postAction";
+import { createPost, deletePost, getPosts, updatePost } from "@/libs/action/postAction";
 import Modal from "../Modal/Modal";
 import Comment from "../Comment/Comment";
 import { FaEdit } from "react-icons/fa";
@@ -15,7 +15,6 @@ import EditModal from "@/components/EditModal/EditModal"
 import { setPosts } from "@/actions/actions";
 import { useDispatch } from 'react-redux';
 import { getUser } from "@/libs/action/userAction";
-import { IoInformation } from "react-icons/io5";
 
 
 const Post = ({ id, post, user, fetchData }) => {
@@ -23,16 +22,13 @@ const Post = ({ id, post, user, fetchData }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [liked, setLiked] = useState(false);
   const [postUser, setPostUser] = useState()
-  // var postUser;
-
-
-
   const dispatch = useDispatch();
 
+  // console.log("jj ", user?.name)
+
   useEffect(() => {
-    const fetchdata = async () =>{
-      const info =await getUser(post.userEmail)
-      // console.log(postUser)
+    const fetchdata = async () => {
+      const info = await getUser(post?.userEmail)
       setPostUser(info)
     }
     fetchdata();
@@ -51,7 +47,6 @@ const Post = ({ id, post, user, fetchData }) => {
     } else {
       setLiked(true);
       post?.likes?.push({
-
         userId: user?._id,
         username: user?.username,
         userImg: user?.userImg,
@@ -72,12 +67,41 @@ const Post = ({ id, post, user, fetchData }) => {
     dispatch(setPosts(data));
   };
 
+
+  const handleRetweetPost = async () => {
+    const postId = await createPost({
+      userId: user?._id,
+      userEmail: post?.userEmail,
+      username: post?.username,
+      text: post?.text,
+      imageUrl: post?.imageUrl,
+      retweetedFrom: post?.userEmail,
+      retweetedBy: user?.name,
+      timestamp: new Date(),
+    });
+
+    const data = await getPosts(user?._id);
+    dispatch(setPosts(data));
+  }
+
+
   return (
     <div className={styles.combined}>
       <div className={styles.full}>
         {post && (
           <div>
             <div key={post?._id} className={styles.postContainer}>
+
+              {post?.retweetedBy && (
+
+                <div className={styles.flex}>
+                  <div  className={styles.icon}>  <FaRetweet /> </div>
+                 
+                  {post.retweetedBy === user?.name ? "You retweeted this post" : `${post.retweetedBy} retweeted this post`}
+    
+                </div>
+
+              )}
               <div className={styles.sameSpan}>
 
 
@@ -150,17 +174,12 @@ const Post = ({ id, post, user, fetchData }) => {
               <span className={styles.textSm}>{post?.comments?.length}</span>
             )}
           </div>
-          {user?._id !== post?.userId ? (
-            <FaRetweet className={styles.combined10} />
-          ) : (
-            <RiDeleteBin5Line
-              className={styles.combined10}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDeletePost();
-              }}
-            />
-          )}
+          <FaRetweet className={styles.combined10} onClick={(e) => {
+            e.stopPropagation();
+            handleRetweetPost();
+
+          }} />
+
           <div
             className={styles.combined11}
             onClick={(e) => {
@@ -178,7 +197,18 @@ const Post = ({ id, post, user, fetchData }) => {
               <span className={styles.textPink}>{post?.likes?.length}</span>
             )}
           </div>
-          <AiOutlineShareAlt className={styles.combined10} />
+
+          {user?._id === post?.userId && (
+
+            <RiDeleteBin5Line
+              className={styles.combined10}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeletePost();
+              }}
+            />
+          )}
+
         </div>
       </div>
 

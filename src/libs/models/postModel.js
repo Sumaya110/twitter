@@ -10,6 +10,9 @@ const postSchema = new Schema({
   image: String,
   timestamp: Date,
   imageUrl: String,
+  retweetedFrom: String,
+  retweetedBy: String,
+
   likes: [
     {
       userId: String,

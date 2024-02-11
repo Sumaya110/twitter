@@ -12,19 +12,31 @@ const Feed = ({ user}) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
 
-
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [user]);
+
 
   const fetchData = async () => {
     try {
-      const data = await getPosts(user._id);
-      dispatch(setPosts(data));
+     
+      const postsPromises = user.following.map(async (follower) => {
+        return await getPosts(follower.userId);
+      });
+  
+      const currentUserPosts = await getPosts(user._id);
+      const postsData = await Promise.all([...postsPromises, currentUserPosts]);
+      const allPosts = postsData.reduce((acc, curr) => acc.concat(curr), []);
+      
+       allPosts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+  
+      dispatch(setPosts(allPosts));
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
+  
 
   return (
     <section className={styles.section}>

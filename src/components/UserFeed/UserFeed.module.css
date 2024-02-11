@@ -82,6 +82,25 @@
   color: gray;
 }
 
+.followButton,
+.unfollowButton,
+.profileButton {
+  background-color: #000102;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 30px;
+
+  right: 90%;
+  font-weight: bolder;
+}
+
+.followButton:hover,
+.unfollowButton:hover,
+.profileButton:hover {
+  background-color: #535152;
+}
 
 @media (max-width: 1280px) {
   .section {

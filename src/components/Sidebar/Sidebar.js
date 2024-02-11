@@ -17,12 +17,8 @@ import {
 
 const Sidebar = ({ user }) => {
   const router = useRouter();
-  console.log("userrr :: ", user)
-
-
+  
   const profileId = user?._id;
-
-
 
   const handleEditProfile = async () => {
     router.push(`/profileId/${profileId}`);

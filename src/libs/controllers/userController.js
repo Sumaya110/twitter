@@ -11,9 +11,6 @@ const createToken = (_id) => {
 const signupUser = async (req, res) => {
   const { email, password,  verify_token } = req.body;
 
-
-  // console.log("from controller : ", req.body)
-
   try {
  
     if (!email || !password) {

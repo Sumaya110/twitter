@@ -8,8 +8,6 @@ import { getUser } from "@/libs/action/userAction";
 const Profile = ({ user_email, feedUser }) => {
   const [user, setUser] = useState(null)
 
-  console.log("lll ", feedUser)
-
   useEffect(() => {
     const fetchdata = async () => {
       const info = await getUser(user_email)
@@ -28,7 +26,7 @@ const Profile = ({ user_email, feedUser }) => {
 
         <div className={styles.container}>
           <UserFeed user={feedUser} sessionUser={user} />
-          <Trending user={user} />
+          <Trending user={user} option={2} />
         </div>
       </main>
 

@@ -4,7 +4,7 @@ import TrendingList from "../TrendingList/TrendingList";
 import styles from "@/components/Trending/Trending.module.css";
 import FollowUser from "@/components/FollowUser/FollowUser";
 
-const Trending = ( {user} ) => {
+const Trending = ({ user, option }) => {
 
   return (
     <div className={styles.combined}>
@@ -12,12 +12,16 @@ const Trending = ( {user} ) => {
       <div className={styles.combined2}>
         <FiSearch />
         <input className={styles.combined3} type="text" placeholder="Search" />
-       </div>
+      </div>
 
 
       <div className={styles.combined4}>
-        <h1 className="text"> You might like</h1>
-        <FollowUser  user={user} />
+        {option === 1 && (
+          <div>
+            <h1 className="text"> You might like</h1>
+            <FollowUser user={user} />
+          </div>
+        )}
 
         <h1 className={styles.combined5}>Trends for you</h1>
 
@@ -25,7 +29,7 @@ const Trending = ( {user} ) => {
         <TrendingList />
         <TrendingList />
         <TrendingList />
-      
+
       </div>
     </div>
   );

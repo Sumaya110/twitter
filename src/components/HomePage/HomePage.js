@@ -49,7 +49,7 @@ const HomePage = ({ user }) => {
 
           <div className={styles.container}>
             <Feed user={user} />
-            <Trending user={user} />
+            <Trending user={user} option={1} />
           </div>
         </main>
       ) :(

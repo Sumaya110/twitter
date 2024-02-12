@@ -2,10 +2,9 @@ import NextAuth from "next-auth/next";
 import GoogleProvider from "next-auth/providers/google";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
-import Users from "@/libs/models/userModel";
 import connectMongo from "@/confiig/ConnectDB/ConnectDB";
 import { existOrCreate } from "@/libs/services/user-service";
-const bcrypt = require('bcrypt')
+import { loginWithCredentials } from "@/libs/services/user-service";
 
 export const authOptions = {
   providers: [
@@ -13,25 +12,14 @@ export const authOptions = {
     CredentialsProvider({
       name: "Credentials",
       async authorize(credentials, req) {
-       
         connectMongo()
-        const result = await Users.findOne({ email: credentials.email });
-        if (!result) {
-          throw new Error("No user Found with Email Please Sign Up...!");
+        try {
+          const { email, password } = credentials;
+          const user = await loginWithCredentials(email, password);
+          return user;
+        } catch (error) {
+          throw new Error(error.message);
         }
-
-     
-        const checkPassword = await bcrypt.compare(
-          credentials.password,
-          result.password
-        );
-
-        
-        if (!checkPassword || result.email !== credentials.email) {
-          throw new Error("Username or Password doesn't match");
-        }
-
-        return result;
       },
     }),
 
@@ -54,7 +42,6 @@ export const authOptions = {
         image: session?.user?.image,
 
       })
-      // console.log("next creden", result)
 
       session.user.username=result?.username;
       session.user.name= result?.name;

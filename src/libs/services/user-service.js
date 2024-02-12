@@ -79,6 +79,28 @@ export const updateUser = async (req, res) => {
 };
 
 
+
+export async function loginWithCredentials(email, password) {
+  try {
+    const user = await UserRepository.findOne({ email });
+
+    if (!user) {
+      throw new Error("No user found with this email. Please sign up.");
+    }
+
+    const checkPassword = await bcrypt.compare(password, user.password);
+
+    if (!checkPassword) {
+      throw new Error("Username or password doesn't match.");
+    }
+
+    return user;
+  } catch (error) {
+    throw new Error("Error occurred while logging in: " + error.message);
+  }
+}
+
+
 export const existOrCreate = async ({name, email, image}) => {
 
   const response = await UserRepository.existOrCreate({name , email, image});

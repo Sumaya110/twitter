@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "@/components/CommentEditModal/CommentEditModal.module.css";
 import { MdClose } from "react-icons/md";
@@ -14,6 +14,7 @@ import data from "@emoji-mart/data";
 import { getPosts, updatePost } from "@/libs/action/postAction";
 import { setPosts } from "@/actions/actions";
 import { useDispatch } from 'react-redux';
+import { useSession } from "next-auth/react";
 
 const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
   const [input, setInput] = useState(comment.text);
@@ -21,7 +22,10 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(comment.imageUrl);
+  const [commentUser, setCommentUser] = useState();
   const dispatch = useDispatch();
+  const { data: session } = useSession();
+  console.log("session  :: ", session?.user)
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -100,7 +104,7 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
           <div className={styles.padding}>
             <Image
               className={styles.imageStyle}
-              src={post?.userImg}
+              src={comment?.profilePicture}
               alt=""
               width={40}
               height={40}
@@ -110,7 +114,7 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
 
           <div>
             <div className={styles.combined2}>
-              <h1>{post?.username}</h1>
+              <h1>{commentUser?.username}</h1>
               <h2 className={styles.gray}>
                 <Moment fromNow>{timestamp}</Moment>
               </h2>

@@ -13,31 +13,44 @@ import {
   HiOutlineClipboardList,
   HiOutlineDotsCircleHorizontal,
 } from "react-icons/hi";
-
+import { getUser } from "@/libs/action/userAction";
+import { setUsers } from "@/actions/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useSession } from "next-auth/react";
 
 const Sidebar = ({ user }) => {
+  const dispatch = useDispatch();
   const router = useRouter();
-  
-  const profileId = user?._id;
+  const User = useSelector((state) => state.users.users);
+  const { data: session } = useSession();
+
+  // console.log("user from sidebar : ", user);
+  // console.log("UUUser from sidebar : ", User);
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const info = await getUser(session?.user?.email);
+      dispatch(setUsers(info));
+    };
+    fetchdata();
+  }, []);
 
   const handleEditProfile = async () => {
-    router.push(`/profileId/${profileId}`);
+    router.push(`/profileId/${session?.user?._id}`);
   };
 
   const handleHome = async () => {
-    router.push("/home")
-  }
+    router.push("/home");
+  };
 
   return (
     <div className={styles.mainDiv}>
-     
       <div className={styles.sidebar}>
-        
-      <div className={styles.twitterIconContainer}>
-        <FaXTwitter className={styles.twitterIcon} />
-      </div>
+        <div className={styles.twitterIconContainer}>
+          <FaXTwitter className={styles.twitterIcon} />
+        </div>
 
-        <button className={styles.profileButton} onClick={handleHome}>
+        <button className={styles.profileButton} onClick={() => handleHome()}>
           <SidebarLink text="Home" Icon={AiFillHome} />
         </button>
 
@@ -45,7 +58,6 @@ const Sidebar = ({ user }) => {
           <SidebarLink text="Explore" Icon={BiHash} />
         </button>
 
-       
         <button className={styles.profileButton}>
           <SidebarLink text="Notifications" Icon={BsBell} />
         </button>
@@ -62,22 +74,24 @@ const Sidebar = ({ user }) => {
           <SidebarLink text="Lists" Icon={HiOutlineClipboardList} />
         </button>
 
-        <button className={styles.profileButton} onClick={handleEditProfile}>
+        <button
+          className={styles.profileButton}
+          onClick={() => handleEditProfile()}
+        >
           <SidebarLink text="Profile" Icon={AiOutlineUser} />
         </button>
 
         <button className={styles.profileButton}>
           <SidebarLink text="More" Icon={HiOutlineDotsCircleHorizontal} />
         </button>
-
       </div>
 
       <button className={styles.tweetButton}>Post</button>
 
-      <div className={styles.signOutDiv}>
-        {user?.profilePicture ? (
+      <div className={styles.signOutDiv} onClick={() => signOut()}>
+        {User?.profilePicture ? (
           <Image
-            src={user?.profilePicture}
+            src={User?.profilePicture}
             alt=""
             className={styles.userImage}
             width={40}
@@ -85,7 +99,7 @@ const Sidebar = ({ user }) => {
           />
         ) : (
           <Image
-            src={user?.blankPicture}
+            src={User?.blankPicture}
             alt=""
             className={styles.userImage}
             width={40}
@@ -94,16 +108,12 @@ const Sidebar = ({ user }) => {
         )}
 
         <div className={styles.userDetails}>
-          <h4>{user?.name}</h4>
-          <p>@{user?.username}</p>
+          <h4>{User?.name}</h4>
+          <p>@{User?.username}</p>
         </div>
 
         <BsThreeDots className={styles.dotsIcon} />
       </div>
-      <button onClick={signOut} className={styles.signoutButton}>
-        {" "}
-        SignOut
-      </button>
     </div>
   );
 };

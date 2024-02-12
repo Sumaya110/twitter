@@ -23,13 +23,14 @@ export async function getServerSideProps(context) {
   
 
   try {
-    const user_email= session?.user?.email;
+    const user_email= session?.user?.email || null;
     const id = context.query.id;
     const profileData = await getUserId(id);
 
     const serializableProfileData = {
       _id: profileData._id.toString(),
       username: profileData.username,
+      name: profileData.name,
       email: profileData.email,
       profilePicture: profileData.profilePicture,
       coverPicture: profileData.coverPicture,

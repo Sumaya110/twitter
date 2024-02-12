@@ -9,42 +9,35 @@ import { getUser } from "@/libs/action/userAction";
 
 const HomePage = ({ user }) => {
   const [existUser, setExistUser] = useState();
-  const router= useRouter()
- 
+  const router = useRouter();
+
   useEffect(() => {
     const replace = async () => {
       if (!user) {
         await router.replace("/");
       } else {
-        setExistUser(true);
+        const fetchData = async () => {
+          try {
+            const User = await getUser(user?.email);
+            setExistUser(User);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+
+        fetchData();
       }
     };
 
     replace();
   }, [user, router]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const User = await getUser(user?.email);
-      
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData();
-
-  }, [user])
-
-
   return (
     <div>
       {existUser ? (
-        
         <main className={styles.main}>
           <div className={styles.sidebar}>
-            <Sidebar  user ={user}/>
+            <Sidebar user={user}/>
           </div>
 
           <div className={styles.container}>
@@ -52,9 +45,9 @@ const HomePage = ({ user }) => {
             <Trending user={user} option={1} />
           </div>
         </main>
-      ) :(
+      ) : (
         <Login />
-      ) }
+      )}
     </div>
   );
 };

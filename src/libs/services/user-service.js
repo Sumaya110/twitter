@@ -84,4 +84,3 @@ export const existOrCreate = async ({name, email, image}) => {
   const response = await UserRepository.existOrCreate({name , email, image});
   return response
 }
-

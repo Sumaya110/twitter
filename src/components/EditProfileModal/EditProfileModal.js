@@ -16,7 +16,6 @@ const Modal = ({ onClose, user }) => {
   const [name, setName] = useState(user.name);
   const [selectedProPic, setSelectedProPic] = useState(user.profilePicture);
   const [selectedCoverPic, setSelectedCoverPic] = useState(user.coverPicture);
-
   const dispatch = useDispatch();
 
   const addImageToProPic = (e) => {
@@ -62,7 +61,6 @@ const Modal = ({ onClose, user }) => {
 
   
       const data = await getUser(user?.email);
-      console.log("data after change : ", data)
       dispatch(setUsers(data));
     }
 

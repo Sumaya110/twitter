@@ -7,33 +7,44 @@ import Moment from "react-moment";
 import styles from "@/components/Post/Post.module.css";
 import Image from "next/image";
 import "moment-timezone";
-import { createPost, deletePost, getPosts, updatePost } from "@/libs/action/postAction";
+import {
+  createPost,
+  deletePost,
+  getPosts,
+  updatePost,
+} from "@/libs/action/postAction";
 import Modal from "../Modal/Modal";
 import Comment from "../Comment/Comment";
 import { FaEdit } from "react-icons/fa";
-import EditModal from "@/components/EditModal/EditModal"
+import EditModal from "@/components/EditModal/EditModal";
 import { setPosts } from "@/actions/actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { getUser } from "@/libs/action/userAction";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 
 
 const Post = ({ id, post, user, fetchData }) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [liked, setLiked] = useState(false);
-  const [postUser, setPostUser] = useState()
+  const [postUser, setPostUser] = useState();
   const dispatch = useDispatch();
-
-  // console.log("jj ", user?.name)
+  const router = useRouter();
+  const { data: session } = useSession();
+  
 
   useEffect(() => {
     const fetchdata = async () => {
-      const info = await getUser(post?.userEmail)
-      setPostUser(info)
-    }
+      const info = await getUser(post?.userEmail);
+      setPostUser(info);
+    };
     fetchdata();
-  }, [])
+  }, [post, user ]);
 
+  const handleUser = async () => {
+    router.push(`/profileId/${postUser?._id}`);
+  };
 
   const likePost = async () => {
     const likedIndex = post?.likes?.findIndex(
@@ -67,7 +78,6 @@ const Post = ({ id, post, user, fetchData }) => {
     dispatch(setPosts(data));
   };
 
-
   const handleRetweetPost = async () => {
     const postId = await createPost({
       userId: user?._id,
@@ -82,8 +92,7 @@ const Post = ({ id, post, user, fetchData }) => {
 
     const data = await getPosts(user?._id);
     dispatch(setPosts(data));
-  }
-
+  };
 
   return (
     <div className={styles.combined}>
@@ -91,20 +100,19 @@ const Post = ({ id, post, user, fetchData }) => {
         {post && (
           <div>
             <div key={post?._id} className={styles.postContainer}>
-
               {post?.retweetedBy && (
-
                 <div className={styles.flex}>
-                  <div  className={styles.icon}>  <FaRetweet /> </div>
-                 
-                  {post.retweetedBy === user?.name ? "You retweeted this post" : `${post.retweetedBy} retweeted this post`}
-    
-                </div>
+                  <div className={styles.icon}>
+                    {" "}
+                    <FaRetweet />{" "}
+                  </div>
 
+                  {post.retweetedBy === user?.name
+                    ? "You retweeted this post"
+                    : `${post.retweetedBy} retweeted this post`}
+                </div>
               )}
               <div className={styles.sameSpan}>
-
-
                 <Image
                   className={styles.image}
                   src={postUser?.profilePicture}
@@ -113,9 +121,8 @@ const Post = ({ id, post, user, fetchData }) => {
                   height={40}
                 />
 
-
                 <div className={styles.topBottom}>
-                  <span className={styles.userName}>{postUser?.name}</span>
+                  <span className={styles.userName} onClick={ () => handleUser()} >{postUser?.name}</span>
                   <span className={styles.tag}>@{postUser?.username}</span>
                 </div>
 
@@ -123,12 +130,18 @@ const Post = ({ id, post, user, fetchData }) => {
                   {post?.timestamp}
                 </Moment>
 
-                <FaEdit
-                  className={styles.edit}
-                  onClick={() => setShowEditModal(true)}
-                />
+                {session?.user?._id=== post?.userId && (
+                    <FaEdit
+                    className={styles.edit}
+                    onClick={() => setShowEditModal(true)}
+                  />
+
+                )}
+                
+
+              
                 {showEditModal && (
-                  < EditModal
+                  <EditModal
                     onClose={() => setShowEditModal(false)}
                     id={id}
                     post={post}
@@ -164,7 +177,6 @@ const Post = ({ id, post, user, fetchData }) => {
                 onClose={() => setShowModal(false)}
                 id={id}
                 post={post}
-
                 user={user}
                 option={1}
               />
@@ -174,11 +186,13 @@ const Post = ({ id, post, user, fetchData }) => {
               <span className={styles.textSm}>{post?.comments?.length}</span>
             )}
           </div>
-          <FaRetweet className={styles.combined10} onClick={(e) => {
-            e.stopPropagation();
-            handleRetweetPost();
-
-          }} />
+          <FaRetweet
+            className={styles.combined10}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleRetweetPost();
+            }}
+          />
 
           <div
             className={styles.combined11}
@@ -199,7 +213,6 @@ const Post = ({ id, post, user, fetchData }) => {
           </div>
 
           {user?._id === post?.userId && (
-
             <RiDeleteBin5Line
               className={styles.combined10}
               onClick={(e) => {
@@ -208,7 +221,6 @@ const Post = ({ id, post, user, fetchData }) => {
               }}
             />
           )}
-
         </div>
       </div>
 
@@ -222,7 +234,6 @@ const Post = ({ id, post, user, fetchData }) => {
                 postId={id}
                 comments={post?.comments}
                 post={post}
-
                 user={user}
                 fetchData={() => fetchData()}
               />

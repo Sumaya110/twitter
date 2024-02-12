@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import styles from "@/components/Modal/Modal.module.css";
 import { MdClose } from "react-icons/md";
@@ -13,16 +13,35 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { getPosts, updatePost } from "@/libs/action/postAction";
 import { setPosts } from "@/actions/actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
+import { getUser } from "@/libs/action/userAction";
 
-const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
+const Modal = ({ onClose, id, post, comment, user, option }) => {
   const [input, setInput] = useState("");
   const timestamp = new Date(post?.timestamp);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-
+  const [postUser, setPostUser] = useState();
+  const [commentUser, setCommentUser] = useState();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const info = await getUser(post?.userEmail);
+      setPostUser(info);
+    };
+    fetchdata();
+  }, [post]);
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const info = await getUser(comment?.userEmail);
+      console.log("comment user : ", info, comment)
+      setCommentUser(info);
+    };
+    fetchdata();
+  }, [comment]);
 
   const addImageToCommentReply = (e) => {
     const reader = new FileReader();
@@ -61,17 +80,18 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
         userId: user?._id,
         username: user?.name,
         userImg: user?.profilePicture,
+        userEmail: user?.email,
         tag: user?.username,
         imageUrl: url,
         text: input,
         timestamp: new Date(),
       };
-
     } else {
       commentReply = {
         userId: user?._id,
         username: user?.name,
         userImg: user?.profilePicture,
+        userEmail: user?.email,
         tag: user?.username,
         text: input,
         timestamp: new Date(),
@@ -85,15 +105,14 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
 
       const data = await getPosts(user._id);
       dispatch(setPosts(data));
-
     } else {
       const commentId = comment._id;
       const updatedComments = post.comments.map((c) =>
         c._id === commentId
           ? {
-            ...c,
-            replies: [...c.replies, commentReply],
-          }
+              ...c,
+              replies: [...c.replies, commentReply],
+            }
           : c
       );
 
@@ -105,48 +124,72 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
 
       const data = await getPosts(user._id);
       dispatch(setPosts(data));
-
     }
   };
 
   const closeModal = () => {
-    // e.preventDefault();
     onClose();
   };
 
   const modalContent = (
-    <div className={styles.closeModal}  onClick={(e) => {
-      e.stopPropagation();
-      closeModal();
-    }}>
+    <div
+      className={styles.closeModal}
+      onClick={(e) => {
+        e.stopPropagation();
+        closeModal();
+      }}
+    >
       <div
         className={styles.stopPropagation}
         onClick={(e) => e.stopPropagation()}
       >
-        <MdClose className={styles.mdClose} onClick={closeModal} />
+        <MdClose className={styles.mdClose} onClick={() => closeModal()} />
 
         <div className={styles.combined}>
           <div className={styles.padding}>
-
-            {post?.userImg ? (
-              <Image
-                className={styles.imageStyle}
-                src={post?.userImg}
-                alt=""
-                width={40}
-                height={40}
-              />) : (
-              <Image
-                className={styles.imageStyle}
-               
-                alt=""
-                width={40}
-                height={40}
-              />
+            {option === 1 && (
+              <div>
+                {postUser?.profilePicture ? (
+                  <Image
+                    className={styles.imageStyle}
+                    src={postUser?.profilePicture}
+                    alt=""
+                    width={40}
+                    height={40}
+                  />
+                ) : (
+                  <Image
+                    className={styles.imageStyle}
+                    src={postUser?.blankPicture}
+                    alt=""
+                    width={40}
+                    height={40}
+                  />
+                )}
+              </div>
             )}
 
-
-
+            {option === 2 && (
+              <div>
+                {commentUser?.profilePicture ? (
+                  <Image
+                    className={styles.imageStyle}
+                    src={commentUser?.profilePicture}
+                    alt=""
+                    width={40}
+                    height={40}
+                  />
+                ) : (
+                  <Image
+                    className={styles.imageStyle}
+                    src={commentUser?.blankPicture}
+                    alt=""
+                    width={40}
+                    height={40}
+                  />
+                )}
+              </div>
+            )}
           </div>
 
           <div>
@@ -200,26 +243,23 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
           </div>
 
           <div className={styles.mt}>
-
-            {user?.image ? (
+            {user?.profilePicture ? (
               <Image
                 className={styles.imageStyle}
-                src={user?.image}
+                src={user?.profilePicture}
                 alt=""
                 width={40}
                 height={40}
               />
-
             ) : (
               <Image
                 className={styles.imageStyle}
-               
+                src={user?.blankPicture}
                 alt=""
                 width={40}
                 height={40}
               />
             )}
-
           </div>
 
           <div className={styles.mt}>
@@ -251,8 +291,6 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
 
             <div className={styles.combined4}>
               <div className={styles.combined12}>
-
-
                 <label htmlFor="comment">
                   <BsImage className={styles.clickable} />
                 </label>
@@ -281,8 +319,6 @@ const Modal = ({ onClose, id, post, comment, pic, user, option }) => {
               <button
                 className={styles.combined8}
                 disabled={!input.trim() && !selectedFile}
-
-               
                 onClick={(e) => {
                   e.stopPropagation();
                   sendComment();

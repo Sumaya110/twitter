@@ -9,7 +9,6 @@ import Image from "next/image";
 import ProfileEditModal from "@/components/EditProfileModal/EditProfileModal";
 import { getUser, updateUser } from "@/libs/action/userAction";
 
-
 const UserFeed = ({ user, sessionUser }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts.posts);
@@ -17,41 +16,33 @@ const UserFeed = ({ user, sessionUser }) => {
   const [showModal, setShowModal] = useState(false);
   const [followed, setFollowed] = useState(false);
 
+  console.log("pp  : ", User)
+
   useEffect(() => {
-    const isFollowed = sessionUser?.following?.some(follow => follow?.userId === user?._id);
+    const isFollowed = sessionUser?.following?.some(
+      (follow) => follow?.userId === user?._id
+    );
     setFollowed(isFollowed);
   }, [sessionUser?.following, user?._id]);
-  
-
-
-//  console.log("session user  : ", sessionUser?.following[0]?.userId)
-//  console.log("user :: ", user?._id)
-//  console.log("follow ?  ", followed)
 
   useEffect(() => {
-
     const fetchData = async () => {
       try {
         const data = await getPosts(user._id);
         dispatch(setPosts(data));
 
-        const user_data = await getUser(user?.email)
+        const user_data = await getUser(user?.email);
         dispatch(setUsers(user_data));
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-
     fetchData();
   }, [user]);
 
-
-
-
   const handleFollow = async () => {
-    setFollowed(true)
-    console.log("follow ")
+    setFollowed(true);
 
     sessionUser?.following?.push({
       userId: user?._id,
@@ -65,15 +56,10 @@ const UserFeed = ({ user, sessionUser }) => {
 
     const data = await getUser(sessionUser?.email);
     dispatch(setUsers(data));
-
   };
 
-
-
   const handleUnfollow = async () => {
-
-    setFollowed(false)
-    console.log("unfollow")
+    setFollowed(false);
 
     const updatedFollowing = sessionUser?.following?.filter(
       (follow) => follow?.userId !== user?._id
@@ -85,15 +71,11 @@ const UserFeed = ({ user, sessionUser }) => {
 
     const data = await getUser(sessionUser?.email);
     dispatch(setUsers(data));
-
   };
-
-
 
   return (
     <section className={styles.section}>
       <div className={styles.coverPictureContainer}>
-
         {user?._id === sessionUser?._id && (
           <div>
             <Image
@@ -112,12 +94,15 @@ const UserFeed = ({ user, sessionUser }) => {
                 height={200}
               />
 
-              <button onClick={() => setShowModal(true)} className={styles.button}>Edit profile</button>
+              <button
+                onClick={() => setShowModal(true)}
+                className={styles.button}
+              >
+                Edit profile
+              </button>
             </div>
           </div>
         )}
-
-
 
         {user?._id !== sessionUser?._id && (
           <div>
@@ -129,7 +114,6 @@ const UserFeed = ({ user, sessionUser }) => {
               height={200}
             />
 
-
             <div className={styles.profilePictureOverlay}>
               <Image
                 src={user?.profilePicture}
@@ -139,27 +123,42 @@ const UserFeed = ({ user, sessionUser }) => {
                 height={200}
               />
 
-              {
-                followed ? (
-                  <button onClick={handleUnfollow} className={styles.button}>Unfollow</button>
-                ) : (
-                  <button onClick={handleFollow} className={styles.button}>Follow</button>
-                )
-              }
+              {followed ? (
+                <button onClick={handleUnfollow} className={styles.button}>
+                  Unfollow
+                </button>
+              ) : (
+                <button onClick={handleFollow} className={styles.button}>
+                  Follow
+                </button>
+              )}
             </div>
           </div>
         )}
 
-
         {showModal && (
-          <ProfileEditModal
-            onClose={() => setShowModal(false)}
-            user={User}
-          />
+          <ProfileEditModal onClose={() => setShowModal(false)} user={User} />
         )}
       </div>
 
+     
+
       <div className={styles.space}>
+
+      {user?._id === sessionUser?._id && (
+      <div className={styles.div}>
+        <div className={styles.name}>{User?.name}</div>
+        <div className={styles.username}>@{User?.username}</div>
+      </div>)}
+
+
+      {user?._id !== sessionUser?._id && (
+      <div className={styles.div}>
+        <div className={styles.name}>{user?.name}</div>
+        <div className={styles.username}>@{user?.username}</div>
+      </div>)}
+
+
         <div className={styles.container}>
           <div>Posts</div>
           <div>Replies</div>
@@ -173,13 +172,12 @@ const UserFeed = ({ user, sessionUser }) => {
             key={post._id}
             id={post._id}
             post={post}
-
             user={User}
             fetchData={() => fetchData()}
           />
         ))}
       </div>
-    </section >
+    </section>
   );
 };
 

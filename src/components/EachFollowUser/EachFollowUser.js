@@ -63,7 +63,7 @@ const EachFollowUser = ({ fuser, user }) => {
   return (
     <div>
 
-      <button className={styles.userInfo} onClick={handleUser}>
+      <button className={styles.userInfo} onClick={ () => handleUser()}>
         
         <Image
           src={fuser?.profilePicture}

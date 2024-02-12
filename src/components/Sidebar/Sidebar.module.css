@@ -19,6 +19,7 @@
   height: 20px;
   padding: 0;
   margin-left: 22px;
+  margin-bottom: 1.3rem; 
 }
 
 .hoverEffect:hover {
@@ -32,7 +33,8 @@
 
 .sidebar {
   margin-top: 1rem;
-  margin-bottom: 0.625rem;
+  margin-bottom: 1rem;
+  
 }
 
 .tweetButton {
@@ -57,11 +59,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0.5rem 1rem;
+  padding: 1rem 1rem;
   margin-top: auto;
+  
 }
 
 .signOutDiv:hover {
+  background-color: #f5f8fa;
+  border-radius: 60px;
 }
 
 .signoutButton{
@@ -77,22 +82,30 @@
 .userDetails {
   display: none;
   line-height: 1.25;
+  margin-bottom: 40px;
 }
 
 .userDetails h4 {
   font-weight: bold;
   display: none;
+  gap: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .userDetails p {
   color: #6e767d;
   display: none;
+  gap: 0;
+  padding: 0;
+  margin: 0;
 }
 
 .dotsIcon {
   height: 1.25rem;
   display: none;
   margin-left: 4rem;
+  margin-bottom: 40px;
 }
 
 @media (min-width: 1280px) {
@@ -114,7 +127,8 @@
   }
 
   .userImage {
-    margin-right: 2.5rem;
+    margin-right: .9rem;
+    margin-bottom: 40px;
   }
 
   .dotsIcon {
@@ -141,10 +155,13 @@
 
 }
 
+
+
 .profileButton{
   border: none;
   background-color: white;
   border-radius: 30px;
+  margin-bottom: 1.3rem; 
 }
 .profileButton:hover {
   background-color: lightgray; 

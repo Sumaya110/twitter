@@ -50,10 +50,10 @@ const Input = ({ user} ) => {
     setLoading(true);
     try {
       const postId = await createPost({
-        userId: user._id,
-        userEmail: user.email,
-        // username:user.name,
-        username: user.username,
+        userId: user?._id,
+        userEmail: user?.email,
+        userImage: user?.profilePicture,
+        username: user?.username,
         text: input,
         timestamp: new Date(),
       });

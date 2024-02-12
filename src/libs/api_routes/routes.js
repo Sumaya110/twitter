@@ -15,10 +15,20 @@ API.interceptors.response.use((res) => {
 });
 
 export const createNewUser = (payload) => API.post("/api/users", payload);
-export const getNewUser = (payload) =>
-  API.get("/api/users", { params: { email: payload, purpose: "get-a-user" } });
+
+// export const getNewUser = (payload) =>
+//   API.get("/api/users?", { params: { email: payload, purpose: "get-a-user" } });
+
+// export const getNewUsers = () =>
+//   API.get("/api/users?", { params: { purpose: "get-all-users" } });
+
+export const getNewUser = (email) =>
+  API.get(`/api/users?email=${email}`);
+
 export const getNewUsers = () =>
-  API.get("/api/users", { params: { purpose: "get-all-users" } });
+  API.get("/api/users");
+
+
 export const updateNewUser = (payload) => API.patch("/api/users", payload);
 
 export const createNewPost = (payload) => API.post("/api/posts", payload);

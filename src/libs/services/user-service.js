@@ -101,8 +101,21 @@ export async function loginWithCredentials(email, password) {
 }
 
 
-export const existOrCreate = async ({name, email, image}) => {
+export const existOrCreate = async ({ name, email, image }) => {
+  let user;
+  user = await UserRepository.findOne({ email });
 
-  const response = await UserRepository.existOrCreate({name , email, image});
-  return response
-}
+  if (!user) {
+    const verify_token = Array.from({ length: 8 }, () =>
+      Math.floor(Math.random() * 10)
+    ).join("");
+
+    var username = email.split('@')[0];
+    if(image)
+      user = await UserRepository.create({name, username, email, profilePicture:image,  verify_token });
+    else 
+      user = await UserRepository.create({name, username, email,  verify_token });
+  }
+
+  return user;
+};

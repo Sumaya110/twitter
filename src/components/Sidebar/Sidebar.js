@@ -24,9 +24,7 @@ const Sidebar = ({ user }) => {
   const User = useSelector((state) => state.users.users);
   const { data: session } = useSession();
 
-  // console.log("user from sidebar : ", user);
-  // console.log("UUUser from sidebar : ", User);
-
+  
   useEffect(() => {
     const fetchdata = async () => {
       const info = await getUser(session?.user?.email);

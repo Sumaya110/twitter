@@ -13,16 +13,15 @@ export default async function handler(req, res) {
       case "POST":
         return await createUser(req, res);
       case "GET":
-        // return await getUser(req, res);
-        // console.log("indexx  :: ", req.query.purpose)
-        switch (req.query.purpose) {
-          case "get-a-user":
-            return await getUser(req, res);
-          case "get-all-users":
-            return await getUsers(req, res);
-          default:
-            return res.status(400).json({ error: "Invalid request headers" });
-        }
+        return await getUsers(req, res);
+        // switch (req.query.purpose) {
+        //   case "get-a-user":
+        //     return await getUser(req, res);
+        //   case "get-all-users":
+        //     return await getUsers(req, res);
+        //   default:
+        //     return res.status(400).json({ error: "Invalid request headers" });
+        // }
       case "PATCH":
         return await updateUser(req, res);
     }

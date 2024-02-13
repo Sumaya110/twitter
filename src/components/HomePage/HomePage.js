@@ -19,6 +19,7 @@ const HomePage = ({ user }) => {
         const fetchData = async () => {
           try {
             const User = await getUser(user?.email);
+            console.log("email :: ",user?.email)
             setExistUser(User);
           } catch (error) {
             console.error("Error fetching data:", error);

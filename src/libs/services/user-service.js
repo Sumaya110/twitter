@@ -1,10 +1,9 @@
 import UserRepository from "../repositories/userRepository";
-const bcrypt = require("bcrypt")
+const bcrypt = require("bcrypt");
 
 export const createUser = async (req, res) => {
   try {
-    
-    const { name, username, email, password,  verify_token } = req.body;
+    const { name, username, email, password, verify_token } = req.body;
     const existingUser = await UserRepository.findOne({ email });
 
     if (existingUser) {
@@ -34,12 +33,11 @@ export const createUser = async (req, res) => {
 };
 
 
-
 export const getUser = async (req, res) => {
   try {
-    const email = req.query.email
-    const response = await UserRepository.findOne({email});
-  
+    const email = req.query.email;
+    const response = await UserRepository.findOne({ email });
+
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -48,37 +46,32 @@ export const getUser = async (req, res) => {
 
 export const getUsers = async (req, res) => {
   try {
-    const users = await UserRepository.find(); 
+    const users = await UserRepository.find();
     res.status(200).json(users);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
 
-
-
 export const getUserId = async (id) => {
   try {
     const userId = id;
-    const response = await UserRepository.findById( userId );
+    const response = await UserRepository.findById(userId);
     return response;
   } catch (error) {
     throw new Error(error.message);
   }
 };
 
-
 export const updateUser = async (req, res) => {
   try {
     const response = await UserRepository.findOneAndUpdate(req.body);
-    
+
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 };
-
-
 
 export async function loginWithCredentials(email, password) {
   try {
@@ -100,7 +93,6 @@ export async function loginWithCredentials(email, password) {
   }
 }
 
-
 export const existOrCreate = async ({ name, email, image }) => {
   let user;
   user = await UserRepository.findOne({ email });
@@ -110,11 +102,22 @@ export const existOrCreate = async ({ name, email, image }) => {
       Math.floor(Math.random() * 10)
     ).join("");
 
-    var username = email.split('@')[0];
-    if(image)
-      user = await UserRepository.create({name, username, email, profilePicture:image,  verify_token });
-    else 
-      user = await UserRepository.create({name, username, email,  verify_token });
+    var username = email.split("@")[0];
+    if (image)
+      user = await UserRepository.create({
+        name,
+        username,
+        email,
+        profilePicture: image,
+        verify_token,
+      });
+    else
+      user = await UserRepository.create({
+        name,
+        username,
+        email,
+        verify_token,
+      });
   }
 
   return user;

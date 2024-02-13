@@ -48,7 +48,7 @@ const Feed = ({ user}) => {
       <Input user={user} />
 
       {posts?.map((post) => (
-        <Post key={post._id} id={post._id} post={post} user={user} fetchData={()=>fetchData()} />
+        <Post key={post?._id} id={post?._id} post={post} user={user} fetchData={()=>fetchData()} />
       )) }
 
 

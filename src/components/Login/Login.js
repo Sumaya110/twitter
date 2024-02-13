@@ -16,7 +16,7 @@ const Login = (  ) => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    console.log("email-password  :", email, password);
+    // console.log("email-password  :", email, password);
 
     try {
       const status = await signIn("credentials", {
@@ -26,7 +26,7 @@ const Login = (  ) => {
 
       });
 
-      console.log("status  :", status);
+      // console.log("status  :", status);
 
       if (!status.ok) {
         console.error("Authentication error:", status.error ?? "Unknown error");

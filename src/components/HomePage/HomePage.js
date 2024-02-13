@@ -18,8 +18,9 @@ const HomePage = ({ user }) => {
       } else {
         const fetchData = async () => {
           try {
-            const User = await getUser(user?.email);
-            console.log("email :: ",user?.email)
+            // const User = await getUser(user?.email);
+            const User = await getUser(user?._id);
+            console.log("id :: ",user?._id)
             setExistUser(User);
           } catch (error) {
             console.error("Error fetching data:", error);

@@ -25,13 +25,29 @@ const Sidebar = ({ user }) => {
   const { data: session } = useSession();
 
   
+  console.log("user  :: ", session?.user?._id)
+  // useEffect(() => {
+  //   const fetchdata = async () => {
+  //     // const info = await getUser(session?.user?.email);
+  //     const info = await getUser(session?.user?._id);
+  //     dispatch(setUsers(info));
+  //   };
+  //   fetchdata();
+  // }, []);
+
   useEffect(() => {
-    const fetchdata = async () => {
-      const info = await getUser(session?.user?.email);
-      dispatch(setUsers(info));
+    const fetchData = async () => {
+      if (session?.user?._id) {
+        try {
+          const userInfo = await getUser(session?.user?._id);
+          dispatch(setUsers(userInfo));
+        } catch (error) {
+          console.error("Error fetching user:", error);
+        }
+      }
     };
-    fetchdata();
-  }, []);
+    fetchData();
+  }, [dispatch, session]);
 
   const handleEditProfile = async () => {
     router.push(`/profileId/${session?.user?._id}`);

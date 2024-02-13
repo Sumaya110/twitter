@@ -14,6 +14,8 @@ const create = async ({ name, username, email, password }) => {
 
 const findOne = async ({ email }) => {
   const user = await Users.findOne({ email });
+
+  // console.log("user repo ", user, email)
   return user;
 };
 

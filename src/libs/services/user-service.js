@@ -33,11 +33,23 @@ export const createUser = async (req, res) => {
 };
 
 
+// export const getUser = async (req, res) => {
+//   try {
+//     const email = req.query.email;
+//     const response = await UserRepository.findOne({ email });
+
+//     return res.status(200).json(response);
+//   } catch (error) {
+//     return res.status(500).json(error.message);
+//   }
+// };
+
+
 export const getUser = async (req, res) => {
   try {
-    const email = req.query.email;
-    const response = await UserRepository.findOne({ email });
-
+    const userId = req.query.userId;
+    // console.log("service :: ", req.query)
+    const response = await UserRepository.findById(userId);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -93,7 +105,7 @@ export async function loginWithCredentials(email, password) {
   }
 }
 
-export const existOrCreate = async ({ name, email, image }) => {
+export const registerWithSns = async ({ name, email, image }) => {
   let user;
   user = await UserRepository.findOne({ email });
 

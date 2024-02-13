@@ -30,7 +30,8 @@ const EachFollowUser = ({ fuser, user }) => {
       following: user?.following,
     });
 
-    const data = await getUser(user?.email);
+    // const data = await getUser(user?.email);
+    const data = await getUser(user?._id);
 
     dispatch(setUsers(data));
 
@@ -51,7 +52,8 @@ const EachFollowUser = ({ fuser, user }) => {
       following: updatedFollowing,
     });
 
-    const data = await getUser(user?.email);
+    // const data = await getUser(user?.email);
+    const data = await getUser(user?._id);
     dispatch(setUsers(data));
 
   };

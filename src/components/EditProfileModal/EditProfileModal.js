@@ -60,7 +60,8 @@ const Modal = ({ onClose, user }) => {
       });
 
   
-      const data = await getUser(user?.email);
+      // const data = await getUser(user?.email);
+      const data = await getUser(user?._id);
       dispatch(setUsers(data));
     }
 
@@ -77,7 +78,8 @@ const Modal = ({ onClose, user }) => {
         coverPicture: url,
       });
 
-      const data = await getUser(user?.email);
+      // const data = await getUser(user?.email);
+      const data = await getUser(user?._id);
       dispatch(setUsers(data));
     }
 
@@ -87,7 +89,8 @@ const Modal = ({ onClose, user }) => {
       });
 
   
-      const data = await getUser(user?.email);
+      // const data = await getUser(user?.email);
+      const data = await getUser(user?._id);
       dispatch(setUsers(data));
     }
   };

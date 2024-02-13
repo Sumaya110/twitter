@@ -28,7 +28,8 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const info = await getUser(post?.userEmail);
+      // const info = await getUser(post?.userEmail);
+      const info = await getUser(post?.userId);
       setPostUser(info);
     };
     fetchdata();
@@ -36,7 +37,8 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const info = await getUser(comment?.userEmail);
+      // const info = await getUser(comment?.userEmail);
+      const info = await getUser(comment?.userId);
       console.log("comment user : ", info, comment)
       setCommentUser(info);
     };

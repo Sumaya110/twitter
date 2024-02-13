@@ -77,9 +77,16 @@ const loginUser = async (req, res) => {
 };
 
 
+// const getUser = async (req, res) => {
+//   const email = req.params;
+//   const user = await UserRepository.findOne({ email });
+//   res.status(200).json(user);
+// };
+
+
 const getUser = async (req, res) => {
-  const email = req.params;
-  const user = await UserRepository.findOne({ email });
+  const userId = req.params;
+  const user = await UserRepository.findById (userId);
   res.status(200).json(user);
 };
 
@@ -88,6 +95,8 @@ const getUsers = async (req, res) => {
   const user = await UserRepository.find( );
   res.status(200).json(user);
 };
+
+
 
 const checkToken = async (token) =>{
   try {
@@ -123,4 +132,30 @@ const updateUser = async (req, res) => {
   res.status(200).json(updatedUser);
 };
 
-module.exports = { signupUser, loginUser , checkToken, updateUser, getUser, getUsers};
+
+
+const verifyEmail = async (email) => {
+
+  console.log("i am in verify email")
+  try {
+   
+    const user = await UserRepository.findOne({ email });
+
+    console.log(
+      "hh", user
+      )
+
+    if (!user) {
+      return false;
+    }
+
+    
+
+    return user.verified;
+  } catch (error) {
+    console.error('Error verifying email:', error);
+    return false; 
+  }
+};
+
+module.exports = { signupUser, loginUser , checkToken, updateUser, getUser, getUsers, verifyEmail};

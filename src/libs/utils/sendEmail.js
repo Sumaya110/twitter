@@ -20,6 +20,8 @@ export const sendMail = async (email, uniqueString) => {
         to: email,
         subject: "Email confirmation",
         html: `Press <a href=http://localhost:3000/api/users/verify/${uniqueString}> here </a> to verify your email. Then Login. Thanks`
+
+        // html: `Press <a href=http://localhost:3000/api/users/verify/${uniqueString}> here </a> to verify your email. Then Login. Thanks`
     };
     Transport.sendMail(mailOptions, function(error, response){
         if(error){

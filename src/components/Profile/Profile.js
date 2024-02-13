@@ -7,32 +7,20 @@ import { getUser } from "@/libs/action/userAction";
 import { setUsers } from "@/actions/actions";
 import { useDispatch, useSelector } from 'react-redux';
 
-const Profile = ({ user_email, feedUser }) => {
+const Profile = ({ userId, feedUser }) => {
   const [user, setUser] = useState(null)
-  // const user = useSelector((state) => state.users.users);
-  // const dispatch = useDispatch();
-
-  console.log("user from profile  :: ", feedUser)
+ 
+  // console.log("user from profile  :: ", feedUser)
 
   useEffect(() => {
     const fetchdata = async () => {
-      const info = await getUser(user_email)
+      const info = await getUser(userId)
       setUser(info)
     }
     fetchdata();
   }, [])
 
-  // useEffect(()=>{
-  //   const fetchdata = async () => {
-  //     const info = await getUser(user_email);
-
-  //     console.log("infoo : ", info)
-  //     dispatch(setUsers(info));
-     
-  //   };
-  //   fetchdata();
-
-  // }, [user])
+ 
 
 
 

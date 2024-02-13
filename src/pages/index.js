@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
     }
   }
 
-  // Ensure that user is converted to JSON serializable format
+ 
   const serializedUser = existUser ? JSON.parse(JSON.stringify(existUser)) : null;
 
   return {

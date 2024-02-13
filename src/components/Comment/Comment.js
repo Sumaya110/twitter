@@ -31,7 +31,8 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const info = await getUser(comment?.userEmail);
+      // const info = await getUser(comment?.userEmail);
+      const info = await getUser(comment?.userId);
       setCommentUser(info);
     };
     fetchdata();

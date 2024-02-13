@@ -36,7 +36,8 @@ const Post = ({ id, post, user, fetchData }) => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const info = await getUser(post?.userEmail);
+      // const info = await getUser(post?.userEmail);
+      const info = await getUser(post?.userId);
       setPostUser(info);
     };
     fetchdata();

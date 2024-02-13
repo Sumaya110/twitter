@@ -11,6 +11,10 @@ const HomePage = ({ user }) => {
   const [existUser, setExistUser] = useState();
   const router = useRouter();
 
+
+  console.log("user from home page : ", user)
+
+
   useEffect(() => {
     const replace = async () => {
       if (!user) {

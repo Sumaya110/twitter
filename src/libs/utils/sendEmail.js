@@ -1,6 +1,6 @@
 import nodemailer from "nodemailer";
 
-export const sendMail = async (email, uniqueString) => {
+export const sendMail = async (email, verify_token) => {
     var smtpConfig = {
         host: 'smtp.gmail.com',
         port: 465,
@@ -19,7 +19,7 @@ export const sendMail = async (email, uniqueString) => {
         form: sender,
         to: email,
         subject: "Email confirmation",
-        html: `Press <a href=http://localhost:3000/api/users/verify/${uniqueString}> here </a> to verify your email. Then Login. Thanks`
+        html: `Press <a href=http://localhost:3000/api/users/verify/${verify_token}> here </a> to verify your email. Thanks`
 
         // html: `Press <a href=http://localhost:3000/api/users/verify/${uniqueString}> here </a> to verify your email. Then Login. Thanks`
     };

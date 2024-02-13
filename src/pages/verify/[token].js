@@ -1,6 +1,6 @@
-
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
 
 function VerifyPage({ message }) {
   const router = useRouter();
@@ -13,6 +13,8 @@ function VerifyPage({ message }) {
 
   return <div>{message}</div>;
 }
+
+
 
 export async function getServerSideProps({ query }) {
   const { token } = query;

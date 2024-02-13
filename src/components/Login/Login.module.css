@@ -132,6 +132,11 @@
   background-color: #45a049;
 }
 
+.error{
+  font-size: larger;
+  color: Red;
+  font-weight: bold;
+}
 
 
 

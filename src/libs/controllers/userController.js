@@ -35,11 +35,7 @@ const signupUser = async (req, res) => {
     const hash = await bcrypt.hash(password, salt);
 
     const user = await UserRepository.create({ email, password: hash,  verify_token });
-
-
-    // create a token
     const token = createToken(user._id);
-
     res.status(200).json({ email, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -47,34 +43,27 @@ const signupUser = async (req, res) => {
 };
 
 // Login a user
-const loginUser = async (req, res) => {
-  const { email, password } = req.body;
+// const loginUser = async (req, res) => {
+//   const { email, password } = req.body;
+//   try {
+//     if (!email || !password) {
+//       throw Error('All fields must be filled');
+//     }
+//     const user = await UserRepository.findOne({ email });
+//     if (!user) {
+//       throw Error('Incorrect email');
+//     }
+//     const match = await bcrypt.compare(password, user.password);
 
-  try {
-    if (!email || !password) {
-      throw Error('All fields must be filled');
-    }
-
-    const user = await UserRepository.findOne({ email });
-
-    if (!user) {
-      throw Error('Incorrect email');
-    }
-
-    const match = await bcrypt.compare(password, user.password);
-
-    if (!match) {
-      throw Error('Incorrect password');
-    }
-
-    
-    const token = createToken(user._id);
-
-    res.status(200).json({ email, token });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+//     if (!match) {
+//       throw Error('Incorrect password');
+//     }
+//     const token = createToken(user._id);
+//     res.status(200).json({ email, token });
+//   } catch (error) {
+//     res.status(400).json({ error: error.message });
+//   }
+// };
 
 
 // const getUser = async (req, res) => {
@@ -101,7 +90,6 @@ const getUsers = async (req, res) => {
 const checkToken = async (token) =>{
   try {
     const check = await UserRepository.tokenFindOne({ verify_token: token} );
-    console.log("check  : ", check)
     return check;
   } catch (error) {
     console.error('Error in checkToken:', error);
@@ -111,12 +99,7 @@ const checkToken = async (token) =>{
 
 
 const updateUser = async (req, res) => {
-
-
   const { id } = req.params;
-
-
-  console.log("controller : ", id)
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No such user" });
   }
@@ -133,29 +116,4 @@ const updateUser = async (req, res) => {
 };
 
 
-
-const verifyEmail = async (email) => {
-
-  console.log("i am in verify email")
-  try {
-   
-    const user = await UserRepository.findOne({ email });
-
-    console.log(
-      "hh", user
-      )
-
-    if (!user) {
-      return false;
-    }
-
-    
-
-    return user.verified;
-  } catch (error) {
-    console.error('Error verifying email:', error);
-    return false; 
-  }
-};
-
-module.exports = { signupUser, loginUser , checkToken, updateUser, getUser, getUsers, verifyEmail};
+module.exports = { signupUser, loginUser , checkToken, updateUser, getUser, getUsers};

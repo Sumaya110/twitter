@@ -12,6 +12,9 @@ const create = async ({ name, username, email, password }) => {
   return user;
 };
 
+
+
+
 const findOne = async ({ email }) => {
   const user = await Users.findOne({ email });
 

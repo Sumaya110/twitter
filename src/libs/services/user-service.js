@@ -99,6 +99,10 @@ export async function loginWithCredentials(email, password) {
       throw new Error("Username or password doesn't match.");
     }
 
+    if (!user.isVerified) {
+      throw new Error("Not verified .");
+    }
+
     return user;
   } catch (error) {
     throw new Error("Error occurred while logging in: " + error.message);

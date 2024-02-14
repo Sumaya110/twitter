@@ -27,11 +27,12 @@ const Profile = ({ userId, feedUser }) => {
   return (
     <div>
       <main className={styles.main}>
-        <div className={styles.sidebar}>
+        {/* <div className={styles.sidebar}>
           <Sidebar  user={user} />
-        </div>
+        </div> */}
 
         <div className={styles.container}>
+        <Sidebar  user={user} />
           <UserFeed user={feedUser} sessionUser={user} />
           <Trending user={user} option={2} />
         </div>

@@ -5,52 +5,37 @@ const create = async (content) => {
   return post;
 };
 
-const find = async ({ userId }) => {
-  const response = await Post.find({ userId }).sort({ timestamp: -1 });
-  return response;
-};
 
-const findById = async (postId) => {
-  const response = await Post.findById({ _id: postId });
-  return response;
-};
-
-const findOneAndUpdate = async (updateData) => {
-  const response = await Post.findOneAndUpdate(
-    { _id: updateData.postId },
-    updateData.updateData,
-    { new: true }
-  );
-  return response;
-};
-
-const findOneAndDelete = async (postId) => {
-  console.log("repo  : ", postId)
-  const response = await Post.findOneAndDelete({ _id: postId });
+const find = async (payload) => {
+  const response = await Post.find(payload).sort({ timestamp: -1 });
   return response;
 };
 
 
-
-
-const createComment = async (content) => {
-  const comment = await Post.create({
-    postId: content.postId,
-    username: content.username,
-    userImg: content.userImg,
-    text: content.text,
-    timestamp: content.timestamp,
-  });
-  return comment;
+const findById = async (payload) => {
+  const response = await Post.findById(payload);
+  return response;
 };
+
+
+const findByIdAndUpdate = async ({query, payload} ) => {
+  const response = await Post.findByIdAndUpdate(query, payload, { new: true });
+  return response;
+};
+
+
+const findOneAndDelete = async (payload) => {
+  const response = await Post.findOneAndDelete(payload);
+  return response;
+};
+
 
 const PostRepository = {
   create,
   find,
-  findOneAndUpdate,
+  findByIdAndUpdate,
   findById,
   findOneAndDelete,
-  createComment
 };
 
 export default PostRepository;

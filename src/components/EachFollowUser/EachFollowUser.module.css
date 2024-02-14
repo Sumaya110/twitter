@@ -1,10 +1,8 @@
 .userInfo {
   display: flex;
   align-items: center;
-  border: none;
   border-radius: 30px;
   width: 100%;
-  padding: 10px 20px;
 }
 
 .userInfo:hover {
@@ -20,7 +18,7 @@
 .details {
   margin-left: 10px;
   align-items: left;
-  /* margin-right: 10px; */
+  
 }
 
 .actions {
@@ -61,3 +59,11 @@
 .name:hover{
   text-decoration: underline;
 }
+
+
+.button{
+  border: none;
+  background-color: transparent;
+}
+
+

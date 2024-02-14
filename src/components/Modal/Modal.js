@@ -22,25 +22,26 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [postUser, setPostUser] = useState();
-  const [commentUser, setCommentUser] = useState();
+  const [postUser, setPostUser] = useState(null);
+  const [commentUser, setCommentUser] = useState(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchdata = async () => {
-      // const info = await getUser(post?.userEmail);
-      const info = await getUser(post?.userId);
-      setPostUser(info);
+      if (post?.userId) {
+        const info = await getUser(post?.userId);
+        setPostUser(info);
+      }
     };
     fetchdata();
   }, [post]);
 
   useEffect(() => {
     const fetchdata = async () => {
-      // const info = await getUser(comment?.userEmail);
-      const info = await getUser(comment?.userId);
-      console.log("comment user : ", info, comment)
-      setCommentUser(info);
+      if (comment?.userId) {
+        const info = await getUser(comment?.userId);
+        setCommentUser(info);
+      }
     };
     fetchdata();
   }, [comment]);
@@ -112,9 +113,9 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
       const updatedComments = post.comments.map((c) =>
         c._id === commentId
           ? {
-              ...c,
-              replies: [...c.replies, commentReply],
-            }
+            ...c,
+            replies: [...c.replies, commentReply],
+          }
           : c
       );
 

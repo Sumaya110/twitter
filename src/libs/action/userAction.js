@@ -17,7 +17,7 @@ import {
 
   
   async function getUser(data) {
-    console.log("gET USER ", data)
+    console.log("get user ", data)
     try {
       const response = await getNewUser(data);
       return response.data;

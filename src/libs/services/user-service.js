@@ -1,19 +1,41 @@
 import UserRepository from "../repositories/userRepository";
+import VerificationRepository from "../repositories/verificationRepository";
+import { sendMail } from "../utils/sendEmail";
 const bcrypt = require("bcrypt");
+const validator = require('validator');
+const jwt = require('jsonwebtoken');
+
+
 
 export const createUser = async (req, res) => {
   try {
-    const { name, username, email, password, verify_token } = req.body;
+    const { name, username, email, password } = req.body;
+
+    if (!email || !password) {
+      return res.status(400).json({ error: 'All fields must be filled' });
+    }
+
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({ error: 'Email not valid' });
+    }
+
+    if (!validator.isStrongPassword(password)) {
+      return res.status(400).json({ error: 'Password not strong enough' });
+    }
+
+
     const existingUser = await UserRepository.findOne({ email });
 
     if (existingUser) {
-      return res
-        .status(400)
-        .json({ error: "User with this email already exists" });
+      return res.status(400).json({ error: "User with this email already exists" });
     }
 
-    const saltRounds = 10;
+    const saltRounds = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+
+    const verify_token = Array.from({ length: 8 }, () =>
+      Math.floor(Math.random() * 10)
+    ).join("");
 
     const newUser = await UserRepository.create({
       name,
@@ -22,6 +44,14 @@ export const createUser = async (req, res) => {
       password: hashedPassword,
       verify_token,
     });
+
+    const verificationCollection = await VerificationRepository.create({
+      userId: newUser._id,
+      verify_token: newUser.verify_token,
+
+    })
+
+    await sendMail(email, verify_token);
 
     return res.status(201).json(newUser);
   } catch (error) {
@@ -35,8 +65,8 @@ export const createUser = async (req, res) => {
 
 export const getUser = async (req, res) => {
   try {
-    const id= req.query.userId;
-    const response = await UserRepository.findOne({_id: id});
+    const id = req.query.userId;
+    const response = await UserRepository.findOne({ _id: id });
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -54,7 +84,7 @@ export const getUsers = async (req, res) => {
 
 export const getUserId = async (id) => {
   try {
-    const response = await UserRepository.findOne({_id: id});
+    const response = await UserRepository.findOne({ _id: id });
     return response;
   } catch (error) {
     throw new Error(error.message);
@@ -63,12 +93,8 @@ export const getUserId = async (id) => {
 
 export const updateUser = async (req, res) => {
 
-  // console.log("service : req.body", req.body)
   try {
     const response = await UserRepository.findByIdAndUpdate(req.body);
-
-    console.log("service response : ", response)
-
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);

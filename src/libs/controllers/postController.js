@@ -11,7 +11,7 @@ const getPosts = async (req, res) => {
 // GET post
 const getPost = async (req, res) => {
   const postId = req.params;
-  const posts = await PostRepository.findById({ postId });
+  const posts = await PostRepository.findById({_id: postId });
   res.status(200).json(posts);
 };
 
@@ -33,7 +33,7 @@ const updatePost = async (req, res) => {
     return res.status(400).json({ error: "No such post" });
   }
 
-  const updatedPost = await PostRepository.findOneAndUpdate({
+  const updatedPost = await PostRepository.findByIdAndUpdate({
     postId: id,
     updateData: req.body.updateData,
   });
@@ -47,16 +47,12 @@ const updatePost = async (req, res) => {
 // delete a task
 const deletePost = async (req, res) => {
 
-  console.log("cont :", req.body)
   const { id } = req.params;
-
-  console.log("controller : ", id)
-
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(400).json({ error: "No such post" });
   }
 
-  const deletedPost = await PostRepository.findOneAndDelete(id);
+  const deletedPost = await PostRepository.findOneAndDelete({_id : id});
 
   if (!deletedPost) {
     return res.status(400).json({ error: "No such post" });

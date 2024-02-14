@@ -1,5 +1,4 @@
 .section {
-  /* margin-left: auto; */
   display: block;
   width: 600px;
   border-right: 1px solid #dfd7d7;
@@ -10,7 +9,6 @@
 .sectiondiv {
   position: sticky;
   top: 0;
-  /* display: flex; */
   justify-content: space-between;
   font-weight: 500;
   font-size: 20px;

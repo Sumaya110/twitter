@@ -3,7 +3,7 @@ import styles from "@/components/SignUp/SignUp.module.css";
 import { createUser } from "@/libs/action/userAction";
 
 const SignIn = () => {
-  const [show, setShow] = useState({ password: false });
+  // const [show, setShow] = useState({ password: false });
   const [verificationSent, setVerificationSent] = useState(false);
 
   const handleSubmit = async (e) => {

@@ -34,7 +34,7 @@ export const getPost = async (req, res) => {
 
 export const updatePost = async (req, res) => {
   try {
-    const response = await PostRepository.findOneAndUpdate(req.body);
+    const response = await PostRepository.findByIdAndUpdate(req.body);
     
     return res.status(200).json(response);
   } catch (error) {
@@ -46,8 +46,7 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   try {
-    const postId = req.query._id
-    const response = await PostRepository.findOneAndDelete(postId);
+    const response = await PostRepository.findOneAndDelete(req.query);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);

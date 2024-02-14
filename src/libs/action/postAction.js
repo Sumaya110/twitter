@@ -36,9 +36,7 @@ async function getPost(postId) {
 
 async function deletePost(postId) {
   try {
-    console.log("action  :  ", postId);
     const response = await deleteNewPost(postId);
-    console.log("repo res: ", response)
     return response.data;
   } catch (error) {
     throw Error(error.response.data);
@@ -47,12 +45,17 @@ async function deletePost(postId) {
 
 async function updatePost(postId, updateData) {
   try {
-    const response = await updateNewPost({ postId, updateData });
+    const response = await updateNewPost({ query:postId,  payload:updateData });
     return response.data;
   } catch (error) {
     throw Error(error.response.data);
   }
+
+
 }
+
+
+
 
 async function createComment(data) {
   try {

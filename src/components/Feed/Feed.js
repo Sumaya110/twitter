@@ -39,7 +39,7 @@ const Feed = ({ user}) => {
   
 
   return (
-    <section className={styles.section}>
+    <div className={styles.section}>
       <div className={styles.sectiondiv}>
         Home
         <HiOutlineSparkles />
@@ -52,7 +52,7 @@ const Feed = ({ user}) => {
       )) }
 
 
-    </section>
+    </div>
   );
 };
 

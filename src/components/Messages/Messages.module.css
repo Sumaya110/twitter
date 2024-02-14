@@ -1,0 +1,50 @@
+.section {
+    display: block;
+    width: 480px;
+    height: 100%;
+    border-right: 1px solid #dfd7d7;
+    border-left: 1px solid #eee6e6;
+    color: black;
+  }
+
+
+  .fixedHeader {
+    position: fixed;
+    top:0px;
+    width: 460px;
+    background-color: white;
+    
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+  }
+  
+  .icons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .settingIcon {
+    margin-right: 20px; 
+    width: 27px;
+    height: 27px;
+  }
+
+  .mailIcon {
+   
+    width: 24px;
+    height: 24px;
+  }
+
+  .text{
+    font-weight: bold;
+    font-size:x-large;
+  }
+
+  .userList {
+    margin-top: 60px;
+  }
+  
+  

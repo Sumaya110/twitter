@@ -27,9 +27,9 @@ export const createNewPost = (payload) => API.post("/api/posts", payload);
 export const updateNewPost = (payload) => API.patch("/api/posts", payload);
 
 export const getNewPost = (postId) => API.get(`/api/posts/${postId}`);
-
-
 export const getNewPosts = (userId) => API.get(`/api/users/${userId}/posts`);
 
 export const deleteNewPost = (payload) =>
   API.delete("/api/posts", { params: { _id: payload } });
+
+  

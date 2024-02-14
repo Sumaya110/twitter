@@ -25,7 +25,7 @@ const Sidebar = ({ user }) => {
   const { data: session } = useSession();
 
   
-  console.log("user  :: ", session?.user?._id)
+  // console.log("user  :: ", session?.user?._id)
   // useEffect(() => {
   //   const fetchdata = async () => {
   //     // const info = await getUser(session?.user?.email);
@@ -57,6 +57,10 @@ const Sidebar = ({ user }) => {
     router.push("/home");
   };
 
+  const handleMessage = async () => {
+    router.push("/messages");
+  };
+
   return (
     <div className={styles.mainDiv}>
       <div className={styles.sidebar}>
@@ -76,7 +80,7 @@ const Sidebar = ({ user }) => {
           <SidebarLink text="Notifications" Icon={BsBell} />
         </button>
 
-        <button className={styles.profileButton}>
+        <button className={styles.profileButton} onClick={() => handleMessage()} >
           <SidebarLink text="Messages" Icon={AiOutlineInbox} />
         </button>
 

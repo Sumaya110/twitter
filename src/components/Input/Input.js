@@ -22,6 +22,8 @@ const Input = ({ user} ) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
 
+  // console.log("selected file ", selectedFile)
+
   const addImageToPost = (e) => {
     const reader = new FileReader();
 
@@ -65,6 +67,8 @@ const Input = ({ user} ) => {
 
       if (selectedFile) {
 
+        // console.log("hellooooooooo")
+
         const body = new FormData();
         body.append("file", image);
 
@@ -74,6 +78,8 @@ const Input = ({ user} ) => {
         });
 
         const url = await response.json();
+
+        console.log("helloo ", url)
         updatePostImage(postId, url);
 
         const data = await getPosts(user._id);
@@ -91,11 +97,15 @@ const Input = ({ user} ) => {
   };
 
   const updatePostImage = async (postId, imageUrl) => {
+
+    console.log("koko  :: ", imageUrl)
+
     await updatePost(postId, {imageUrl: imageUrl,});
     const data = await getPosts(user._id);
     dispatch(setPosts(data));
 
   };
+
 
   return (
     <div className={styles.combined8}>

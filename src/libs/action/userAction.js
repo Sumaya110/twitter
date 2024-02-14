@@ -17,8 +17,7 @@ import {
 
   
   async function getUser(data) {
-
-    console.log("action : ", data)
+    console.log("gET USER ", data)
     try {
       const response = await getNewUser(data);
       return response.data;
@@ -39,8 +38,12 @@ import {
 
 
   async function updateUser(userId, updateData) {
+
+    console.log("userId  ", userId, updateData)
+    // const _id = userId;
+
     try {
-      const response = await updateNewUser({userId, updateData});
+      const response = await updateNewUser({query: userId, payload: updateData});
       return response.data;
     } catch (error) {
       throw Error(error.response.data);

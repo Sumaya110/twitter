@@ -12,7 +12,6 @@ export const createPost = async (req, res) => {
 
 export const getPosts = async (req, res) => {
   try {
-    console.log("service  :: ", req.query)
     const userId = req.query.userId
     const response = await PostRepository.find({userId});
     return res.status(200).json(response);
@@ -48,11 +47,7 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
   try {
     const postId = req.query._id
-    console.log("ser ",  postId)
     const response = await PostRepository.findOneAndDelete(postId);
-    console.log("service :", response)
-
-    
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -68,8 +63,3 @@ export const createComment = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
-
-
-
-

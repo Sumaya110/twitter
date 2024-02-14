@@ -42,40 +42,10 @@ const signupUser = async (req, res) => {
   }
 };
 
-// Login a user
-// const loginUser = async (req, res) => {
-//   const { email, password } = req.body;
-//   try {
-//     if (!email || !password) {
-//       throw Error('All fields must be filled');
-//     }
-//     const user = await UserRepository.findOne({ email });
-//     if (!user) {
-//       throw Error('Incorrect email');
-//     }
-//     const match = await bcrypt.compare(password, user.password);
-
-//     if (!match) {
-//       throw Error('Incorrect password');
-//     }
-//     const token = createToken(user._id);
-//     res.status(200).json({ email, token });
-//   } catch (error) {
-//     res.status(400).json({ error: error.message });
-//   }
-// };
-
-
-// const getUser = async (req, res) => {
-//   const email = req.params;
-//   const user = await UserRepository.findOne({ email });
-//   res.status(200).json(user);
-// };
-
 
 const getUser = async (req, res) => {
   const userId = req.params;
-  const user = await UserRepository.findById (userId);
+  const user = await UserRepository.findOne ({userId});
   res.status(200).json(user);
 };
 
@@ -89,7 +59,7 @@ const getUsers = async (req, res) => {
 
 const checkToken = async (token) =>{
   try {
-    const check = await UserRepository.tokenFindOne({ verify_token: token} );
+    const check = await UserRepository.findOne({ verify_token: token} );
     return check;
   } catch (error) {
     console.error('Error in checkToken:', error);
@@ -116,4 +86,4 @@ const updateUser = async (req, res) => {
 };
 
 
-module.exports = { signupUser, loginUser , checkToken, updateUser, getUser, getUsers};
+module.exports = { signupUser, checkToken, updateUser, getUser, getUsers};

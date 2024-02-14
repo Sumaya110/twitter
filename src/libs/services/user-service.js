@@ -33,23 +33,10 @@ export const createUser = async (req, res) => {
 };
 
 
-// export const getUser = async (req, res) => {
-//   try {
-//     const email = req.query.email;
-//     const response = await UserRepository.findOne({ email });
-
-//     return res.status(200).json(response);
-//   } catch (error) {
-//     return res.status(500).json(error.message);
-//   }
-// };
-
-
 export const getUser = async (req, res) => {
   try {
-    const userId = req.query.userId;
-    // console.log("service :: ", req.query)
-    const response = await UserRepository.findById(userId);
+    const id= req.query.userId;
+    const response = await UserRepository.findOne({_id: id});
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -67,8 +54,7 @@ export const getUsers = async (req, res) => {
 
 export const getUserId = async (id) => {
   try {
-    const userId = id;
-    const response = await UserRepository.findById(userId);
+    const response = await UserRepository.findOne({_id: id});
     return response;
   } catch (error) {
     throw new Error(error.message);
@@ -76,8 +62,12 @@ export const getUserId = async (id) => {
 };
 
 export const updateUser = async (req, res) => {
+
+  // console.log("service : req.body", req.body)
   try {
-    const response = await UserRepository.findOneAndUpdate(req.body);
+    const response = await UserRepository.findByIdAndUpdate(req.body);
+
+    console.log("service response : ", response)
 
     return res.status(200).json(response);
   } catch (error) {

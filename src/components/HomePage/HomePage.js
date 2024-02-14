@@ -12,9 +12,6 @@ const HomePage = ({ user }) => {
   const router = useRouter();
 
 
-  console.log("user from home page : ", user)
-
-
   useEffect(() => {
     const replace = async () => {
       if (!user) {
@@ -22,9 +19,7 @@ const HomePage = ({ user }) => {
       } else {
         const fetchData = async () => {
           try {
-            // const User = await getUser(user?.email);
             const User = await getUser(user?._id);
-            console.log("id :: ",user?._id)
             setExistUser(User);
           } catch (error) {
             console.error("Error fetching data:", error);
@@ -42,11 +37,10 @@ const HomePage = ({ user }) => {
     <div>
       {existUser ? (
         <main className={styles.main}>
-          <div className={styles.sidebar}>
-            <Sidebar user={user}/>
-          </div>
+         
 
           <div className={styles.container}>
+          <Sidebar user={user}/>
             <Feed user={user} />
             <Trending user={user} option={1} />
           </div>

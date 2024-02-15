@@ -22,10 +22,17 @@ const findByIdAndUpdate = async ({query, payload} ) => {
 };
 
 
+const findOneAndUpdate = async ({query, payload} ) => {
+  console.log(" query :: ", query)
+  const response = await Users.findOneAndUpdate(query, payload, { new: true });
+  return response;
+};
+
 const UserRepository = {
   findOne,
   create,
   findByIdAndUpdate,
+  findOneAndUpdate,
   find,
 };
 

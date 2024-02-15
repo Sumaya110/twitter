@@ -3,7 +3,6 @@ import styles from "@/components/SignUp/SignUp.module.css";
 import { createUser } from "@/libs/action/userAction";
 
 const SignIn = () => {
-  // const [show, setShow] = useState({ password: false });
   const [verificationSent, setVerificationSent] = useState(false);
 
   const handleSubmit = async (e) => {
@@ -14,6 +13,9 @@ const SignIn = () => {
       username: e.target.username.value,
       email: e.target.email.value,
       password: e.target.password.value,
+      profilePicture: '/images/blank-profile-picture.webp',
+      coverPicture: '/images/TT.png',
+      blankPicture: '/images/blank-profile-picture.webp',
     };
 
     try {

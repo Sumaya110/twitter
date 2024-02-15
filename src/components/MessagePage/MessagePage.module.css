@@ -6,14 +6,19 @@
   }
   
 
-  .container {
-    display: flex;
-    gap: 1.5rem; 
-  }
+  
+.fixed{
+  position: sticky; /* Change position to sticky */
+  top: 0; /* Stick to the top */
+  height: fit-content; 
+}
 
-  /* .sidebar{
-    padding-right: 100px;
-  } */
+.container {
+  display: flex;
+  gap: 1.5rem; 
+  max-width: 100%;
+  height: 100%;
+}
 
   @media (max-width: 768px) {
     .main {

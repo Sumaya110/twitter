@@ -1,6 +1,6 @@
 import connectMongo from '@/confiig/ConnectDB/ConnectDB';
-import Users from '@/libs/models/userModel';
-import Verification from '@/libs/models/verificationModel';
+import { updateUser2 } from '@/libs/services/user-service';
+import { getVerification } from '@/libs/services/verification-service';
 
 export default async function handler(req, res) {
   const method = req.method;
@@ -13,23 +13,22 @@ export default async function handler(req, res) {
     case 'GET':
       try {
 
-        const isExpired = await Verification.findOne(
-          { verify_token, 
-            expireIn: {$gt: Date.now()}
-          }
-        );
+        const isExpired = await getVerification({
+          verify_token,
+          expireIn: { $gt: new Date() }
+        });
+        
 
         if (!isExpired) {
           return res.status(404).json({ message: 'token expired.' });
         }
 
 
-
-        const user = await Users.findOneAndUpdate(
-          { verify_token },
-          { isVerified: true },
-          { new: true } 
+        const user = await updateUser2(
+          { verify_token: verify_token },
+          { isVerified: true }
         );
+        
 
         if (!user) {
           return res.status(404).json({ message: 'User not found or already verified.' });

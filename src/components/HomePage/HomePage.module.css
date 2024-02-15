@@ -4,16 +4,19 @@
     margin: 0 auto;
     box-shadow: 0 2px 5px rgba(223, 220, 220, 0.1);
   }
-  
+  .fixed{
+    position: sticky; /* Change position to sticky */
+    top: 0; /* Stick to the top */
+    height: fit-content; 
+  }
 
   .container {
     display: flex;
     gap: 1.5rem; 
+    max-width: 100%;
+    height: 100%;
   }
 
-  /* .sidebar{
-    padding-right: 100px;
-  } */
 
   @media (max-width: 768px) {
     .main {

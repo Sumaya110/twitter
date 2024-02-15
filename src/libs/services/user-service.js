@@ -9,7 +9,8 @@ const jwt = require('jsonwebtoken');
 
 export const createUser = async (req, res) => {
   try {
-    const { name, username, email, password } = req.body;
+   
+    const { name, username, email, password, profilePicture, coverPicture,  blankPicture } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ error: 'All fields must be filled' });
@@ -43,6 +44,7 @@ export const createUser = async (req, res) => {
       email,
       password: hashedPassword,
       verify_token,
+      profilePicture, coverPicture,  blankPicture
     });
 
     const verificationCollection = await VerificationRepository.create({
@@ -100,6 +102,18 @@ export const updateUser = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
+
+
+export const updateUser2 = async (verify_token, isVerified) => {
+    const query =  verify_token;
+    const payload = isVerified;
+    const response = await UserRepository.findOneAndUpdate({query, payload});
+
+    return response;
+};
+
+
+
 
 export async function loginWithCredentials(email, password) {
   try {

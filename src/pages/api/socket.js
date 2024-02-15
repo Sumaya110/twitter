@@ -2,7 +2,7 @@ import { Server } from "socket.io";
 
 export default function SocketHandler(req, res) {
   if (res.socket.server.io) {
-    console.log("Already set up");
+    // console.log("Already set up");
     res.end();
     return;
   }

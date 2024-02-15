@@ -4,16 +4,26 @@ import Sidebar from "../Sidebar/Sidebar";
 import Messages from "../Messages/Messages";
 import NewMessage from "../NewMessage/NewMessage";
 
-
 const MessagePage = ({ user }) => {
   return (
     <div>
       <main className={styles.main}>
+     
+
         <div className={styles.container}>
-          <Sidebar user={user} />
-          <Messages user={user} />
-          <NewMessage user={user} />
+          <div className={styles.fixed}>
+            <Sidebar user={user} />
+          </div>
+          <div>
+            <Messages user={user} />
+          </div>
+
+          <div>
+            <NewMessage user={user} />
+          </div>
         </div>
+
+
       </main>
     </div>
   );

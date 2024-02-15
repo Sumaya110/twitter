@@ -1,6 +1,7 @@
 .mainDiv {
   display: block;
   width: 50px;
+  /* position: fixed; */
 }
 
 .twitterIconContainer {

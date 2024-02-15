@@ -15,17 +15,14 @@ const userSchema = new Schema({
 
     profilePicture: {
         type: String,
-        default: '/images/blank-profile-picture.webp',
     },
 
     coverPicture: {
         type: String,
-        default: '/images/TT.png',
     },
 
     blankPicture: {
         type: String,
-        default: '/images/blank-profile-picture.webp',
     },
 
     following: [

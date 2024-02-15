@@ -1,6 +1,7 @@
 .section {
   display: block;
   width: 600px;
+  height: 100%;
   border-right: 1px solid #dfd7d7;
   border-left: 1px solid #eee6e6;
   color: black;

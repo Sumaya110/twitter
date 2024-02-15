@@ -17,7 +17,7 @@ import {
 
   
   async function getUser(data) {
-    console.log("get user ", data)
+    // console.log("get user ", data)
     try {
       const response = await getNewUser(data);
       return response.data;
@@ -38,10 +38,8 @@ import {
 
 
   async function updateUser(userId, updateData) {
-
-    console.log("userId  ", userId, updateData)
-    // const _id = userId;
-
+    // console.log("userId  ", userId, updateData)
+   
     try {
       const response = await updateNewUser({query: userId, payload: updateData});
       return response.data;

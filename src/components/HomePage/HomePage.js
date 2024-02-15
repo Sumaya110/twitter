@@ -40,9 +40,17 @@ const HomePage = ({ user }) => {
          
 
           <div className={styles.container}>
-          <Sidebar user={user}/>
-            <Feed user={user} />
-            <Trending user={user} option={1} />
+            <div className={styles.fixed}>
+            <Sidebar  user={user}/>
+            </div>
+           <div>
+           <Feed user={user} />
+           </div>
+           
+           <div >
+           <Trending user={user} option={1} />
+           </div>
+            
           </div>
         </main>
       ) : (

@@ -13,6 +13,7 @@ const create = async (payload) => {
 
   const VerificationRepository = {
     create,  
+    findOne,
   };
   
   export default VerificationRepository;

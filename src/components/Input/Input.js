@@ -22,8 +22,6 @@ const Input = ({ user} ) => {
   const [selectedFile, setSelectedFile] = useState(null);
   const dispatch = useDispatch();
 
-  // console.log("selected file ", selectedFile)
-
   const addImageToPost = (e) => {
     const reader = new FileReader();
 
@@ -67,7 +65,7 @@ const Input = ({ user} ) => {
 
       if (selectedFile) {
 
-        // console.log("hellooooooooo")
+
 
         const body = new FormData();
         body.append("file", image);
@@ -111,23 +109,15 @@ const Input = ({ user} ) => {
     <div className={styles.combined8}>
       <div className={styles.combined9}>
         <div>
-          {user?.profilePicture ? (
+         
             <Image
               className={styles.combined10}
-              src={user?.profilePicture}
+              src={user?.profilePicture || '/images/blank-profile-picture.webp'}
               alt=""
               width={40}
               height={40}
             />
-          ) : (
-            <Image
-              className={styles.combined10}
-              src={user?.blankPicture}
-              alt=""
-              width={40}
-              height={40}
-            />
-          )}
+          
         </div>
 
         <div className={styles.combined7}>

@@ -83,7 +83,7 @@ const dispatch = useDispatch();
             {reply?.userImg ? (
               <Image
                 className={styles.image}
-                src={reply?.userImg}
+                src={reply?.userImg || '/images/blank-profile-picture.webp'}
                 alt={`${reply?.username}'s avatar`}
                 width={40}
                 height={40}

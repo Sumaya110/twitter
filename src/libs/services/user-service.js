@@ -1,42 +1,48 @@
 import UserRepository from "../repositories/userRepository";
 import VerificationRepository from "../repositories/verificationRepository";
 import { sendMail } from "../utils/sendEmail";
-const bcrypt = require("bcrypt");
-const validator = require('validator');
-const jwt = require('jsonwebtoken');
+import { generateVerifyToken } from "../utils/utils";
 
+const bcrypt = require("bcrypt");
+const validator = require("validator");
+const jwt = require("jsonwebtoken");
 
 
 export const createUser = async (req, res) => {
   try {
-   
-    const { name, username, email, password, profilePicture, coverPicture,  blankPicture } = req.body;
+    const {
+      name,
+      username,
+      email,
+      password,
+      profilePicture,
+      coverPicture,
+      blankPicture,
+    } = req.body;
 
     if (!email || !password) {
-      return res.status(400).json({ error: 'All fields must be filled' });
+      return res.status(400).json({ error: "All fields must be filled" });
     }
 
     if (!validator.isEmail(email)) {
-      return res.status(400).json({ error: 'Email not valid' });
+      return res.status(400).json({ error: "Email not valid" });
     }
 
     if (!validator.isStrongPassword(password)) {
-      return res.status(400).json({ error: 'Password not strong enough' });
+      return res.status(400).json({ error: "Password not strong enough" });
     }
-
 
     const existingUser = await UserRepository.findOne({ email });
 
     if (existingUser) {
-      return res.status(400).json({ error: "User with this email already exists" });
+      return res
+        .status(400)
+        .json({ error: "User with this email already exists" });
     }
 
     const saltRounds = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
-
-    const verify_token = Array.from({ length: 8 }, () =>
-      Math.floor(Math.random() * 10)
-    ).join("");
+    const verify_token = generateVerifyToken();
 
     const newUser = await UserRepository.create({
       name,
@@ -44,16 +50,17 @@ export const createUser = async (req, res) => {
       email,
       password: hashedPassword,
       verify_token,
-      profilePicture, coverPicture,  blankPicture
+      profilePicture,
+      coverPicture,
+      blankPicture,
     });
 
     const verificationCollection = await VerificationRepository.create({
       userId: newUser._id,
       verify_token: newUser.verify_token,
+    });
 
-    })
-
-    await sendMail(email, verify_token);
+    if (verificationCollection) await sendMail(email, verify_token);
 
     return res.status(201).json(newUser);
   } catch (error) {
@@ -63,7 +70,6 @@ export const createUser = async (req, res) => {
       .json({ error: "Unknown error occurred while creating user" });
   }
 };
-
 
 export const getUser = async (req, res) => {
   try {
@@ -84,32 +90,19 @@ export const getUsers = async (req, res) => {
   }
 };
 
-export const getUserId = async (id) => {
-  try {
-    const response = await UserRepository.findOne({ _id: id });
-    return response;
-  } catch (error) {
-    throw new Error(error.message);
-  }
-};
+
+
+
 
 export const updateUser = async (req, res) => {
-
   try {
-    const response = await UserRepository.findByIdAndUpdate(req.body);
+    const query={ _id: req.body.query };
+    const payload=req.body.payload;
+    const response = await UserRepository.findOneAndUpdate({query  , payload});
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
   }
-};
-
-
-export const updateUser2 = async (verify_token, isVerified) => {
-    const query =  verify_token;
-    const payload = isVerified;
-    const response = await UserRepository.findOneAndUpdate({query, payload});
-
-    return response;
 };
 
 
@@ -138,6 +131,23 @@ export async function loginWithCredentials(email, password) {
     throw new Error("Error occurred while logging in: " + error.message);
   }
 }
+
+export const updateUser2 = async (verify_token, isVerified) => {
+  const query = verify_token;
+  const payload = isVerified;
+  const response = await UserRepository.findOneAndUpdate({ query, payload });
+
+  return response;
+};
+
+export const getUserId = async (id) => {
+  try {
+    const response = await UserRepository.findOne({ _id: id });
+    return response;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+};
 
 export const registerWithSns = async ({ name, email, image }) => {
   let user;

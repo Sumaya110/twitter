@@ -13,9 +13,9 @@ const SignIn = () => {
       username: e.target.username.value,
       email: e.target.email.value,
       password: e.target.password.value,
-      profilePicture: '/images/blank-profile-picture.webp',
-      coverPicture: '/images/TT.png',
-      blankPicture: '/images/blank-profile-picture.webp',
+      profilePicture: "",
+      coverPicture: "",
+      blankPicture: "",
     };
 
     try {

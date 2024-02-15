@@ -31,7 +31,6 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
 
   useEffect(() => {
     const fetchdata = async () => {
-      // const info = await getUser(comment?.userEmail);
       const info = await getUser(comment?.userId);
       setCommentUser(info);
     };
@@ -44,6 +43,9 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
         comments: { _id: commentId },
       },
     });
+    
+    const data = await getPosts(user?._id);
+    dispatch(setPosts(data));
 
     fetchData();
   };
@@ -59,9 +61,9 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
     } else {
       setLiked(true);
       comment?.likes?.push({
-        userId: user._id,
-        username: user.username,
-        userImg: user.profilePicture,
+        userId: user?._id,
+        username: user?.username,
+        userImg: user?.profilePicture,
       });
     }
 
@@ -86,7 +88,7 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
         <div className={styles.sameSpan}>
           <Image
             className={styles.image}
-            src={commentUser?.profilePicture}
+            src={commentUser?.profilePicture || '/images/blank-profile-picture.webp'}
             alt={`${comment?.username}'s avatar`}
             width={40}
             height={40}

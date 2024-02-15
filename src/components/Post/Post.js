@@ -36,7 +36,6 @@ const Post = ({ id, post, user, fetchData }) => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      // const info = await getUser(post?.userEmail);
       const info = await getUser(post?.userId);
       setPostUser(info);
     };
@@ -114,9 +113,10 @@ const Post = ({ id, post, user, fetchData }) => {
                 </div>
               )}
               <div className={styles.sameSpan}>
+
                 <Image
                   className={styles.image}
-                  src={postUser?.profilePicture}
+                  src={postUser?.profilePicture || '/images/blank-profile-picture.webp'}
                   alt={`${postUser?.username}'s avatar`}
                   width={40}
                   height={40}
@@ -213,7 +213,7 @@ const Post = ({ id, post, user, fetchData }) => {
             )}
           </div>
 
-          {user?._id === post?.userId && (
+          {session?.user?._id === post?.userId && (
             <RiDeleteBin5Line
               className={styles.combined10}
               onClick={(e) => {
@@ -236,7 +236,7 @@ const Post = ({ id, post, user, fetchData }) => {
                 comments={post?.comments}
                 post={post}
                 user={user}
-                fetchData={() => fetchData()}
+                fetchData={()=>fetchData}
               />
             ))}
           </div>

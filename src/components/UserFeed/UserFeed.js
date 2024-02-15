@@ -16,8 +16,6 @@ const UserFeed = ({ user, sessionUser }) => {
   const [showModal, setShowModal] = useState(false);
   const [followed, setFollowed] = useState(false);
 
-  // console.log("pp  : ", sessionUser)
-
   useEffect(() => {
     const isFollowed = sessionUser?.following?.some(
       (follow) => follow?.userId === user?._id
@@ -30,8 +28,6 @@ const UserFeed = ({ user, sessionUser }) => {
       try {
         const data = await getPosts(user._id);
         dispatch(setPosts(data));
-
-        // const user_data = await getUser(user?.email);
         const user_data = await getUser(user?._id);
         dispatch(setUsers(user_data));
       } catch (error) {
@@ -55,7 +51,6 @@ const UserFeed = ({ user, sessionUser }) => {
       following: sessionUser?.following,
     });
 
-    // const data = await getUser(sessionUser?.email);
     const data = await getUser(sessionUser?._id);
     dispatch(setUsers(data));
   };
@@ -71,7 +66,6 @@ const UserFeed = ({ user, sessionUser }) => {
       following: updatedFollowing,
     });
 
-    // const data = await getUser(sessionUser?.email);
     const data = await getUser(sessionUser?._id);
     dispatch(setUsers(data));
   };
@@ -82,7 +76,7 @@ const UserFeed = ({ user, sessionUser }) => {
         {user?._id === sessionUser?._id && (
           <div>
             <Image
-              src={User?.coverPicture}
+              src={User?.coverPicture || "/images/TT.png"}
               alt=""
               className={styles.userImage2}
               width={200}
@@ -90,7 +84,9 @@ const UserFeed = ({ user, sessionUser }) => {
             />
             <div className={styles.profilePictureOverlay}>
               <Image
-                src={User?.profilePicture}
+                src={
+                  User?.profilePicture || "/images/blank-profile-picture.webp"
+                }
                 alt=""
                 className={styles.userImage}
                 width={200}
@@ -110,7 +106,7 @@ const UserFeed = ({ user, sessionUser }) => {
         {user?._id !== sessionUser?._id && (
           <div>
             <Image
-              src={user?.coverPicture}
+              src={user?.coverPicture || "/images/TT.png"}
               alt=""
               className={styles.userImage2}
               width={200}
@@ -119,7 +115,9 @@ const UserFeed = ({ user, sessionUser }) => {
 
             <div className={styles.profilePictureOverlay}>
               <Image
-                src={user?.profilePicture}
+                src={
+                  user?.profilePicture || "/images/blank-profile-picture.webp"
+                }
                 alt=""
                 className={styles.userImage}
                 width={200}
@@ -144,23 +142,20 @@ const UserFeed = ({ user, sessionUser }) => {
         )}
       </div>
 
-     
-
       <div className={styles.space}>
+        {user?._id === sessionUser?._id && (
+          <div className={styles.div}>
+            <div className={styles.name}>{User?.name}</div>
+            <div className={styles.username}>@{User?.username}</div>
+          </div>
+        )}
 
-      {user?._id === sessionUser?._id && (
-      <div className={styles.div}>
-        <div className={styles.name}>{User?.name}</div>
-        <div className={styles.username}>@{User?.username}</div>
-      </div>)}
-
-
-      {user?._id !== sessionUser?._id && (
-      <div className={styles.div}>
-        <div className={styles.name}>{user?.name}</div>
-        <div className={styles.username}>@{user?.username}</div>
-      </div>)}
-
+        {user?._id !== sessionUser?._id && (
+          <div className={styles.div}>
+            <div className={styles.name}>{user?.name}</div>
+            <div className={styles.username}>@{user?.username}</div>
+          </div>
+        )}
 
         <div className={styles.container}>
           <div>Posts</div>
@@ -176,7 +171,8 @@ const UserFeed = ({ user, sessionUser }) => {
             id={post._id}
             post={post}
             user={User}
-            fetchData={() => fetchData()}
+            fetchData={() => fetchData()
+            }
           />
         ))}
       </div>

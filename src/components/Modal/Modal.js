@@ -152,45 +152,30 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
           <div className={styles.padding}>
             {option === 1 && (
               <div>
-                {postUser?.profilePicture ? (
+               
                   <Image
                     className={styles.imageStyle}
-                    src={postUser?.profilePicture}
+                    src={postUser?.profilePicture || '/images/blank-profile-picture.webp'}
                     alt=""
                     width={40}
                     height={40}
                   />
-                ) : (
-                  <Image
-                    className={styles.imageStyle}
-                    src={postUser?.blankPicture}
-                    alt=""
-                    width={40}
-                    height={40}
-                  />
-                )}
+                
+                
               </div>
             )}
 
             {option === 2 && (
               <div>
-                {commentUser?.profilePicture ? (
+               
                   <Image
                     className={styles.imageStyle}
-                    src={commentUser?.profilePicture}
+                    src={commentUser?.profilePicture || '/images/blank-profile-picture.webp'}
                     alt=""
                     width={40}
                     height={40}
                   />
-                ) : (
-                  <Image
-                    className={styles.imageStyle}
-                    src={commentUser?.blankPicture}
-                    alt=""
-                    width={40}
-                    height={40}
-                  />
-                )}
+                
               </div>
             )}
           </div>
@@ -246,23 +231,15 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
           </div>
 
           <div className={styles.mt}>
-            {user?.profilePicture ? (
+            
               <Image
                 className={styles.imageStyle}
-                src={user?.profilePicture}
+                src={user?.profilePicture || '/images/blank-profile-picture.webp'} 
                 alt=""
                 width={40}
                 height={40}
               />
-            ) : (
-              <Image
-                className={styles.imageStyle}
-                src={user?.blankPicture}
-                alt=""
-                width={40}
-                height={40}
-              />
-            )}
+           
           </div>
 
           <div className={styles.mt}>

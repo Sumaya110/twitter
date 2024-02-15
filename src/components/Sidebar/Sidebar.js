@@ -24,16 +24,6 @@ const Sidebar = ({ user }) => {
   const User = useSelector((state) => state.users.users);
   const { data: session } = useSession();
 
-  
-  // console.log("user  :: ", session?.user?._id)
-  // useEffect(() => {
-  //   const fetchdata = async () => {
-  //     // const info = await getUser(session?.user?.email);
-  //     const info = await getUser(session?.user?._id);
-  //     dispatch(setUsers(info));
-  //   };
-  //   fetchdata();
-  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -107,23 +97,15 @@ const Sidebar = ({ user }) => {
       <button className={styles.tweetButton}>Post</button>
 
       <div className={styles.signOutDiv} onClick={() => signOut()}>
-        {User?.profilePicture ? (
+        
           <Image
-            src={User?.profilePicture}
+            src={User?.profilePicture || '/images/blank-profile-picture.webp'}
             alt=""
             className={styles.userImage}
             width={40}
             height={40}
           />
-        ) : (
-          <Image
-            src={User?.blankPicture}
-            alt=""
-            className={styles.userImage}
-            width={40}
-            height={40}
-          />
-        )}
+       
 
         <div className={styles.userDetails}>
           <h4>{User?.name}</h4>

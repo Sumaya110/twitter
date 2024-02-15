@@ -14,8 +14,8 @@ const Modal = ({ onClose, user }) => {
   const [proPic, setProPic] = useState(null);
   const [coverPic, setCoverPic] = useState(null);
   const [name, setName] = useState(user.name);
-  const [selectedProPic, setSelectedProPic] = useState(user.profilePicture);
-  const [selectedCoverPic, setSelectedCoverPic] = useState(user.coverPicture);
+  const [selectedProPic, setSelectedProPic] = useState(user?.profilePicture || '/images/blank-profile-picture.webp');
+  const [selectedCoverPic, setSelectedCoverPic] = useState(user?.coverPicture || '/images/TT.png');
   const dispatch = useDispatch();
 
   const addImageToProPic = (e) => {
@@ -128,7 +128,7 @@ const Modal = ({ onClose, user }) => {
             <div className={styles.modal2}>
               <div
                 className={styles.modalCover}
-                onClick={() => setSelectedCoverPic(user.coverPicture)}
+                onClick={() => setSelectedCoverPic(user?.coverPicture || '/images/TT.png')}
               >
                 <AiOutlineClose className={styles.modal4} />
               </div>
@@ -154,7 +154,7 @@ const Modal = ({ onClose, user }) => {
             <div className={styles.profilePictureOverlay}>
               <div
                 className={styles.modalPro}
-                onClick={() => setSelectedProPic(user.profilePicture)}
+                onClick={() => setSelectedProPic(user?.profilePicture || '/images/blank-profile-picture.webp')}
               >
                 <AiOutlineClose className={styles.modal44} />
               </div>

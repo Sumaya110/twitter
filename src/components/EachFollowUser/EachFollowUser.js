@@ -70,7 +70,7 @@ const EachFollowUser = ({ fuser, user }) => {
       <div className={styles.userInfo}>
 
         <Image
-          src={fuser?.profilePicture}
+          src={fuser?.profilePicture || '/images/blank-profile-picture.webp'}
           alt="Profile"
           className={styles.profilePicture}
           width={40}

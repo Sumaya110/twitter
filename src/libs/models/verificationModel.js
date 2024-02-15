@@ -1,4 +1,5 @@
-const mongoose = require("mongoose")
+const mongoose = require("mongoose");
+const { getDefaultExpirationDate } = require("../utils/utils");
 
 
 const verficationSchema = new mongoose.Schema({
@@ -13,7 +14,7 @@ const verficationSchema = new mongoose.Schema({
     expireIn:{
         type: Date,
         required: true,
-        default: new Date(Date.now()+ 3*24*60*60*1000),
+        default: getDefaultExpirationDate(),
     }
 })
 

@@ -1,25 +1,25 @@
 import styles from "@/components/EachUser/EachUser.module.css";
+import { createConversation } from "@/libs/services/conversation-service";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import io from "socket.io-client";
 
 let socket;
 
 const EachUser = ({ user }) => {
+  const [message, setMessage] = useState("");
+  const [username, setUsername] = useState("");
+  const { data: session } = useSession();
 
-    const [message, setMessage] = useState("");
-    const [username, setUsername] = useState("");
-
-
-    useEffect(() => {
+  useEffect(() => {
     socketInitializer();
 
     // return () => {
     //   socket.disconnect();
     // };
   }, []);
-
 
   async function socketInitializer() {
     await fetch("/api/socket");
@@ -32,16 +32,19 @@ const EachUser = ({ user }) => {
   }
 
 
-  function handleSubmit(e) {
+  function handleSubmit() {
+    const  conversationId= await createConversation({
+      senderId: session?.user?._id,
+      receiverId: user?._id,
+      timestamp: new Date()
+    })
   }
 
-
- 
   return (
     <div>
       <button className={styles.userInfo} onClick={() => handleSubmit()}>
         <Image
-          src={user?.profilePicture}
+          src={user?.profilePicture || "/images/blank-profile-picture.webp"}
           alt="Profile"
           className={styles.profilePicture}
           width={40}
@@ -52,7 +55,6 @@ const EachUser = ({ user }) => {
           <p className={styles.username}> @{user?.username}</p>
         </div>
       </button>
-
 
       {/* <h1>Enter a username</h1>
 
@@ -73,9 +75,7 @@ const EachUser = ({ user }) => {
         </form>
       </div> */}
     </div>
-    
   );
 };
 
 export default EachUser;
-

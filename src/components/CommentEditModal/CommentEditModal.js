@@ -104,7 +104,7 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
           <div className={styles.padding}>
             <Image
               className={styles.imageStyle}
-              src={comment?.profilePicture}
+              src={comment?.profilePicture || '/images/blank-profile-picture.webp'}
               alt=""
               width={40}
               height={40}

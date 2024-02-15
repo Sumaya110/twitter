@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 const Profile = ({ userId, feedUser }) => {
   const [user, setUser] = useState(null);
 
-  // console.log("user from profile  :: ", feedUser)
-
   useEffect(() => {
     const fetchdata = async () => {
       const info = await getUser(userId);

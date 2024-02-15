@@ -24,8 +24,6 @@ const Login = (  ) => {
         password,
       });
 
-      console.log("status  :", status);
-
       if (!status.ok) {
         setError("Please verify before Login!");
         console.error("Authentication error:", status.error ?? "Unknown error");

@@ -113,7 +113,7 @@ const dispatch = useDispatch();
           <div className={styles.padding}>
             <Image
               className={styles.imageStyle}
-              src={post?.userImg}
+              src={post?.userImg || '/images/blank-profile-picture.webp'}
               alt=""
               width={40}
               height={40}

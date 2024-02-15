@@ -1,6 +1,5 @@
 import Users from "../models/userModel";
 
-
 const create = async (payload) => {
   const user = await Users.create(payload);
   return user;
@@ -16,14 +15,11 @@ const find = async () => {
   return user;
 };
 
-const findByIdAndUpdate = async ({query, payload} ) => {
-  const response = await Users.findByIdAndUpdate(query, payload, { new: true });
-  return response;
-};
 
 
-const findOneAndUpdate = async ({query, payload} ) => {
-  console.log(" query :: ", query)
+const findOneAndUpdate = async ({ query, payload }) => {
+
+  console.log("query ", query, payload)
   const response = await Users.findOneAndUpdate(query, payload, { new: true });
   return response;
 };
@@ -31,7 +27,6 @@ const findOneAndUpdate = async ({query, payload} ) => {
 const UserRepository = {
   findOne,
   create,
-  findByIdAndUpdate,
   findOneAndUpdate,
   find,
 };

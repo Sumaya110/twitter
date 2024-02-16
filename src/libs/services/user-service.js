@@ -7,7 +7,6 @@ const bcrypt = require("bcrypt");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 
-
 export const createUser = async (req, res) => {
   try {
     const {
@@ -90,23 +89,16 @@ export const getUsers = async (req, res) => {
   }
 };
 
-
-
-
-
 export const updateUser = async (req, res) => {
   try {
-    const query={ _id: req.body.query };
-    const payload=req.body.payload;
-    const response = await UserRepository.findOneAndUpdate({query  , payload});
+    const query = { _id: req.body.query };
+    const payload = req.body.payload;
+    const response = await UserRepository.findOneAndUpdate({ query, payload });
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 };
-
-
-
 
 export async function loginWithCredentials(email, password) {
   try {

@@ -27,7 +27,7 @@ const Modal = ({
   user,
 }) => {
   const [input, setInput] = useState(reply.text);
-  const timestamp = new Date(reply?.timestamp);
+  const timestamp = new Date(reply?.createdAt);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(reply.imageUrl);

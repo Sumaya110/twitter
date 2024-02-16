@@ -9,13 +9,16 @@ import { AiOutlineClose } from "react-icons/ai";
 import { TbCameraPlus } from "react-icons/tb";
 import { setUsers } from "@/actions/actions";
 
-
 const Modal = ({ onClose, user }) => {
   const [proPic, setProPic] = useState(null);
   const [coverPic, setCoverPic] = useState(null);
   const [name, setName] = useState(user.name);
-  const [selectedProPic, setSelectedProPic] = useState(user?.profilePicture || '/images/blank-profile-picture.webp');
-  const [selectedCoverPic, setSelectedCoverPic] = useState(user?.coverPicture || '/images/TT.png');
+  const [selectedProPic, setSelectedProPic] = useState(
+    user?.profilePicture || "/images/blank-profile-picture.webp"
+  );
+  const [selectedCoverPic, setSelectedCoverPic] = useState(
+    user?.coverPicture || "/images/TT.png"
+  );
   const dispatch = useDispatch();
 
   const addImageToProPic = (e) => {
@@ -59,8 +62,6 @@ const Modal = ({ onClose, user }) => {
         profilePicture: url,
       });
 
-  
-      // const data = await getUser(user?.email);
       const data = await getUser(user?._id);
       dispatch(setUsers(data));
     }
@@ -78,18 +79,15 @@ const Modal = ({ onClose, user }) => {
         coverPicture: url,
       });
 
-      // const data = await getUser(user?.email);
       const data = await getUser(user?._id);
       dispatch(setUsers(data));
     }
 
     if (name !== user.name) {
       await updateUser(user?._id, {
-        name:name,
+        name: name,
       });
 
-  
-      // const data = await getUser(user?.email);
       const data = await getUser(user?._id);
       dispatch(setUsers(data));
     }
@@ -128,7 +126,9 @@ const Modal = ({ onClose, user }) => {
             <div className={styles.modal2}>
               <div
                 className={styles.modalCover}
-                onClick={() => setSelectedCoverPic(user?.coverPicture || '/images/TT.png')}
+                onClick={() =>
+                  setSelectedCoverPic(user?.coverPicture || "/images/TT.png")
+                }
               >
                 <AiOutlineClose className={styles.modal4} />
               </div>
@@ -154,7 +154,11 @@ const Modal = ({ onClose, user }) => {
             <div className={styles.profilePictureOverlay}>
               <div
                 className={styles.modalPro}
-                onClick={() => setSelectedProPic(user?.profilePicture || '/images/blank-profile-picture.webp')}
+                onClick={() =>
+                  setSelectedProPic(
+                    user?.profilePicture || "/images/blank-profile-picture.webp"
+                  )
+                }
               >
                 <AiOutlineClose className={styles.modal44} />
               </div>

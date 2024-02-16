@@ -9,11 +9,6 @@
   border-radius: 8px;
   padding: 10px;
   margin-bottom: 10px;
-
-
-  /* display: inline-block;   */
-   /* max-width: max-content;  */
- 
 }
 
 .commentContainer {
@@ -32,7 +27,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  /* width: 100%; */
 }
 
 .combined4 {
@@ -56,7 +50,7 @@
 
 .combined7:hover,
 .combined7:focus {
-  text-decoration: underline;
+  cursor: pointer;
 }
 
 .combined8 {
@@ -77,7 +71,7 @@
 }
 
 .combined9:hover {
-  text-decoration: underline;
+  cursor: pointer;
 }
 
 .combined10 {
@@ -100,8 +94,6 @@
   gap: 1rem;
   align-items: center;
 }
-
-
 
 .group:hover .combined13 {
   color: #1d9bf0;
@@ -233,7 +225,6 @@
 .edit {
   margin-left: 40px;
 }
-
 
 .textStyle {
   width: 400px;

@@ -15,19 +15,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 import { getUser } from "@/libs/action/userAction";
 
-
 function Comment({ comment, postId, comments, post, user, fetchData }) {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [liked, setLiked] = useState(false);
   const dispatch = useDispatch();
   const users = useSelector((state) => state.users.users);
-  const [commentUser, setCommentUser]= useState(null)
-
+  const [commentUser, setCommentUser] = useState(null);
 
   const commentId = comment?._id;
   const { data: session } = useSession();
- 
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -35,7 +32,7 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
       setCommentUser(info);
     };
     fetchdata();
-  }, [comment, user ]);
+  }, [comment, user]);
 
   const handleDeleteComment = async () => {
     await updatePost(postId, {
@@ -43,7 +40,7 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
         comments: { _id: commentId },
       },
     });
-    
+
     const data = await getPosts(user?._id);
     dispatch(setPosts(data));
 
@@ -88,7 +85,10 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
         <div className={styles.sameSpan}>
           <Image
             className={styles.image}
-            src={commentUser?.profilePicture || '/images/blank-profile-picture.webp'}
+            src={
+              commentUser?.profilePicture ||
+              "/images/blank-profile-picture.webp"
+            }
             alt={`${comment?.username}'s avatar`}
             width={40}
             height={40}
@@ -100,10 +100,10 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
           </div>
 
           <Moment fromNow className={styles.time}>
-            {comment?.timestamp}
+            {comment?.createdAt}
           </Moment>
 
-          {commentUser?.userId === session?.user?._id && (
+          {comment?.userId === session?.user?._id && (
             <FaEdit
               className={styles.edit}
               onClick={() => setShowEditModal(true)}
@@ -158,6 +158,7 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
           )}
         </div>
 
+        {comment?.userId === session?.user?._id &&(
         <RiDeleteBin5Line
           className={styles.comment10}
           onClick={(e) => {
@@ -165,6 +166,7 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
             handleDeleteComment();
           }}
         />
+        )}
 
         <div
           className={styles.comment11}

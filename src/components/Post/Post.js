@@ -87,7 +87,6 @@ const Post = ({ id, post, user, fetchData }) => {
       imageUrl: post?.imageUrl,
       retweetedFrom: post?.userEmail,
       retweetedBy: user?.name,
-      timestamp: new Date(),
     });
 
     const data = await getPosts(user?._id);
@@ -128,7 +127,7 @@ const Post = ({ id, post, user, fetchData }) => {
                 </div>
 
                 <Moment fromNow className={styles.time}>
-                  {post?.timestamp}
+                  {post?.createdAt}
                 </Moment>
 
                 {session?.user?._id=== post?.userId && (

@@ -18,12 +18,11 @@ import { setUsers } from "@/actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
 
-const Sidebar = ({ user }) => {
+const Sidebar = ({ user, option }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const User = useSelector((state) => state.users.users);
   const { data: session } = useSession();
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,7 +69,10 @@ const Sidebar = ({ user }) => {
           <SidebarLink text="Notifications" Icon={BsBell} />
         </button>
 
-        <button className={styles.profileButton} onClick={() => handleMessage()} >
+        <button
+          className={styles.profileButton}
+          onClick={() => handleMessage()}
+        >
           <SidebarLink text="Messages" Icon={AiOutlineInbox} />
         </button>
 
@@ -96,24 +98,43 @@ const Sidebar = ({ user }) => {
 
       <button className={styles.tweetButton}>Post</button>
 
-      <div className={styles.signOutDiv} onClick={() => signOut()}>
-        
+      {option === 1 && (
+        <div className={styles.signOutDiv} onClick={() => signOut()}>
           <Image
-            src={User?.profilePicture || '/images/blank-profile-picture.webp'}
+            src={User?.profilePicture || "/images/blank-profile-picture.webp"}
             alt=""
             className={styles.userImage}
             width={40}
             height={40}
           />
-       
 
-        <div className={styles.userDetails}>
-          <h4>{User?.name}</h4>
-          <p>@{User?.username}</p>
+          <div className={styles.userDetails}>
+            <h4>{User?.name}</h4>
+            <p>@{User?.username}</p>
+          </div>
+
+          <BsThreeDots className={styles.dotsIcon} />
         </div>
+      )}
 
-        <BsThreeDots className={styles.dotsIcon} />
-      </div>
+      {option === 2 && (
+        <div className={styles.signOutDiv} onClick={() => signOut()}>
+          <Image
+            src={user?.profilePicture || "/images/blank-profile-picture.webp"}
+            alt=""
+            className={styles.userImage}
+            width={40}
+            height={40}
+          />
+
+          <div className={styles.userDetails}>
+            <h4>{user?.name}</h4>
+            <p>@{user?.username}</p>
+          </div>
+
+          <BsThreeDots className={styles.dotsIcon} />
+        </div>
+      )}
     </div>
   );
 };

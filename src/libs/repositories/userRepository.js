@@ -15,11 +15,7 @@ const find = async () => {
   return user;
 };
 
-
-
 const findOneAndUpdate = async ({ query, payload }) => {
-
-  console.log("query ", query, payload)
   const response = await Users.findOneAndUpdate(query, payload, { new: true });
   return response;
 };

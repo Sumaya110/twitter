@@ -5,9 +5,9 @@ export default async function handler(req, res) {
   try {
     await connectMongo();
     switch (req.method) {
-      case "POST":
-        return await createConversation(req, res);
-      
+      case "GET":
+        console.log("get  ", req.query)
+        return await getConversation(req, res);
     }
   } catch (error) {
     return res.status(500).json({ error });

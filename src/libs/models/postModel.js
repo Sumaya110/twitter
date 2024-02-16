@@ -9,7 +9,6 @@ const postSchema = new Schema({
   tag: String,
   text: String,
   image: String,
-  timestamp: Date,
   imageUrl: String,
   retweetedFrom: String,
   retweetedBy: String,
@@ -29,7 +28,6 @@ const postSchema = new Schema({
       userEmail: String,
       tag: String,
       text: String,
-      timestamp: Date,
       imageUrl: String,
 
       likes: [
@@ -47,7 +45,6 @@ const postSchema = new Schema({
           userEmail: String,
           tag: String,
           text: String,
-          timestamp: Date,
           imageUrl: String,
           likes: [
             {
@@ -57,9 +54,18 @@ const postSchema = new Schema({
             },
           ],
         },
+        {
+          timestamps:true,
+        }
       ],
     },
+    {
+      timestamps:true,
+    }
   ],
+},
+{
+ timestamps:true,
 });
 
 const Posts = models.post || model("post", postSchema);

@@ -13,7 +13,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { getPosts, updatePost } from "@/libs/action/postAction";
 import { setPosts } from "@/actions/actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 import { useSession } from "next-auth/react";
 
 const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
@@ -25,7 +25,6 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
   const [commentUser, setCommentUser] = useState();
   const dispatch = useDispatch();
   const { data: session } = useSession();
-  console.log("session  :: ", session?.user)
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -49,13 +48,11 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
   };
 
   const updatePostButton = async () => {
-
     const updatedComment = { ...comment };
 
     if (selectedFile === comment.imageUrl) {
       updatedComment.text = input;
-    }
-    else {
+    } else {
       let url = null;
       if (selectedFile) {
         const body = new FormData();
@@ -68,7 +65,6 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
         url = await response.json();
 
         updatedComment.imageUrl = url;
-
       }
     }
     await updatePost(postId, {
@@ -79,11 +75,7 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
 
     const data = await getPosts(user._id);
     dispatch(setPosts(data));
-
-
-
   };
-
 
   const closeModal = (e) => {
     onClose();
@@ -95,16 +87,21 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
         className={styles.stopPropagation}
         onClick={(e) => e.stopPropagation()}
       >
-        <MdClose className={styles.mdClose} onClick={(e) => {
-                  e.stopPropagation();
-                  closeModal();
-                }} />
+        <MdClose
+          className={styles.mdClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            closeModal();
+          }}
+        />
 
         <div className={styles.combined}>
           <div className={styles.padding}>
             <Image
               className={styles.imageStyle}
-              src={comment?.profilePicture || '/images/blank-profile-picture.webp'}
+              src={
+                comment?.profilePicture || "/images/blank-profile-picture.webp"
+              }
               alt=""
               width={40}
               height={40}
@@ -172,8 +169,11 @@ const Modal = ({ onClose, postId, commentId, post, comment, user }) => {
 
               <button
                 className={styles.combined8}
-                disabled={(input === comment.text && selectedFile === comment.imageUrl) ||
-                  (!input.trim() && !selectedFile)}
+                disabled={
+                  (input === comment.text &&
+                    selectedFile === comment.imageUrl) ||
+                  (!input.trim() && !selectedFile)
+                }
                 onClick={(e) => {
                   e.stopPropagation();
                   updatePostButton();

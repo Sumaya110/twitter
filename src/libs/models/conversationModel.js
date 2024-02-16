@@ -1,4 +1,3 @@
-//const mongoose = require('mongoose')
 import Message from "./subModel/messageModel";
 import { Schema, model, models } from "mongoose";
 
@@ -14,12 +13,12 @@ const conversationSchema = new Schema({
     required: true,
   },
 
-  message: [Message],
+  messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
 });
 
 const Conversation =
   models?.Conversation ||
   model("Conversation", conversationSchema);
 
-// module.exports = Conversation;
+
 export default Conversation

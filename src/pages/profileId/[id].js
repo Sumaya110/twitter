@@ -2,7 +2,6 @@ import Profile from '@/components/Profile/Profile';
 import { getUserId } from '@/libs/services/user-service';
 import React from 'react';
 import { getSession } from "next-auth/react";
-// import { getUserId } from "@/libs/services/user-service";
 
 
 const Identity = ({ userId, id, profileData, error }) => {
@@ -11,7 +10,6 @@ const Identity = ({ userId, id, profileData, error }) => {
     return <div>Error: {error}</div>;
   }
 
-  // return <Profile user_email={user_email} id={id} feedUser={profileData}  />;
   return <Profile userId={userId} id={id} feedUser={profileData}  />;
 };
 
@@ -24,7 +22,7 @@ export async function getServerSideProps(context) {
   
 
   try {
-    // const user_email= session?.user?.email || null;
+   
     const userId= session?.user?._id || null;
     const id = context.query.id;
     const profileData = await getUserId(id);
@@ -40,7 +38,6 @@ export async function getServerSideProps(context) {
 
     return {
       props: {
-        // user_email,
         userId,
         id,
         profileData: serializableProfileData,
@@ -50,7 +47,6 @@ export async function getServerSideProps(context) {
     console.error("Error fetching profile data:", error);
     return {
       props: {
-        // user_email: null,
         userId:null,
         id: null,
         profileData: null,

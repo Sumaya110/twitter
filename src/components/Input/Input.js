@@ -11,9 +11,9 @@ import styles from "@/components/Input/Input.module.css";
 import { createPost, getPosts, updatePost } from "@/libs/action/postAction";
 import moment from "moment";
 import { setPosts } from "@/actions/actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
-const Input = ({ user} ) => {
+const Input = ({ user }) => {
   const [showEmojis, setShowEmojis] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -55,7 +55,6 @@ const Input = ({ user} ) => {
         userImage: user?.profilePicture,
         username: user?.username,
         text: input,
-        timestamp: new Date(),
       });
 
       const data = await getPosts(user._id);
@@ -64,9 +63,6 @@ const Input = ({ user} ) => {
       setFormattedTimestamp(moment(new Date()).fromNow());
 
       if (selectedFile) {
-
-
-
         const body = new FormData();
         body.append("file", image);
 
@@ -77,12 +73,10 @@ const Input = ({ user} ) => {
 
         const url = await response.json();
 
-        console.log("helloo ", url)
         updatePostImage(postId, url);
 
         const data = await getPosts(user._id);
         dispatch(setPosts(data));
-
       }
     } catch (error) {
       console.error("Error sending post:", error);
@@ -95,29 +89,22 @@ const Input = ({ user} ) => {
   };
 
   const updatePostImage = async (postId, imageUrl) => {
-
-    console.log("koko  :: ", imageUrl)
-
-    await updatePost(postId, {imageUrl: imageUrl,});
+    await updatePost(postId, { imageUrl: imageUrl });
     const data = await getPosts(user._id);
     dispatch(setPosts(data));
-
   };
-
 
   return (
     <div className={styles.combined8}>
       <div className={styles.combined9}>
         <div>
-         
-            <Image
-              className={styles.combined10}
-              src={user?.profilePicture || '/images/blank-profile-picture.webp'}
-              alt=""
-              width={40}
-              height={40}
-            />
-          
+          <Image
+            className={styles.combined10}
+            src={user?.profilePicture || "/images/blank-profile-picture.webp"}
+            alt=""
+            width={40}
+            height={40}
+          />
         </div>
 
         <div className={styles.combined7}>
@@ -131,7 +118,6 @@ const Input = ({ user} ) => {
 
           {selectedFile && (
             <div className={styles.combined2}>
-              
               <div
                 className={styles.combined3}
                 onClick={() => setSelectedFile(null)}
@@ -188,7 +174,6 @@ const Input = ({ user} ) => {
               <Picker onEmojiSelect={addEmoji} data={data} />
             </div>
           )}
-
         </div>
       </div>
 

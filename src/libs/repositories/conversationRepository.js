@@ -6,10 +6,13 @@ const create = async (content) => {
   return conversation;
 };
 
-
+const findOne = async (payload) => {
+  const conversation = await Conversation.findOne(payload);
+  return conversation;
+};
 
 const ConversationRepository = {
-    create,
+    create,findOne,
     
   };
   

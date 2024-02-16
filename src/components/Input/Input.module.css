@@ -54,6 +54,7 @@
   padding-left: 1rem;
   padding-right: 1rem;
   opacity: 0.6; 
+  border-bottom: 1px solid #e7ebed;
 }
 
 .combined8:not(.loading) {

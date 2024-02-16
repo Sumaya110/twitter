@@ -17,7 +17,7 @@ import { useDispatch } from 'react-redux';
 
 const Modal = ({ onClose, id, post, user }) => {
   const [input, setInput] = useState(post?.text);
-  const timestamp = new Date(post?.timestamp);
+  const timestamp = new Date(post?.createdAt);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(post?.imageUrl);

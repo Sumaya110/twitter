@@ -1,10 +1,10 @@
 import styles from "@/components/EachUser/EachUser.module.css";
-import { createConversation } from "@/libs/services/conversation-service";
+import { createConversation } from "@/libs/action/conversationAction";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-
-import React, { useEffect, useState } from "react";
-import io from "socket.io-client";
+import { checkConversationExists } from "@/libs/action/conversationAction";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 
 let socket;
 
@@ -12,33 +12,32 @@ const EachUser = ({ user }) => {
   const [message, setMessage] = useState("");
   const [username, setUsername] = useState("");
   const { data: session } = useSession();
+  const router = useRouter();
 
-  useEffect(() => {
-    socketInitializer();
+  const userOneId = session?.user?._id;
+  const userTwoId = user?._id;
+ 
+ 
 
-    // return () => {
-    //   socket.disconnect();
-    // };
-  }, []);
-
-  async function socketInitializer() {
-    await fetch("/api/socket");
-
-    socket = io();
-
-    socket.on("receive-message", (data) => {
-      // we get the data here
+  const handleSubmit = async () => {
+    const isExist = await checkConversationExists({
+      userOneId, userTwoId
     });
-  }
+
+    console.log("isExist : ", isExist)
+    var conversationId=null;
 
 
-  function handleSubmit() {
-    const  conversationId= await createConversation({
-      senderId: session?.user?._id,
-      receiverId: user?._id,
-      timestamp: new Date()
-    })
-  }
+    if(isExist) conversationId=isExist?._id;
+    else
+      conversationId = await createConversation({
+      userOneId: session?.user?._id,
+      userTwoId: user?._id,
+      messages: [],
+    });
+
+    router.push(`/messages/${conversationId}`);
+  };
 
   return (
     <div>
@@ -55,25 +54,6 @@ const EachUser = ({ user }) => {
           <p className={styles.username}> @{user?.username}</p>
         </div>
       </button>
-
-      {/* <h1>Enter a username</h1>
-
-      <input value={username} onChange={(e) => setUsername(e.target.value)} />
-
-      <br />
-      <br />
-
-      <div>
-        <form onSubmit={handleSubmit}>
-          <input
-            name="message"
-            placeholder="enter your message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            autoComplete={"off"}
-          />
-        </form>
-      </div> */}
     </div>
   );
 };

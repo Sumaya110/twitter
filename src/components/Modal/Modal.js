@@ -18,7 +18,7 @@ import { getUser } from "@/libs/action/userAction";
 
 const Modal = ({ onClose, id, post, comment, user, option }) => {
   const [input, setInput] = useState("");
-  const timestamp = new Date(post?.timestamp);
+  const timestamp = new Date(post?.createdAt);
   const [showEmojis, setShowEmojis] = useState(false);
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -87,7 +87,6 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
         tag: user?.username,
         imageUrl: url,
         text: input,
-        timestamp: new Date(),
       };
     } else {
       commentReply = {
@@ -97,7 +96,6 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
         userEmail: user?.email,
         tag: user?.username,
         text: input,
-        timestamp: new Date(),
       };
     }
 

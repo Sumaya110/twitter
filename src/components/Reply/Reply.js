@@ -4,31 +4,28 @@ import styles from "@/components/Reply/Reply.module.css";
 import Image from "next/image";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { getPosts, updatePost } from "@/libs/action/postAction";
-import {  useState } from "react";
+import { useState } from "react";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import ReplyEditModal from "@/components/ReplyEditModal/ReplyEditModal";
 import { setPosts } from "@/actions/actions";
-import { useDispatch } from 'react-redux';
-
+import { useDispatch } from "react-redux";
+import { useSession } from "next-auth/react";
 
 function Reply({ comment, postId, comments, post, reply, user }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [liked, setLiked] = useState(false);
+  const { data: session } = useSession();
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
- 
   const replyId = reply?._id;
   const commentId = comment?._id;
 
- 
   const handleDeleteReply = async () => {
-
     const commentToUpdate = post?.comments?.find(
       (comment) => comment._id === commentId
     );
-
 
     commentToUpdate.replies = commentToUpdate?.replies?.filter(
       (reply) => reply._id !== replyId
@@ -37,11 +34,9 @@ const dispatch = useDispatch();
     await updatePost(postId, { comments: post.comments });
     const data = await getPosts(user?._id);
     dispatch(setPosts(data));
-
   };
 
   const likeReply = async () => {
-
     const commentToUpdate = post?.comments?.find(
       (comment) => comment._id === commentId
     );
@@ -68,8 +63,6 @@ const dispatch = useDispatch();
     await updatePost(postId, { comments: post.comments });
     const data = await getPosts(user?._id);
     dispatch(setPosts(data));
-
-
   };
 
   return (
@@ -83,7 +76,7 @@ const dispatch = useDispatch();
             {reply?.userImg ? (
               <Image
                 className={styles.image}
-                src={reply?.userImg || '/images/blank-profile-picture.webp'}
+                src={reply?.userImg || "/images/blank-profile-picture.webp"}
                 alt={`${reply?.username}'s avatar`}
                 width={40}
                 height={40}
@@ -91,13 +84,11 @@ const dispatch = useDispatch();
             ) : (
               <Image
                 className={styles.image}
-              
                 alt={`${reply?.username}'s avatar`}
                 width={40}
                 height={40}
               />
             )}
-
 
             <div className={styles.topBottom}>
               <span className={styles.userName}>{reply?.username}</span>
@@ -105,13 +96,16 @@ const dispatch = useDispatch();
             </div>
 
             <Moment fromNow className={styles.time}>
-              {reply?.timestamp}
+              {reply?.createdAt}
             </Moment>
 
-            <FaEdit
-              className={styles.edit}
-              onClick={() => setShowEditModal(true)}
-            />
+            {session?.user?._id === reply?.userId && (
+              <FaEdit
+                className={styles.edit}
+                onClick={() => setShowEditModal(true)}
+              />
+            )}
+
             {showEditModal && (
               <ReplyEditModal
                 onClose={() => setShowEditModal(false)}
@@ -121,7 +115,6 @@ const dispatch = useDispatch();
                 post={post}
                 comment={comment}
                 reply={reply}
-              
                 user={user}
               />
             )}
@@ -143,13 +136,15 @@ const dispatch = useDispatch();
 
         <div className={styles.combined3}>
           <div className={styles.comment8}>
-            <RiDeleteBin5Line
-              className={styles.comment10}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDeleteReply();
-              }}
-            />
+            {session?.user?._id === reply?.userId && (
+              <RiDeleteBin5Line
+                className={styles.comment10}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteReply();
+                }}
+              />
+            )}
 
             <div
               className={styles.comment11}

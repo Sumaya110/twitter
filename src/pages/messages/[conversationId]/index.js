@@ -1,21 +1,23 @@
-import { getUserId } from "@/libs/services/user-service";
+import React from "react";
+import ConversationPage from "@/components/ConversationPage/ConversationPage";
 import { getSession } from "next-auth/react";
-import MessagePage from "@/components/MessagePage/MessagePage";
+import { getUserId } from "@/libs/services/user-service";
 
-const messages = ({ user }) => {
+const IndexPage = ({ user }) => {
   return (
     <div>
-      <MessagePage user={user} />
+      <ConversationPage user={user} />
     </div>
   );
 };
 
-export default messages;
+export default IndexPage;
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
+ 
   let existUser = null;
-
+  
   if (session?.user?._id) {
     try {
       existUser = await getUserId(session?.user?._id);
@@ -24,9 +26,8 @@ export async function getServerSideProps(context) {
     }
   }
 
-  const serializedUser = existUser
-    ? JSON.parse(JSON.stringify(existUser))
-    : null;
+ 
+  const serializedUser = existUser ? JSON.parse(JSON.stringify(existUser)) : null;
 
   return {
     props: {

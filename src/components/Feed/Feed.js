@@ -28,7 +28,7 @@ const Feed = ({ user}) => {
       const postsData = await Promise.all([...postsPromises, currentUserPosts]);
       const allPosts = postsData.reduce((acc, curr) => acc.concat(curr), []);
       
-       allPosts.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+       allPosts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   
       dispatch(setPosts(allPosts));

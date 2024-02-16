@@ -2,31 +2,30 @@ import React from "react";
 import styles from "@/components/MessagePage/MessagePage.module.css";
 import Sidebar from "../Sidebar/Sidebar";
 import Messages from "../Messages/Messages";
-import NewMessage from "../NewMessage/NewMessage";
+import Conversation from "../Conversation/Conversation";
 
-const MessagePage = ({ user }) => {
+const ConversationPage = ({user }) => {
   return (
     <div>
       <main className={styles.main}>
-     
-
         <div className={styles.container}>
+
           <div className={styles.fixed}>
-            <Sidebar user={user} option={1}/>
+            <Sidebar user={user} option={1} />
           </div>
+
           <div>
             <Messages user={user} />
           </div>
 
           <div>
-            <NewMessage user={user} />
+            <Conversation user={user} />
           </div>
+          
         </div>
-
-
       </main>
     </div>
   );
 };
 
-export default MessagePage;
+export default ConversationPage;

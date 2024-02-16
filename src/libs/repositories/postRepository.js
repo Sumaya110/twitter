@@ -7,7 +7,7 @@ const create = async (content) => {
 
 
 const find = async (payload) => {
-  const response = await Post.find(payload).sort({ timestamp: -1 });
+  const response = await Post.find(payload).sort({createdAt: -1 });
   return response;
 };
 

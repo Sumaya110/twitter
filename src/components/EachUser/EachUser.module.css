@@ -7,8 +7,11 @@
     background-color: white;
     margin-left: 0;
     padding-left: 15px;
+    text-align: left;
   }
   
+
+ 
   .userInfo:hover {
     background-color: #dbd4d7;
   }
@@ -21,7 +24,7 @@
   
   .details {
     margin-left: 10px;
-    align-items: left;
+    /* align-items: left; */
     
   }
   

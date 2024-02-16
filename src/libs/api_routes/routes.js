@@ -31,7 +31,11 @@ export const getNewPosts = (userId) => API.get(`/api/users/${userId}/posts`);
 export const deleteNewPost = (payload) =>
   API.delete("/api/posts", { params: { _id: payload } });
 
-
-
 export const createNewConversation = (payload) =>
   API.post("/api/conversations", payload);
+
+export const isConversationExists = ({userOneId, userTwoId}) =>
+  API.get(`/api/conversations/${userOneId}/${userTwoId}`);
+
+
+  // userOneId, userTwoId

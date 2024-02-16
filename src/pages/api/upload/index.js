@@ -1,5 +1,5 @@
-import { IncomingForm } from 'formidable';
-const mv = require('mv');
+import { IncomingForm } from "formidable";
+const mv = require("mv");
 
 export const config = {
   api: {
@@ -14,23 +14,18 @@ const handleFileUpload = async (req, res) => {
 
       form.parse(req, (err, fields, files) => {
         if (err) return reject(err);
-        console.log(fields, files);
-      
+
         var oldPath = files.file[0].filepath;
-       
-       
+
         var newPath = `./public/images/${files.file[0].originalFilename}`;
-     
+
         mv(oldPath, newPath, function (err) {});
         res.status(200).json(`/images/${files.file[0].originalFilename}`);
-
       });
     });
-
- 
   } catch (error) {
-    console.error('Error during file upload:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    console.error("Error during file upload:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 };
 

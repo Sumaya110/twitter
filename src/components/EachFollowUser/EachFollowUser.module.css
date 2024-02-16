@@ -18,13 +18,12 @@
 .details {
   margin-left: 10px;
   align-items: left;
-  
 }
 
 .actions {
   margin-left: auto;
-  display: flex; 
-  align-items:left;
+  display: flex;
+  align-items: left;
 }
 
 .followButton,
@@ -56,14 +55,11 @@
   margin-bottom: 0;
 }
 
-.name:hover{
-  text-decoration: underline;
+.name:hover {
+  cursor: pointer;
 }
 
-
-.button{
+.button {
   border: none;
   background-color: transparent;
 }
-
-

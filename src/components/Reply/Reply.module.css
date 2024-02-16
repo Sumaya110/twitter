@@ -48,7 +48,7 @@
 
 .combined7:hover,
 .combined7:focus {
-  text-decoration: underline;
+  cursor: pointer;
 }
 
 .combined8 {
@@ -62,12 +62,12 @@
 }
 
 .combined9:hover {
-  text-decoration: underline;
+  cursor: pointer;
 }
 
 .combined10 {
   color: #070000;
-  /* margin-top: 0.125rem; */
+
   max-width: 36rem;
   font-size: 15px;
 }

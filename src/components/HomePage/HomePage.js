@@ -41,7 +41,7 @@ const HomePage = ({ user }) => {
 
           <div className={styles.container}>
             <div className={styles.fixed}>
-            <Sidebar  user={user}/>
+            <Sidebar  user={user} option={1}/>
             </div>
            <div>
            <Feed user={user} />

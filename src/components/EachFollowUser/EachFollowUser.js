@@ -7,19 +7,17 @@ import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 
 const EachFollowUser = ({ fuser, user }) => {
-
   const router = useRouter();
   const profileId = fuser._id;
   const [followed, setFollowed] = useState(
     user?.following?.some((follow) => follow?.userId === fuser?._id)
   );
 
-
   const dispatch = useDispatch();
 
   const handleFollow = async () => {
-    setFollowed(true)
-    console.log("follow ")
+    setFollowed(true);
+
     user?.following?.push({
       userId: fuser?._id,
       username: fuser?.username,
@@ -30,19 +28,13 @@ const EachFollowUser = ({ fuser, user }) => {
       following: user?.following,
     });
 
-    // const data = await getUser(user?.email);
     const data = await getUser(user?._id);
 
     dispatch(setUsers(data));
-
   };
 
-
-
   const handleUnfollow = async () => {
-
-    setFollowed(false)
-    console.log("unfollow")
+    setFollowed(false);
 
     const updatedFollowing = user?.following?.filter(
       (follow) => follow?.userId !== fuser?._id
@@ -52,10 +44,8 @@ const EachFollowUser = ({ fuser, user }) => {
       following: updatedFollowing,
     });
 
-    // const data = await getUser(user?.email);
     const data = await getUser(user?._id);
     dispatch(setUsers(data));
-
   };
 
   const handleUser = async () => {
@@ -64,30 +54,21 @@ const EachFollowUser = ({ fuser, user }) => {
 
   return (
     <div>
-
-      {/* <button className={styles.userInfo} onClick={ () => handleUser()}> */}
-
       <div className={styles.userInfo}>
-
         <Image
-          src={fuser?.profilePicture || '/images/blank-profile-picture.webp'}
+          src={fuser?.profilePicture || "/images/blank-profile-picture.webp"}
           alt="Profile"
           className={styles.profilePicture}
           width={40}
           height={40}
         />
 
-
         <div className={styles.details}>
-
           <button className={styles.button} onClick={() => handleUser()}>
             <h3 className={styles.name}>{fuser?.name}</h3>
           </button>
           <p className={styles.username}> @{fuser?.username}</p>
         </div>
-
-
-
 
         <div className={styles.actions}>
           {followed ? (
@@ -107,8 +88,6 @@ const EachFollowUser = ({ fuser, user }) => {
           )}
         </div>
       </div>
-
-      {/* </button> */}
     </div>
   );
 };

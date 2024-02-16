@@ -4,7 +4,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import Messages from "../Messages/Messages";
 import Conversation from "../Conversation/Conversation";
 
-const ConversationPage = ({user }) => {
+const ConversationPage = ({user, conversationId }) => {
   return (
     <div>
       <main className={styles.main}>
@@ -19,7 +19,7 @@ const ConversationPage = ({user }) => {
           </div>
 
           <div>
-            <Conversation user={user} />
+            <Conversation user={user} conversationId={conversationId} />
           </div>
           
         </div>

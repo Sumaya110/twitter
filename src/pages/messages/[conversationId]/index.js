@@ -1,12 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ConversationPage from "@/components/ConversationPage/ConversationPage";
 import { getSession } from "next-auth/react";
 import { getUserId } from "@/libs/services/user-service";
+import { useRouter } from 'next/router';
+import { getConversation, getConversation2 } from "@/libs/services/conversation-service";
 
 const IndexPage = ({ user }) => {
+  const router = useRouter();
+  const  conversationId  = router.query.conversationId;
+
+  // useEffect(() => {
+
+  //   const fetchData = async () => {
+
+  //     const data= await getConversation2(conversationId);
+  //     console.log("page", data)
+
+
+  //   }
+  //   fetchData();
+
+
+  // }, [conversationId])
+
   return (
     <div>
-      <ConversationPage user={user} />
+      <ConversationPage user={user} conversationId={conversationId} />
     </div>
   );
 };
@@ -14,6 +33,7 @@ const IndexPage = ({ user }) => {
 export default IndexPage;
 
 export async function getServerSideProps(context) {
+  
   const session = await getSession(context);
  
   let existUser = null;

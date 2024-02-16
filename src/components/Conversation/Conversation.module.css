@@ -4,27 +4,33 @@
 }
 
 .container {
-  padding-top: 0.5rem;
+  padding-top: 1rem;
   padding-bottom: 0.5rem;
-  border-color: #9ca3af;
+  border-color:  #f0f1f3;
   min-height: 100vh;
-  color: #ffffff;
   margin-left: auto;
-  width: 470px;
-  border-right: 1px solid #9ca3af;
+  width: 480px;
+  border-right: 1px solid #f0f1f3;
   padding-right: 1rem;
 }
-.receiver-container {
+
+.receiverContainer {
   display: flex;
   justify-content: center;
-  margin-bottom: 2rem;
   align-items: center;
+  border-bottom: 1px solid #f0f1f3;
+  width: 100%;
+}
+
+.receiverContainer:hover{
+  background-color: rgb(228, 226, 226);
 }
 .receiver {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.5rem;
+  margin-top: 20px;
 }
 
 .receiver img {
@@ -32,18 +38,23 @@
   width: 4rem;
   height: 4rem;
 }
-.receiver-name {
+.receiverName {
   font-size: 20px;
   font-weight: bold;
+  cursor: pointer;
 }
-.chat-box {
-  height: 480px;
+
+.receiverName:hover{
+  text-decoration: underline;
+}
+.chatBox {
+  height: 600px;
   width: 100%;
-  border-top: 1px solid #9ca3af;
+  /* border-top: 1px solid #f0f1f3; */
   overflow-y: auto;
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
 }
-.user-image img {
+.userImage img {
   height: 2.5rem;
   width: 2.5rem;
   border-radius: 9999px;
@@ -59,9 +70,9 @@
   color: #60a5fa;
 }
 
-.receive-message {
+.receiveMessage {
   padding: 10px;
-  border: 1px solid #9ca3af;
+  border: 1px solid  #f0f1f3;
   background-color: #cbd5e0;
   border-radius: 9999px;
   color: black;
@@ -69,40 +80,54 @@
   border-bottom-left-radius: 4px;
 }
 
-.send-message {
+.sendMessage {
   padding: 10px;
-  border: 1px solid #9ca3af;
+  border: 1px solid #f0f1f3;
   border-radius: 9999px;
   text-align: end;
-  background-color: #276749;
+  background-color: #8692e1;
   max-width: 50%;
   margin-left: 45%;
   border-bottom-right-radius: 4px;
 }
 
-.send-btn {
+.sendButton {
   display: flex;
   margin-top: 5px;
   padding: 5px 0px;
-  width: 100%;
-  border: 1px solid #9ca3af;
-  border-radius: 9999px;
-  width: 100%;
+  width: 480px;
+  border: 1px solid  #f0f1f3;
+  border-radius: 10px;
+  /* width: 100%; */
+  background-color: rgb(249, 245, 245);
+  position: fixed;
+  margin-right: 10px;
 }
 
 .input {
   padding: 5px;
   margin-left: 5px;
-  width: 90%;
+  width: 95%;
   outline: none;
   background-color: transparent;
   border: none;
-  color: #fff;
+  color: #0f0c0c;
   font-size: 15px;
+ 
 }
-.btn {
-  background-color: deepskyblue;
-  border: 1px solid deepskyblue;
+.button {
+  border: none;
   padding-top: 3px;
   border-radius: 2px;
+  color: blue;
+}
+
+.username{
+  padding-bottom: 60px;
+}
+
+.buttonDesign{
+  border: none;
+  background-color: transparent;
+
 }

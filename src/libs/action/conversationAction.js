@@ -1,6 +1,6 @@
 import {
   createNewConversation,
-  isConversationExists,
+  getNewConversation,
 } from "@/libs/api_routes/routes";
 
 async function createConversation(data) {
@@ -12,13 +12,13 @@ async function createConversation(data) {
   }
 }
 
-async function checkConversationExists(data) {
+async function getConversation(data) {
   try {
-    const response = await isConversationExists(data);
+    const response = await getNewConversation(data);
     return response.data;
   } catch (error) {
     throw Error(error.response.data);
   }
 }
 
-export { createConversation, checkConversationExists };
+export { createConversation, getConversation };

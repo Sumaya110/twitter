@@ -1,5 +1,5 @@
 import connectMongo from "@/confiig/ConnectDB/ConnectDB";
-import { createConversation, getConversation } from "@/libs/services/conversation-service";
+import { createConversation } from "@/libs/services/conversation-service";
 
 export default async function handler(req, res) {
   try {

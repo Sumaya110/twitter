@@ -1,4 +1,4 @@
-import Message from "./subModel/messageModel";
+import messageSchema from "./subModel/messageModel";
 import { Schema, model, models } from "mongoose";
 
 
@@ -13,7 +13,7 @@ const conversationSchema = new Schema({
     required: true,
   },
 
-  messages: [{ type: Schema.Types.ObjectId, ref: 'Message' }],
+  messages: [messageSchema],
 });
 
 const Conversation =

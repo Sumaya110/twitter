@@ -1,3 +1,4 @@
+import { updateConversation } from "@/libs/services/conversation-service";
 import { Server } from "socket.io";
 
 export default function SocketHandler(req, res) {
@@ -10,8 +11,17 @@ export default function SocketHandler(req, res) {
   res.socket.server.io = io;
 
   io.on("connection", (socket) => {
-    socket.on("send-message", (obj) => {
-      io.emit("receive-message", obj);
+    socket.on("send", async({ conversationId, senderId, receiverId, text }) => {
+      const message = {
+        senderId,
+        receiverId,
+        text,
+      }
+      const Conversation = await updateConversation({conversationId, message})
+      if(Conversation){
+        const lastMessage = Conversation.messages.at(-1);
+        io.emit("receive", lastMessage);
+      }
     });
   });
 

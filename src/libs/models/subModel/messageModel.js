@@ -18,7 +18,4 @@ const messageSchema = Schema({
   },
 });
 
-
-const Message =  models?.Message || model("Message", messageSchema); 
-
-export default Message;
+module.exports = messageSchema

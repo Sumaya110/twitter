@@ -12,7 +12,7 @@ export const authOptions = {
     CredentialsProvider({
       name: "Credentials",
       async authorize(credentials, req) {
-        connectMongo();
+        await connectMongo();
         try {
           const { email, password } = credentials;
           const user = await loginWithCredentials(email, password);
@@ -36,6 +36,7 @@ export const authOptions = {
 
   callbacks: {
     async session({ session, token }) {
+      await connectMongo();
       const result = await registerWithSns({
         name: session?.user?.name,
         email: session?.user?.email,

@@ -21,6 +21,15 @@ export const createConversation = async (req, res) => {
   }
 };
 
+export const updateConversation = async (data) =>{
+  try{
+      const response = await ConversationRepository.findOneAndUpdate(data);
+      return response;
+  } catch(error){
+      throw Error(error.message)
+  }
+}
+
 export const getConversation = async (req, res) => {
 
   try {
@@ -33,19 +42,3 @@ export const getConversation = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
-
-
-
-// export const  getConversation2 = async (conversationId) => {
-//   // try {
-//     const response = await ConversationRepository.findOne(
-//       { _id: conversationId }
-//     );
-
-//     console.log("serrr  :: ", response)
-//   //   return response;
-//   // } catch (error) {
-//   //   throw new Error(error.message);
-//   // }
-// };

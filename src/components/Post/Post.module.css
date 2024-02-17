@@ -1,19 +1,15 @@
 .combined {
   margin-top: 1rem;
   border-top: 1px solid #a0aec0;
-  /* padding: 1rem 0.5rem; */
-  /* padding-top: 1.5rem; */
+
   cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
   background-color: rgb(253, 251, 247);
-
-  /* width: 96.5%; */
 }
 
 .full {
- 
 }
 
 .myGridContainer {
@@ -99,7 +95,7 @@
 }
 .combined9 {
   display: flex;
-  /* gap: .5rem; */
+
   align-items: center;
 }
 
@@ -118,7 +114,7 @@
 
 .combined11 {
   display: flex;
-  /* gap: .5rem; */
+
   align-items: center;
 }
 
@@ -153,7 +149,6 @@
   line-height: 1.25;
 }
 
-
 .tag {
   padding-left: 5px;
   color: #6e767d;
@@ -177,16 +172,13 @@
   }
 }
 
-
-.textStyle{
+.textStyle {
   padding-left: 10px;
   width: 510px;
   margin-top: 10px;
   font-size: medium;
   word-wrap: break-word;
-
 }
-
 
 .flex {
   display: flex;
@@ -198,5 +190,5 @@
 }
 
 .pp {
-  margin-left: 5px; /* Add margin for spacing */
+  margin-left: 5px;
 }

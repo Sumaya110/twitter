@@ -9,6 +9,7 @@ import { LuSendHorizonal } from "react-icons/lu";
 import { BsCheck2All } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 const Conversation = ({ user, conversationId }) => {
   const [message, setMessage] = useState("");
@@ -17,23 +18,33 @@ const Conversation = ({ user, conversationId }) => {
   const [receiver, setReceiver] = useState(null);
   const [senderId, setSenderId] = useState(null);
   const [receiverId, setReceiverId] = useState(null);
-  const [allMessages, setAllMessages] = useState(null);
+  const [allMessages, setAllMessages] = useState([]);
   const [notification, setNotification] = useState(1);
+  const [conversation, setConversation]=useState()
   const router = useRouter();
   //   const Notifications = useSelector((state) => state.notifications)
   // const dispatch = useDispatch();
   const chatBoxRef = useRef(null);
-
   const socket = useSocket();
 
   useEffect(() => {
     const fetchData = async () => {
       const data = await getConversation(conversationId);
+     
+
 
       const userOneId = data.userOneId;
       const userTwoId = data.userTwoId;
       const senderId = userOneId === user?._id ? userOneId : userTwoId;
       const receiverId = userOneId === user?._id ? userTwoId : userOneId;
+
+      // setConversation(data?.messages)
+
+      // console.log("b ", conversation)
+      setAllMessages(data?.messages);
+
+      console.log(" data : ", data?.messages, "all : ", allMessages)
+
 
       const senderInfo = await getUser(senderId);
       const receiverInfo = await getUser(receiverId);
@@ -45,25 +56,44 @@ const Conversation = ({ user, conversationId }) => {
       setReceiverId(receiverId);
     };
     fetchData();
-  }, [conversationId]);
+  }, [socket, conversationId, user, receiverId]);
 
   useEffect(() => {
     socketInitializer();
+    // setAllMessages(conversation);
 
-    // return () => {
-    //   socket.disconnect();
-    // };
-  }, []);
+    // console.log("all messages   : ",allMessages)
+
+    return () => {
+      socket?.off("send");
+    };
+
+    return () =>{
+      socket?.disconnect();
+      }
+
+  }, [socket, conversationId, user, receiverId]);
+
+
+
 
   useEffect(() => {
     scrollDown();
-  }, [allMessages]);
+  }, []);
 
   async function socketInitializer() {
     // socket = io();
     if (!socket) return;
 
-    socket.on("receive-message", (data) => {});
+    socket.on("receive", (data) => {
+      setAllMessages(prevMessages => {
+        if (!Array.isArray(prevMessages)) {
+          console.error("allMessages is not an array:", prevMessages);
+          return []; // Fallback to an empty array
+        }
+        return [...prevMessages, data];
+      });
+    });
   }
 
   function scrollDown() {
@@ -75,11 +105,11 @@ const Conversation = ({ user, conversationId }) => {
   };
 
   function handleSubmit() {
-    socket.emit("send-message", {
-      conversation: conversationId,
+    socket.emit("send", {
+      conversationId,
       senderId,
       receiverId,
-      message,
+      text: message,
     });
 
     setMessage("");
@@ -89,7 +119,15 @@ const Conversation = ({ user, conversationId }) => {
     <section className={styles.container}>
       <div className={styles.receiverContainer}>
         <div className={styles.receiver}>
-          <img src={receiver?.profilePicture} />
+          <Image
+            className={styles.image}
+            src={
+              receiver?.profilePicture || "/images/blank-profile-picture.webp"
+            }
+            alt={`${receiver?.profilePicture}'s avatar`}
+            width={40}
+            height={40}
+          />
           <button
             className={styles.buttonDesign}
             onClick={() => handleProfile()}
@@ -101,27 +139,24 @@ const Conversation = ({ user, conversationId }) => {
         </div>
       </div>
 
+
       <div>
         <div className={styles.chatBox} ref={chatBoxRef}>
           {allMessages?.map((message, index) => (
             <div className={styles.conversation} key={index}>
               <div
                 className={
-                  styles[
-                    message?.sender_id === receiver?._id
-                      ? "receive-message"
-                      : "send-message"
-                  ]
+                  styles[message?.senderId === receiverId ? "receive" : "send"]
                 }
               >
-                {message?.message}
-                {message?.seen && message?.sender_id === user?._id && (
+                {message?.text}
+                {message?.seen && message?.senderId === user?._id && (
                   <span className={styles["checked"]}>
                     {" "}
                     <BsCheck2All />
                   </span>
                 )}
-                {!message?.seen && message?.sender_id === user?._id && (
+                {!message?.seen && message?.senderId === user?._id && (
                   <span className={styles["check"]}>
                     {" "}
                     <BsCheck2All />
@@ -137,7 +172,7 @@ const Conversation = ({ user, conversationId }) => {
             name="message"
             placeholder="Start a new message"
             value={message}
-            onChange={(e) => setMessage(e.target.value)} // Fixed the error here
+            onChange={(e) => setMessage(e.target.value)}
             autoComplete={"off"}
           />
 

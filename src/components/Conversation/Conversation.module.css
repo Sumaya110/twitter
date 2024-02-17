@@ -6,7 +6,7 @@
 .container {
   padding-top: 1rem;
   padding-bottom: 0.5rem;
-  border-color:  #f0f1f3;
+  border-color: #f0f1f3;
   min-height: 100vh;
   margin-left: auto;
   width: 480px;
@@ -22,7 +22,7 @@
   width: 100%;
 }
 
-.receiverContainer:hover{
+.receiverContainer:hover {
   background-color: rgb(228, 226, 226);
 }
 .receiver {
@@ -44,15 +44,14 @@
   cursor: pointer;
 }
 
-.receiverName:hover{
+.receiverName:hover {
   text-decoration: underline;
 }
 .chatBox {
   height: 600px;
   width: 100%;
-  /* border-top: 1px solid #f0f1f3; */
+
   overflow-y: auto;
-  /* padding-bottom: 1rem; */
 }
 .userImage img {
   height: 2.5rem;
@@ -70,9 +69,9 @@
   color: #60a5fa;
 }
 
-.receiveMessage {
+.receive {
   padding: 10px;
-  border: 1px solid  #f0f1f3;
+  border: 1px solid #f0f1f3;
   background-color: #cbd5e0;
   border-radius: 9999px;
   color: black;
@@ -80,15 +79,16 @@
   border-bottom-left-radius: 4px;
 }
 
-.sendMessage {
+.send {
   padding: 10px;
   border: 1px solid #f0f1f3;
   border-radius: 9999px;
   text-align: end;
-  background-color: #8692e1;
+  background-color: #4059fc;
   max-width: 50%;
   margin-left: 45%;
   border-bottom-right-radius: 4px;
+  color: white;
 }
 
 .sendButton {
@@ -96,9 +96,8 @@
   margin-top: 5px;
   padding: 5px 0px;
   width: 480px;
-  border: 1px solid  #f0f1f3;
+  border: 1px solid #f0f1f3;
   border-radius: 10px;
-  /* width: 100%; */
   background-color: rgb(249, 245, 245);
   position: fixed;
   margin-right: 10px;
@@ -113,7 +112,6 @@
   border: none;
   color: #0f0c0c;
   font-size: 15px;
- 
 }
 .button {
   border: none;
@@ -122,12 +120,15 @@
   color: blue;
 }
 
-.username{
+.username {
   padding-bottom: 60px;
 }
 
-.buttonDesign{
+.buttonDesign {
   border: none;
   background-color: transparent;
+}
 
+.image {
+  border-radius: 50%;
 }

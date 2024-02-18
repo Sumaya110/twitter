@@ -1,3 +1,4 @@
+import Conversation from "@/components/Conversation/kk";
 import {
   createNewConversation,
   getNewConversation,
@@ -21,4 +22,15 @@ async function getConversation(data) {
   }
 }
 
-export { createConversation, getConversation };
+async function markSeen(conversationId, updateData) {
+  try {
+    const response = await markSeen({ query:conversationId,  payload:updateData });
+    return response.data;
+  } catch (error) {
+    throw Error(error.response.data);
+  }
+
+
+}
+
+export { createConversation, getConversation, markSeen };

@@ -20,6 +20,8 @@ const EachUser = ({ user }) => {
       messages: [],
     });
 
+
+    if(conversationId)
     router.push(`/messages/${conversationId}`);
   };
 

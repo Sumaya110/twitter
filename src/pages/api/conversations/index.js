@@ -7,7 +7,8 @@ export default async function handler(req, res) {
     switch (req.method) {
       case "POST":
         return await createConversation(req, res);
-      
+      case "PATCH":
+        return await markSeen(req, res);
     }
   } catch (error) {
     return res.status(500).json({ error });

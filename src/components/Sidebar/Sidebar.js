@@ -98,7 +98,7 @@ const Sidebar = ({ user, option }) => {
 
       <button className={styles.tweetButton}>Post</button>
 
-      {option === 1 && (
+      {option === 2 && (
         <div className={styles.signOutDiv} onClick={() => signOut()}>
           <Image
             src={User?.profilePicture || "/images/blank-profile-picture.webp"}
@@ -117,7 +117,7 @@ const Sidebar = ({ user, option }) => {
         </div>
       )}
 
-      {option === 2 && (
+      {option === 1 && (
         <div className={styles.signOutDiv} onClick={() => signOut()}>
           <Image
             src={user?.profilePicture || "/images/blank-profile-picture.webp"}

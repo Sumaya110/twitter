@@ -16,6 +16,12 @@ const messageSchema = Schema({
     type: String,
     required: true,
   },
+
+  seen: {
+    type: Boolean,
+    default: false,
+    
+  },
 });
 
 module.exports = messageSchema

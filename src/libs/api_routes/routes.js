@@ -34,6 +34,8 @@ export const deleteNewPost = (payload) =>
 export const createNewConversation = (payload) =>
   API.post("/api/conversations", payload);
 
-  //getNewConversation
-  export const getNewConversation = (conversationId) =>
+export const getNewConversation = (conversationId) =>
   API.get(`/api/conversations/${conversationId}`);
+
+  export const markSeen = (payload) => API.patch("/api/conversations", payload);
+

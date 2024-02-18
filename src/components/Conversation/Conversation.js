@@ -2,7 +2,7 @@ import styles from "@/components/Conversation/Conversation.module.css";
 import { useEffect, useState } from "react";
 import io from "socket.io-client";
 import { useSocket } from "@/libs/Context/Context";
-import { getConversation } from "@/libs/action/conversationAction";
+import { getConversation, markSeen } from "@/libs/action/conversationAction";
 import { getUser } from "@/libs/action/userAction";
 import React, { useRef } from "react";
 import { LuSendHorizonal } from "react-icons/lu";
@@ -20,7 +20,7 @@ const Conversation = ({ user, conversationId }) => {
   const [receiverId, setReceiverId] = useState(null);
   const [allMessages, setAllMessages] = useState([]);
   const [notification, setNotification] = useState(1);
-  const [conversation, setConversation]=useState()
+  const [conversation, setConversation] = useState();
   const router = useRouter();
   //   const Notifications = useSelector((state) => state.notifications)
   // const dispatch = useDispatch();
@@ -30,21 +30,15 @@ const Conversation = ({ user, conversationId }) => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getConversation(conversationId);
-     
-
 
       const userOneId = data.userOneId;
       const userTwoId = data.userTwoId;
       const senderId = userOneId === user?._id ? userOneId : userTwoId;
       const receiverId = userOneId === user?._id ? userTwoId : userOneId;
 
-      // setConversation(data?.messages)
-
-      // console.log("b ", conversation)
       setAllMessages(data?.messages);
 
-      console.log(" data : ", data?.messages, "all : ", allMessages)
-
+      // console.log(" data : ", data?.messages);
 
       const senderInfo = await getUser(senderId);
       const receiverInfo = await getUser(receiverId);
@@ -60,39 +54,50 @@ const Conversation = ({ user, conversationId }) => {
 
   useEffect(() => {
     socketInitializer();
-    // setAllMessages(conversation);
-
-    // console.log("all messages   : ",allMessages)
+    markMessagesAsSeen();
 
     return () => {
-      socket?.off("send");
-    };
-
-    return () =>{
-      socket?.disconnect();
+      if (socket) {
+        socket.off("send");
+        socket.off("receive");
       }
-
+    };
   }, [socket, conversationId, user, receiverId]);
 
 
+  const markMessagesAsSeen = async () => {
+    
+    const unseenMessageIds = allMessages?.filter((message) => {
+      return message.senderId === receiverId && !message.seen;
+    });
 
+    const Ids = unseenMessageIds?.map((message) => message._id);
+
+    if (Ids?.length > 0) {
+      await markSeen({
+        conversationId,
+        messageIds: Ids,
+      });
+      setNotification(null);
+      socket?.emit("mark-as-seen", {
+        conversationId: conversation?._id,
+        messageIds: Ids,
+      });
+    }
+  };
 
   useEffect(() => {
     scrollDown();
-  }, []);
+  }, [allMessages]);
 
   async function socketInitializer() {
     // socket = io();
     if (!socket) return;
+    socket.off("send");
+    socket.off("receive");
 
     socket.on("receive", (data) => {
-      setAllMessages(prevMessages => {
-        if (!Array.isArray(prevMessages)) {
-          console.error("allMessages is not an array:", prevMessages);
-          return []; // Fallback to an empty array
-        }
-        return [...prevMessages, data];
-      });
+      setAllMessages([...allMessages, data]);
     });
   }
 
@@ -138,7 +143,6 @@ const Conversation = ({ user, conversationId }) => {
           <div className={styles.username}>@{receiver?.username}</div>
         </div>
       </div>
-
 
       <div>
         <div className={styles.chatBox} ref={chatBoxRef}>

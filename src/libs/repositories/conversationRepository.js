@@ -11,12 +11,22 @@ const findOne = async (payload) => {
   return conversation;
 };
 
+// const findOneAndUpdate = async (content) => {
+//   const { conversationId, message } = content;
+//   const updatedConversation = await Conversation.findOneAndUpdate(
+//     { _id: conversationId },
+//     { $push: { messages: message } },
+//     { new: true }
+//   );
+//   return updatedConversation;
+// };
+
+
 const findOneAndUpdate = async (content) => {
-  const { conversationId, message } = content;
+  // const { conversationId, message } = content;
+  console.log("repo : ", content)
   const updatedConversation = await Conversation.findOneAndUpdate(
-    { _id: conversationId },
-    { $push: { messages: message } },
-    { new: true }
+    content
   );
   return updatedConversation;
 };

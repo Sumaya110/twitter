@@ -17,7 +17,9 @@ export default function SocketHandler(req, res) {
         receiverId,
         text,
       }
+
       const Conversation = await updateConversation({conversationId, message})
+      
       if(Conversation){
         const lastMessage = Conversation.messages.at(-1);
         io.emit("receive", lastMessage);

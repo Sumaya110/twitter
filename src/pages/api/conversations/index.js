@@ -1,5 +1,5 @@
 import connectMongo from "@/confiig/ConnectDB/ConnectDB";
-import { createConversation } from "@/libs/services/conversation-service";
+import { createConversation, markSeen } from "@/libs/services/conversation-service";
 
 export default async function handler(req, res) {
   try {
@@ -8,6 +8,7 @@ export default async function handler(req, res) {
       case "POST":
         return await createConversation(req, res);
       case "PATCH":
+        console.log("me here ", req)
         return await markSeen(req, res);
     }
   } catch (error) {

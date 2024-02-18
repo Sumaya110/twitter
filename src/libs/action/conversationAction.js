@@ -1,7 +1,7 @@
-import Conversation from "@/components/Conversation/kk";
 import {
   createNewConversation,
   getNewConversation,
+  markNewSeen,
 } from "@/libs/api_routes/routes";
 
 async function createConversation(data) {
@@ -22,9 +22,12 @@ async function getConversation(data) {
   }
 }
 
-async function markSeen(conversationId, updateData) {
+async function markSeen(data) {
+  // console.log("action : ", data)
+  
   try {
-    const response = await markSeen({ query:conversationId,  payload:updateData });
+    // const {conversationId, messageIds}=data;
+    const response = await markNewSeen(data);
     return response.data;
   } catch (error) {
     throw Error(error.response.data);

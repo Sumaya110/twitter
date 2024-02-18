@@ -37,9 +37,6 @@ const Conversation = ({ user, conversationId }) => {
       const receiverId = userOneId === user?._id ? userTwoId : userOneId;
 
       setAllMessages(data?.messages);
-
-      // console.log(" data : ", data?.messages);
-
       const senderInfo = await getUser(senderId);
       const receiverInfo = await getUser(receiverId);
 
@@ -64,27 +61,51 @@ const Conversation = ({ user, conversationId }) => {
     };
   }, [socket, conversationId, user, receiverId]);
 
-
   const markMessagesAsSeen = async () => {
-    
     const unseenMessageIds = allMessages?.filter((message) => {
       return message.senderId === receiverId && !message.seen;
     });
 
-    const Ids = unseenMessageIds?.map((message) => message._id);
+    const messageIds = unseenMessageIds?.map((message) => message._id);
+    if (messageIds?.length > 0) {
+      await markSeen({ conversationId, messageIds });
 
-    if (Ids?.length > 0) {
-      await markSeen({
-        conversationId,
-        messageIds: Ids,
-      });
       setNotification(null);
+
       socket?.emit("mark-as-seen", {
-        conversationId: conversation?._id,
-        messageIds: Ids,
+        conversationId,
+        messageIds,
       });
     }
   };
+
+
+  useEffect(() => {
+    socket?.on("marked-as-seen", ({ conversationId, messageIds }) => {
+      if (conversationId === conversationId) {
+        setAllMessages((prev) => {
+          const updatedMessages = prev.map((message) => {
+            if (!message.seen && message.senderId === user._id) {
+              // const updatedNotifications = Notifications.filter(
+              //   (notification) => notification.roomId !== conversation?._id
+              // );
+              // console.log(updatedNotifications);
+              // dispatch({
+              //   type: "SET_NOTIFICATIONS",
+              //   payload: updatedNotifications,
+              // });
+              return {
+                ...message,
+                seen: true,
+              };
+            }
+            return message;
+          });
+          return updatedMessages;
+        });
+      }
+    });
+  }, [socket, conversationId, allMessages, user?._id]);
 
   useEffect(() => {
     scrollDown();
@@ -155,13 +176,13 @@ const Conversation = ({ user, conversationId }) => {
               >
                 {message?.text}
                 {message?.seen && message?.senderId === user?._id && (
-                  <span className={styles["checked"]}>
+                  <span className={styles.checked}>
                     {" "}
                     <BsCheck2All />
                   </span>
                 )}
                 {!message?.seen && message?.senderId === user?._id && (
-                  <span className={styles["check"]}>
+                  <span className={styles.check}>
                     {" "}
                     <BsCheck2All />
                   </span>

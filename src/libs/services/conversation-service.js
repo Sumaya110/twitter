@@ -1,3 +1,4 @@
+import connectMongo from "@/confiig/ConnectDB/ConnectDB";
 import ConversationRepository from "../repositories/conversationRepository";
 
 export const createConversation = async (req, res) => {
@@ -22,6 +23,7 @@ export const createConversation = async (req, res) => {
 };
 
 export const getConversation = async (req, res) => {
+  
   try {
     const conversationId = req.query.conversationId;
     const response = await ConversationRepository.findOne({
@@ -42,34 +44,34 @@ export const getConversation = async (req, res) => {
 //   }
 // }
 
-// { _id: conversationId },
-//     { $push: { messages: message } },
-//     { new: true }
-// markSeen
 
 export const updateConversation = async (data) => {
-  console.log("service  ::!! ", data);
+  await connectMongo();
   try {
     const conversationId = data.conversationId;
     const messages = data.message;
 
-    const response = await ConversationRepository.findOneAndUpdate(
-      { _id: conversationId },
-      { $push: { messages } },
-      { new: true }
+    const response = await ConversationRepository.findOneAndUpdate({
+      query: {_id: conversationId},
+      update :{ $push: { messages } }}
     );
 
-    console.log("jhj : ", response)
     return response;
   } catch (error) {
     throw Error(error.message);
-    // console.log("errr")
   }
 };
 
 export const markSeen = async (req, res) => {
+  // console.log(" req.body ", req.body );
   try {
-    const response = await ConversationRepository.findOneAndUpdate(req.body);
+    const { conversationId,  messageIds }=req.body;
+   console.log("service : ",conversationId, messageIds)
+
+   
+    const response = await ConversationRepository.findOneAndUpdate( { query: { _id: conversationId, 'messages._id': { $in: messageIds } }, 
+    update: { $set: { 'messages.$[].seen': true }, } 
+    });
 
     return res.status(200).json(response);
   } catch (error) {

@@ -22,12 +22,8 @@ const findOne = async (payload) => {
 // };
 
 
-const findOneAndUpdate = async (content) => {
-  // const { conversationId, message } = content;
-  console.log("repo : ", content)
-  const updatedConversation = await Conversation.findOneAndUpdate(
-    content
-  );
+const findOneAndUpdate = async ({query, update}) => {
+  const updatedConversation = await Conversation.findOneAndUpdate(query, update,  { new: true });
   return updatedConversation;
 };
 

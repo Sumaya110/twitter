@@ -5,24 +5,18 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 
-
 const EachUser = ({ user }) => {
   const { data: session } = useSession();
   const router = useRouter();
 
-
-
   const handleSubmit = async () => {
-
     var conversationId = await createConversation({
       userOneId: session?.user?._id,
       userTwoId: user?._id,
       messages: [],
     });
 
-
-    if(conversationId)
-    router.push(`/messages/${conversationId}`);
+    if (conversationId) router.push(`/messages/${conversationId}`);
   };
 
   return (

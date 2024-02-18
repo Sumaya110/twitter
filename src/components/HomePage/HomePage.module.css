@@ -5,8 +5,8 @@
     box-shadow: 0 2px 5px rgba(223, 220, 220, 0.1);
   }
   .fixed{
-    position: sticky; /* Change position to sticky */
-    top: 0; /* Stick to the top */
+    position: sticky; 
+    top: 0; 
     height: fit-content; 
   }
 

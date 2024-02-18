@@ -1,6 +1,5 @@
 import { Schema, model, models } from "mongoose";
 
-
 const messageSchema = Schema({
   senderId: {
     type: String,
@@ -20,8 +19,7 @@ const messageSchema = Schema({
   seen: {
     type: Boolean,
     default: false,
-    
   },
 });
 
-module.exports = messageSchema
+module.exports = messageSchema;

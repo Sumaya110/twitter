@@ -6,7 +6,6 @@ import connectMongo from "@/confiig/ConnectDB/ConnectDB";
 import { registerWithSns } from "@/libs/services/user-service";
 import { loginWithCredentials } from "@/libs/services/user-service";
 
-
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -31,7 +30,7 @@ export const authOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID,
       clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    })
+    }),
   ],
 
   callbacks: {

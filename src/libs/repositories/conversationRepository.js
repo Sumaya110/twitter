@@ -11,19 +11,12 @@ const findOne = async (payload) => {
   return conversation;
 };
 
-// const findOneAndUpdate = async (content) => {
-//   const { conversationId, message } = content;
-//   const updatedConversation = await Conversation.findOneAndUpdate(
-//     { _id: conversationId },
-//     { $push: { messages: message } },
-//     { new: true }
-//   );
-//   return updatedConversation;
-// };
-
-
-const findOneAndUpdate = async ({query, update}) => {
-  const updatedConversation = await Conversation.findOneAndUpdate(query, update,  { new: true });
+const findOneAndUpdate = async ({ query, update }) => {
+  const updatedConversation = await Conversation.findOneAndUpdate(
+    query,
+    update,
+    { new: true }
+  );
   return updatedConversation;
 };
 

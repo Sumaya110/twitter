@@ -44,6 +44,7 @@
 
 .tweetButton:hover {
   background-color: #1a8cd8;
+  cursor: pointer;
 }
 
 .signOutDiv {
@@ -63,6 +64,7 @@
 .signOutDiv:hover {
   background-color: #f5f8fa;
   border-radius: 60px;
+  cursor: pointer;
 }
 
 .signoutButton{

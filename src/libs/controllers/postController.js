@@ -1,21 +1,18 @@
 const mongoose = require("mongoose");
 import PostRepository from "../repositories/postRepository";
 
-// GET all posts
 const getPosts = async (req, res) => {
   const userId = req.userId;
   const posts = await PostRepository.find({ userId });
   res.status(200).json(posts);
 };
 
-// GET post
 const getPost = async (req, res) => {
   const postId = req.params;
   const posts = await PostRepository.findById({ _id: postId });
   res.status(200).json(posts);
 };
 
-// create a new post
 const createPost = async (req, res) => {
   try {
     const post = await PostRepository.create(req.body);
@@ -25,7 +22,6 @@ const createPost = async (req, res) => {
   }
 };
 
-// update a task
 const updatePost = async (req, res) => {
   const { id } = req.params;
 
@@ -44,7 +40,6 @@ const updatePost = async (req, res) => {
   res.status(200).json(updatedPost);
 };
 
-// delete a task
 const deletePost = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -59,7 +54,6 @@ const deletePost = async (req, res) => {
   res.status(200).json(deletedPost);
 };
 
-// create a new comment
 const createComment = async (req, res) => {
   try {
     const comment = await PostRepository.createComment(req.body);

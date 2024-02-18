@@ -13,7 +13,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { getPosts, updatePost } from "@/libs/action/postAction";
 import { setPosts } from "@/actions/actions";
-import { useDispatch } from 'react-redux';
+import { useDispatch } from "react-redux";
 
 const Modal = ({ onClose, id, post, user }) => {
   const [input, setInput] = useState(post?.text);
@@ -46,7 +46,6 @@ const Modal = ({ onClose, id, post, user }) => {
   };
 
   const updatePostButton = async () => {
-
     if (selectedFile === post?.imageUrl) {
       await updatePost(id, {
         text: input,
@@ -54,8 +53,7 @@ const Modal = ({ onClose, id, post, user }) => {
 
       const data = await getPosts(user?._id);
       dispatch(setPosts(data));
-    }
-    else {
+    } else {
       let url = null;
       if (selectedFile) {
         const body = new FormData();
@@ -71,14 +69,12 @@ const Modal = ({ onClose, id, post, user }) => {
       await updatePost(id, {
         text: input,
         imageUrl: url,
-
       });
 
       const data = await getPosts(user?._id);
       dispatch(setPosts(data));
     }
-
-  }
+  };
 
   const closeModal = () => {
     onClose();
@@ -90,20 +86,22 @@ const Modal = ({ onClose, id, post, user }) => {
         className={styles.stopPropagation}
         onClick={(e) => e.stopPropagation()}
       >
-        <MdClose className={styles.mdClose} onClick={(e) => {
-          e.stopPropagation();
-          closeModal();
-        }} />
+        <MdClose
+          className={styles.mdClose}
+          onClick={(e) => {
+            e.stopPropagation();
+            closeModal();
+          }}
+        />
 
         <div className={styles.combined}>
           <div className={styles.padding}>
             <Image
               className={styles.imageStyle}
-              src={post?.userImg || '/images/blank-profile-picture.webp'}
+              src={post?.userImg || "/images/blank-profile-picture.webp"}
               alt=""
               width={40}
               height={40}
-
               priority={true}
             />
           </div>
@@ -168,8 +166,10 @@ const Modal = ({ onClose, id, post, user }) => {
 
               <button
                 className={styles.combined8}
-                disabled={(input === post.text && selectedFile === post?.imageUrl) ||
-                  (!input.trim() && !selectedFile)}
+                disabled={
+                  (input === post.text && selectedFile === post?.imageUrl) ||
+                  (!input.trim() && !selectedFile)
+                }
                 onClick={(e) => {
                   e.stopPropagation();
                   updatePostButton();

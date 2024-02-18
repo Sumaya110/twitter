@@ -5,15 +5,12 @@ import styles from "@/components/Trending/Trending.module.css";
 import FollowUser from "@/components/FollowUser/FollowUser";
 
 const Trending = ({ user, option }) => {
-
   return (
     <div className={styles.combined}>
-
       <div className={styles.combined2}>
-        <FiSearch />
+        <FiSearch className={styles.searchIcon} />
         <input className={styles.combined3} type="text" placeholder="Search" />
       </div>
-
 
       <div className={styles.combined4}>
         {option === 1 && (
@@ -29,7 +26,6 @@ const Trending = ({ user, option }) => {
         <TrendingList />
         <TrendingList />
         <TrendingList />
-
       </div>
     </div>
   );

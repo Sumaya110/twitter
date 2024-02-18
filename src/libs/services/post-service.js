@@ -9,21 +9,19 @@ export const createPost = async (req, res) => {
   }
 };
 
-
 export const getPosts = async (req, res) => {
   try {
-    const userId = req.query.userId
-    const response = await PostRepository.find({userId});
+    const userId = req.query.userId;
+    const response = await PostRepository.find({ userId });
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 };
 
-
 export const getPost = async (req, res) => {
   try {
-    const postId = req.query.postId
+    const postId = req.query.postId;
     const response = await PostRepository.findById(postId);
     return res.status(200).json(response);
   } catch (error) {
@@ -31,18 +29,15 @@ export const getPost = async (req, res) => {
   }
 };
 
-
 export const updatePost = async (req, res) => {
   try {
     const response = await PostRepository.findByIdAndUpdate(req.body);
-    
+
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 };
-
-
 
 export const deletePost = async (req, res) => {
   try {
@@ -52,7 +47,6 @@ export const deletePost = async (req, res) => {
     return res.status(500).json(error.message);
   }
 };
-
 
 export const createComment = async (req, res) => {
   try {

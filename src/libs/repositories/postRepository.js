@@ -5,30 +5,25 @@ const create = async (content) => {
   return post;
 };
 
-
 const find = async (payload) => {
-  const response = await Post.find(payload).sort({createdAt: -1 });
+  const response = await Post.find(payload).sort({ createdAt: -1 });
   return response;
 };
-
 
 const findById = async (payload) => {
   const response = await Post.findById(payload);
   return response;
 };
 
-
-const findByIdAndUpdate = async ({query, payload} ) => {
+const findByIdAndUpdate = async ({ query, payload }) => {
   const response = await Post.findByIdAndUpdate(query, payload, { new: true });
   return response;
 };
-
 
 const findOneAndDelete = async (payload) => {
   const response = await Post.findOneAndDelete(payload);
   return response;
 };
-
 
 const PostRepository = {
   create,

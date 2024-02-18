@@ -115,6 +115,7 @@
   }
   
   .combined8 {
+    cursor: pointer;
     background-color: #1d9bf0;
     color: white;
     border-radius: 50%;
@@ -125,6 +126,7 @@
   
   .combined8:hover {
     background-color: #1a8cd8;
+    cursor: pointer;
   }
   
   .combined8:disabled {

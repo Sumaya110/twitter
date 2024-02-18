@@ -45,17 +45,15 @@ async function deletePost(postId) {
 
 async function updatePost(postId, updateData) {
   try {
-    const response = await updateNewPost({ query:postId,  payload:updateData });
+    const response = await updateNewPost({
+      query: postId,
+      payload: updateData,
+    });
     return response.data;
   } catch (error) {
     throw Error(error.response.data);
   }
-
-
 }
-
-
-
 
 async function createComment(data) {
   try {

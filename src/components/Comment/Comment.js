@@ -158,14 +158,14 @@ function Comment({ comment, postId, comments, post, user, fetchData }) {
           )}
         </div>
 
-        {comment?.userId === session?.user?._id &&(
-        <RiDeleteBin5Line
-          className={styles.comment10}
-          onClick={(e) => {
-            e.stopPropagation();
-            handleDeleteComment();
-          }}
-        />
+        {comment?.userId === session?.user?._id && (
+          <RiDeleteBin5Line
+            className={styles.comment10}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteComment();
+            }}
+          />
         )}
 
         <div

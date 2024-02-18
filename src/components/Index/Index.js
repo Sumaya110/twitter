@@ -6,9 +6,6 @@ import HomePage from "../HomePage/HomePage";
 const Index = ({ user }) => {
   const [noUser, setNoUser] = useState(false);
   const router = useRouter();
-  
-
-  
 
   useEffect(() => {
     const replace = async () => {
@@ -22,7 +19,7 @@ const Index = ({ user }) => {
     replace();
   }, [user, router]);
 
-  return <div>{ noUser ? (<Login /> ): (<HomePage user={user} /> )}</div>;
+  return <div>{noUser ? <Login /> : <HomePage user={user} />}</div>;
 };
 
 export default Index;

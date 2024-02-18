@@ -10,7 +10,7 @@ export const useSocket = () => {
 export const SocketProvider = ({ children }) => {
   const [socket, setSocket] = useState(null);
 
-  useEffect(() => {    
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch("/api/socket");
@@ -19,7 +19,7 @@ export const SocketProvider = ({ children }) => {
         }
         const newSocket = io();
         setSocket(newSocket);
-        
+
         newSocket.on("disconnect", () => {
           console.log("user disconnected");
         });
@@ -36,8 +36,6 @@ export const SocketProvider = ({ children }) => {
   }, []);
 
   return (
-    <SocketContext.Provider value={socket}>
-      {children}
-    </SocketContext.Provider>
+    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
   );
 };

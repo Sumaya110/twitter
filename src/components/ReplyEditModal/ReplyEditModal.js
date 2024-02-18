@@ -13,8 +13,7 @@ import Picker from "@emoji-mart/react";
 import data from "@emoji-mart/data";
 import { getPosts, updatePost } from "@/libs/action/postAction";
 import { setPosts } from "@/actions/actions";
-import { useDispatch } from 'react-redux';
-
+import { useDispatch } from "react-redux";
 
 const Modal = ({
   onClose,
@@ -32,7 +31,7 @@ const Modal = ({
   const [image, setImage] = useState(null);
   const [selectedFile, setSelectedFile] = useState(reply.imageUrl);
 
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const addImageToPost = (e) => {
     const reader = new FileReader();
@@ -63,14 +62,11 @@ const dispatch = useDispatch();
       (reply) => reply._id === replyId
     );
     replyToUpdate.text = input;
-    
-   
 
     if (selectedFile === reply.imageUrl) {
-        await updatePost(postId, { comments: post.comments });
-        const data = await getPosts(user._id);
-        dispatch(setPosts(data));
-
+      await updatePost(postId, { comments: post.comments });
+      const data = await getPosts(user._id);
+      dispatch(setPosts(data));
     } else {
       let url = null;
       if (selectedFile) {
@@ -84,15 +80,11 @@ const dispatch = useDispatch();
         url = await response.json();
 
         replyToUpdate.imageUrl = url;
-        
       }
-
 
       await updatePost(postId, { comments: post.comments });
       const data = await getPosts(user._id);
       dispatch(setPosts(data));
-
-
     }
   };
 
@@ -113,7 +105,7 @@ const dispatch = useDispatch();
           <div className={styles.padding}>
             <Image
               className={styles.imageStyle}
-              src={post?.userImg || '/images/blank-profile-picture.webp'}
+              src={post?.userImg || "/images/blank-profile-picture.webp"}
               alt=""
               width={40}
               height={40}
@@ -181,8 +173,10 @@ const dispatch = useDispatch();
 
               <button
                 className={styles.combined8}
-                disabled={(input===reply.text && selectedFile===reply.imageUrl) ||
-                    (!input.trim() && !selectedFile)}
+                disabled={
+                  (input === reply.text && selectedFile === reply.imageUrl) ||
+                  (!input.trim() && !selectedFile)
+                }
                 onClick={(e) => {
                   e.stopPropagation();
                   updatePostButton();

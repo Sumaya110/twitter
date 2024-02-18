@@ -11,20 +11,26 @@ export default function SocketHandler(req, res) {
   res.socket.server.io = io;
 
   io.on("connection", (socket) => {
-    socket.on("send", async({ conversationId, senderId, receiverId, text }) => {
-      const message = {
-        senderId,
-        receiverId,
-        text,
-      }
+    socket.on(
+      "send",
+      async ({ conversationId, senderId, receiverId, text }) => {
+        const message = {
+          senderId,
+          receiverId,
+          text,
+        };
 
-      const Conversation = await updateConversation({conversationId, message})
-      
-      if(Conversation){
-        const lastMessage = Conversation.messages.at(-1);
-        io.emit("receive", lastMessage);
+        const Conversation = await updateConversation({
+          conversationId,
+          message,
+        });
+
+        if (Conversation) {
+          const lastMessage = Conversation.messages.at(-1);
+          io.emit("receive", lastMessage);
+        }
       }
-    });
+    );
   });
 
   console.log("Setting up socket");

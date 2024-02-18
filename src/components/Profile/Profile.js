@@ -22,9 +22,8 @@ const Profile = ({ userId, feedUser }) => {
     <div>
       <main className={styles.main}>
         <div className={styles.container}>
-          
           <div className={styles.fixed}>
-            <Sidebar user={user} option={2}/>
+            <Sidebar user={user} option={2} />
           </div>
           <div>
             <UserFeed user={feedUser} sessionUser={user} />

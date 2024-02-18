@@ -9,9 +9,8 @@
 }
 
 .sectiondiv {
-  position: sticky;
-  top: 0;
-  /* display: flex; */
+  display: flex; /* Use flexbox */
+  align-items: center; /* Align items vertically */
   justify-content: space-between;
   font-weight: 500;
   font-size: 20px;
@@ -19,6 +18,10 @@
   padding-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.sectiondiv > svg {
+  margin-left: auto; /* Push the icon to the right */
 }
 
 

@@ -23,17 +23,12 @@ async function getConversation(data) {
 }
 
 async function markSeen(data) {
-  // console.log("action : ", data)
-  
   try {
-    // const {conversationId, messageIds}=data;
     const response = await markNewSeen(data);
     return response.data;
   } catch (error) {
     throw Error(error.response.data);
   }
-
-
 }
 
 export { createConversation, getConversation, markSeen };

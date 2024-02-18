@@ -32,8 +32,7 @@ const SignIn = () => {
   return (
     <div className={styles.container}>
       <form className={styles.loginForm} onSubmit={handleSubmit}>
-
-      <div>
+        <div>
           <input
             type="name"
             name="name"
@@ -41,8 +40,6 @@ const SignIn = () => {
             className={styles.inputField}
           />
         </div>
-
-
 
         <div>
           <input
@@ -82,7 +79,6 @@ const SignIn = () => {
             A verification mail has been sent.
           </div>
         )}
-
       </form>
     </div>
   );

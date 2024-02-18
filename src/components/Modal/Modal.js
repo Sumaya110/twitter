@@ -111,9 +111,9 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
       const updatedComments = post.comments.map((c) =>
         c._id === commentId
           ? {
-            ...c,
-            replies: [...c.replies, commentReply],
-          }
+              ...c,
+              replies: [...c.replies, commentReply],
+            }
           : c
       );
 
@@ -150,30 +150,31 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
           <div className={styles.padding}>
             {option === 1 && (
               <div>
-               
-                  <Image
-                    className={styles.imageStyle}
-                    src={postUser?.profilePicture || '/images/blank-profile-picture.webp'}
-                    alt=""
-                    width={40}
-                    height={40}
-                  />
-                
-                
+                <Image
+                  className={styles.imageStyle}
+                  src={
+                    postUser?.profilePicture ||
+                    "/images/blank-profile-picture.webp"
+                  }
+                  alt=""
+                  width={40}
+                  height={40}
+                />
               </div>
             )}
 
             {option === 2 && (
               <div>
-               
-                  <Image
-                    className={styles.imageStyle}
-                    src={commentUser?.profilePicture || '/images/blank-profile-picture.webp'}
-                    alt=""
-                    width={40}
-                    height={40}
-                  />
-                
+                <Image
+                  className={styles.imageStyle}
+                  src={
+                    commentUser?.profilePicture ||
+                    "/images/blank-profile-picture.webp"
+                  }
+                  alt=""
+                  width={40}
+                  height={40}
+                />
               </div>
             )}
           </div>
@@ -195,8 +196,8 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
                     src={post?.imageUrl}
                     className={styles.imageStyle2}
                     alt="image"
-                    width={200}
-                    height={200}
+                    width={100}
+                    height={100}
                   />
                 )}
 
@@ -215,8 +216,8 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
                     src={comment?.imageUrl}
                     className={styles.imageStyle2}
                     alt="image"
-                    width={200}
-                    height={200}
+                    width={100}
+                    height={100}
                   />
                 )}
 
@@ -229,15 +230,13 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
           </div>
 
           <div className={styles.mt}>
-            
-              <Image
-                className={styles.imageStyle}
-                src={user?.profilePicture || '/images/blank-profile-picture.webp'} 
-                alt=""
-                width={40}
-                height={40}
-              />
-           
+            <Image
+              className={styles.imageStyle}
+              src={user?.profilePicture || "/images/blank-profile-picture.webp"}
+              alt=""
+              width={40}
+              height={40}
+            />
           </div>
 
           <div className={styles.mt}>
@@ -260,8 +259,8 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
                 <Image
                   src={selectedFile}
                   alt=""
-                  width={200}
-                  height={200}
+                  width={100}
+                  height={100}
                   className={styles.modal5}
                 />
               </div>

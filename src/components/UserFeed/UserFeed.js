@@ -171,8 +171,7 @@ const UserFeed = ({ user, sessionUser }) => {
             id={post._id}
             post={post}
             user={User}
-            fetchData={() => fetchData()
-            }
+            fetchData={() => fetchData()}
           />
         ))}
       </div>

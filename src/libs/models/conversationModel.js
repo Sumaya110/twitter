@@ -1,7 +1,6 @@
 import messageSchema from "./subModel/messageModel";
 import { Schema, model, models } from "mongoose";
 
-
 const conversationSchema = new Schema({
   userOneId: {
     type: String,
@@ -17,8 +16,6 @@ const conversationSchema = new Schema({
 });
 
 const Conversation =
-  models?.Conversation ||
-  model("Conversation", conversationSchema);
+  models?.Conversation || model("Conversation", conversationSchema);
 
-
-export default Conversation
+export default Conversation;

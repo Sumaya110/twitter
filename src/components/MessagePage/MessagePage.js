@@ -8,11 +8,9 @@ const MessagePage = ({ user }) => {
   return (
     <div>
       <main className={styles.main}>
-     
-
         <div className={styles.container}>
           <div className={styles.fixed}>
-            <Sidebar user={user} option={1}/>
+            <Sidebar user={user} option={1} />
           </div>
           <div>
             <Messages user={user} />
@@ -22,8 +20,6 @@ const MessagePage = ({ user }) => {
             <NewMessage user={user} />
           </div>
         </div>
-
-
       </main>
     </div>
   );

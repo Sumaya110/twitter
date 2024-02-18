@@ -1,8 +1,7 @@
-import Profile from '@/components/Profile/Profile';
-import { getUserId } from '@/libs/services/user-service';
-import React from 'react';
+import Profile from "@/components/Profile/Profile";
+import { getUserId } from "@/libs/services/user-service";
+import React from "react";
 import { getSession } from "next-auth/react";
-
 
 const Identity = ({ userId, id, profileData, error }) => {
   if (error) {
@@ -10,20 +9,16 @@ const Identity = ({ userId, id, profileData, error }) => {
     return <div>Error: {error}</div>;
   }
 
-  return <Profile userId={userId} id={id} feedUser={profileData}  />;
+  return <Profile userId={userId} id={id} feedUser={profileData} />;
 };
 
 export default Identity;
 
 export async function getServerSideProps(context) {
-
   const session = await getSession(context);
- 
-  
 
   try {
-   
-    const userId= session?.user?._id || null;
+    const userId = session?.user?._id || null;
     const id = context.query.id;
     const profileData = await getUserId(id);
 
@@ -47,7 +42,7 @@ export async function getServerSideProps(context) {
     console.error("Error fetching profile data:", error);
     return {
       props: {
-        userId:null,
+        userId: null,
         id: null,
         profileData: null,
         error: "Error fetching profile data",

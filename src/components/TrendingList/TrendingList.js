@@ -12,8 +12,7 @@ const TrendingList = () => {
         </h1>
       </div>
 
-      <div>
-      </div>
+      <div></div>
     </div>
   );
 };

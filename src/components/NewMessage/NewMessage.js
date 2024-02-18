@@ -2,13 +2,7 @@ import React from "react";
 import styles from "@/components/NewMessage/NewMessage.module.css";
 
 const NewMessage = () => {
-
-  const handleConversation = () => {
-
-    
-
-  }
-
+  const handleConversation = () => {};
 
   return (
     <div className={styles.combined}>
@@ -19,7 +13,7 @@ const NewMessage = () => {
         swimming.
       </div>
 
-      <button onClick={()=> handleConversation()}>New Message </button>
+      <button onClick={() => handleConversation()}>New Message </button>
     </div>
   );
 };

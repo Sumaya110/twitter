@@ -4,12 +4,11 @@ import Sidebar from "../Sidebar/Sidebar";
 import Messages from "../Messages/Messages";
 import Conversation from "../Conversation/Conversation";
 
-const ConversationPage = ({user, conversationId }) => {
+const ConversationPage = ({ user, conversationId }) => {
   return (
     <div>
       <main className={styles.main}>
         <div className={styles.container}>
-
           <div className={styles.fixed}>
             <Sidebar user={user} option={1} />
           </div>
@@ -21,7 +20,6 @@ const ConversationPage = ({user, conversationId }) => {
           <div>
             <Conversation user={user} conversationId={conversationId} />
           </div>
-          
         </div>
       </main>
     </div>

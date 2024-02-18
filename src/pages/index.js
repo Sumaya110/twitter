@@ -15,9 +15,9 @@ export default IndexPage;
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
- 
+
   let existUser = null;
-  
+
   if (session?.user?._id) {
     try {
       existUser = await getUserId(session?.user?._id);
@@ -26,8 +26,9 @@ export async function getServerSideProps(context) {
     }
   }
 
- 
-  const serializedUser = existUser ? JSON.parse(JSON.stringify(existUser)) : null;
+  const serializedUser = existUser
+    ? JSON.parse(JSON.stringify(existUser))
+    : null;
 
   return {
     props: {

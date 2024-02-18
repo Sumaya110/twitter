@@ -23,7 +23,6 @@ export const createConversation = async (req, res) => {
 };
 
 export const getConversation = async (req, res) => {
-  
   try {
     const conversationId = req.query.conversationId;
     const response = await ConversationRepository.findOne({
@@ -44,7 +43,6 @@ export const getConversation = async (req, res) => {
 //   }
 // }
 
-
 export const updateConversation = async (data) => {
   await connectMongo();
   try {
@@ -52,9 +50,9 @@ export const updateConversation = async (data) => {
     const messages = data.message;
 
     const response = await ConversationRepository.findOneAndUpdate({
-      query: {_id: conversationId},
-      update :{ $push: { messages } }}
-    );
+      query: { _id: conversationId },
+      update: { $push: { messages } },
+    });
 
     return response;
   } catch (error) {
@@ -63,14 +61,12 @@ export const updateConversation = async (data) => {
 };
 
 export const markSeen = async (req, res) => {
-  // console.log(" req.body ", req.body );
   try {
-    const { conversationId,  messageIds }=req.body;
-   console.log("service : ",conversationId, messageIds)
+    const { conversationId, messageIds } = req.body;
 
-   
-    const response = await ConversationRepository.findOneAndUpdate( { query: { _id: conversationId, 'messages._id': { $in: messageIds } }, 
-    update: { $set: { 'messages.$[].seen': true }, } 
+    const response = await ConversationRepository.findOneAndUpdate({
+      query: { _id: conversationId, "messages._id": { $in: messageIds } },
+      update: { $set: { "messages.$[].seen": true } },
     });
 
     return res.status(200).json(response);

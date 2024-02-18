@@ -7,9 +7,9 @@ import styles from "@/components/Login/Login.module.css";
 import SignUp from "@/components/SignUp/SignUp";
 import { useRouter } from "next/router";
 
-const Login = (  ) => {
+const Login = () => {
   const router = useRouter();
-  const [error, setError ]=useState(null)
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,7 +31,6 @@ const Login = (  ) => {
         router.push(status.url);
       }
     } catch (error) {
- 
       setError("Please verify before Login!");
       console.error("Unexpected error during authentication:", error);
     }
@@ -39,7 +38,6 @@ const Login = (  ) => {
 
   return (
     <div className={styles.loginContainer}>
-
       <div className={styles.twitterBg}>
         <FaXTwitter className={styles.twitterIcon} />
       </div>
@@ -76,8 +74,6 @@ const Login = (  ) => {
           <div className={styles.signUpLink}>
             <p>Already have an account?</p>
 
-
-
             <form className={styles.loginForm} onSubmit={handleSubmit}>
               <div>
                 <input
@@ -103,12 +99,8 @@ const Login = (  ) => {
                 </button>
               </div>
 
-              {error && (
-              <p className={styles.error}>{error}</p>
-            )}
+              {error && <p className={styles.error}>{error}</p>}
             </form>
-
-            
           </div>
         </div>
       </div>

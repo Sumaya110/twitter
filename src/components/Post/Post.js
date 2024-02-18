@@ -23,7 +23,6 @@ import { getUser } from "@/libs/action/userAction";
 import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
-
 const Post = ({ id, post, user, fetchData }) => {
   const [showModal, setShowModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -32,7 +31,6 @@ const Post = ({ id, post, user, fetchData }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const { data: session } = useSession();
-  
 
   useEffect(() => {
     const fetchdata = async () => {
@@ -40,7 +38,7 @@ const Post = ({ id, post, user, fetchData }) => {
       setPostUser(info);
     };
     fetchdata();
-  }, [post, user ]);
+  }, [post, user]);
 
   const handleUser = async () => {
     router.push(`/profileId/${postUser?._id}`);
@@ -112,17 +110,24 @@ const Post = ({ id, post, user, fetchData }) => {
                 </div>
               )}
               <div className={styles.sameSpan}>
-
                 <Image
                   className={styles.image}
-                  src={postUser?.profilePicture || '/images/blank-profile-picture.webp'}
+                  src={
+                    postUser?.profilePicture ||
+                    "/images/blank-profile-picture.webp"
+                  }
                   alt={`${postUser?.username}'s avatar`}
                   width={40}
                   height={40}
                 />
 
                 <div className={styles.topBottom}>
-                  <span className={styles.userName} onClick={ () => handleUser()} >{postUser?.name}</span>
+                  <span
+                    className={styles.userName}
+                    onClick={() => handleUser()}
+                  >
+                    {postUser?.name}
+                  </span>
                   <span className={styles.tag}>@{postUser?.username}</span>
                 </div>
 
@@ -130,16 +135,13 @@ const Post = ({ id, post, user, fetchData }) => {
                   {post?.createdAt}
                 </Moment>
 
-                {session?.user?._id=== post?.userId && (
-                    <FaEdit
+                {session?.user?._id === post?.userId && (
+                  <FaEdit
                     className={styles.edit}
                     onClick={() => setShowEditModal(true)}
                   />
-
                 )}
-                
 
-              
                 {showEditModal && (
                   <EditModal
                     onClose={() => setShowEditModal(false)}
@@ -235,7 +237,7 @@ const Post = ({ id, post, user, fetchData }) => {
                 comments={post?.comments}
                 post={post}
                 user={user}
-                fetchData={()=>fetchData}
+                fetchData={() => fetchData}
               />
             ))}
           </div>

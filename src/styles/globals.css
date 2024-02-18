@@ -1,11 +1,10 @@
 .hoverEffect {
-    background-color: transparent; /* Default background color */
-    border-radius: 50%; /* Rounded corners */
-    cursor: pointer; /* Cursor becomes a pointer on hover */
-    transition: background-color 300ms ease-in-out; /* Smooth background color transition */
-  }
-  
-  .hoverEffect:hover {
-    background-color: #181818; /* Dark gray background on hover */
-  }
-  
+  background-color: transparent; /* Default background color */
+  border-radius: 50%; /* Rounded corners */
+  cursor: pointer; /* Cursor becomes a pointer on hover */
+  transition: background-color 300ms ease-in-out; /* Smooth background color transition */
+}
+
+.hoverEffect:hover {
+  background-color: #181818; /* Dark gray background on hover */
+}

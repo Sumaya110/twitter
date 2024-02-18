@@ -195,6 +195,7 @@
 
 .combined8:hover {
   background-color: #1a8cd8;
+  cursor: pointer;
 }
 
 .combined8:disabled {

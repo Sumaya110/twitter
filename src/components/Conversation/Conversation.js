@@ -79,7 +79,6 @@ const Conversation = ({ user, conversationId }) => {
     }
   };
 
-
   useEffect(() => {
     socket?.on("marked-as-seen", ({ conversationId, messageIds }) => {
       if (conversationId === conversationId) {

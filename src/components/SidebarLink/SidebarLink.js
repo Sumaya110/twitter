@@ -1,13 +1,12 @@
-import React from 'react'
-import styles from "@/components/SidebarLink/SidebarLink.module.css"
+import React from "react";
+import styles from "@/components/SidebarLink/SidebarLink.module.css";
 
-const SidebarLink = ({Icon, text}) => {
+const SidebarLink = ({ Icon, text }) => {
   return (
     <div className={styles.container}>
-    <Icon /> <span className={styles.hidden}>{text}</span>
-  </div>
-  
-  )
-}
+      <Icon /> <span className={styles.hidden}>{text}</span>
+    </div>
+  );
+};
 
-export default SidebarLink
+export default SidebarLink;

@@ -37,5 +37,5 @@ export const createNewConversation = (payload) =>
 export const getNewConversation = (conversationId) =>
   API.get(`/api/conversations/${conversationId}`);
 
-  export const markNewSeen = (payload) => API.patch("/api/conversations", payload);
-
+export const markNewSeen = (payload) =>
+  API.patch("/api/conversations", payload);

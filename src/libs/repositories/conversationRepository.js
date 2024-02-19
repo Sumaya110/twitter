@@ -7,7 +7,11 @@ const create = async (content) => {
 
 const findOne = async (payload) => {
   const conversation = await Conversation.findOne(payload);
+  return conversation;
+};
 
+const find = async () => {
+  const conversation = await Conversation.find();
   return conversation;
 };
 
@@ -23,6 +27,7 @@ const findOneAndUpdate = async ({ query, update }) => {
 const ConversationRepository = {
   create,
   findOne,
+  find,
   findOneAndUpdate,
 };
 

@@ -4,10 +4,15 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
+import { IoMdAlert } from "react-icons/io";
 
-const EachUser = ({ user }) => {
+const EachUser = ({ user, notification }) => {
   const { data: session } = useSession();
   const router = useRouter();
+
+  const hasNewMessages = notification?.some(
+    (notif) => notif.lastMessage.senderId === user._id
+  );
 
   const handleSubmit = async () => {
     var conversationId = await createConversation({
@@ -21,7 +26,12 @@ const EachUser = ({ user }) => {
 
   return (
     <div>
-      <button className={styles.userInfo} onClick={() => handleSubmit()}>
+     
+
+      <button
+        className={`${styles.userInfo} ${hasNewMessages && styles.hasNewMessages}`}
+        onClick={() => handleSubmit()}
+      >
         <Image
           src={user?.profilePicture || "/images/blank-profile-picture.webp"}
           alt="Profile"
@@ -32,8 +42,12 @@ const EachUser = ({ user }) => {
         <div className={styles.details}>
           <h3 className={styles.name}>{user?.name}</h3>
           <p className={styles.username}> @{user?.username}</p>
+         
+          {hasNewMessages && <IoMdAlert className={styles.alertIcon} />}
         </div>
       </button>
+
+     
     </div>
   );
 };

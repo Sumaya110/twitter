@@ -39,3 +39,5 @@ export const getNewConversation = (conversationId) =>
 
 export const markNewSeen = (payload) =>
   API.patch("/api/conversations", payload);
+
+export const getNewConversations = () => API.get("/api/conversations");

@@ -34,6 +34,15 @@ export const getConversation = async (req, res) => {
   }
 };
 
+export const getConversations = async (req, res) => {
+  try {
+    const response = await ConversationRepository.find();
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+};
+
 export const updateConversation = async (data) => {
   await connectMongo();
   try {

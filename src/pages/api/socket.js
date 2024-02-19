@@ -1,6 +1,5 @@
 import {
   markAsSeen,
-  markSeen,
   updateConversation,
 } from "@/libs/services/conversation-service";
 import { Server } from "socket.io";
@@ -29,19 +28,12 @@ export default function SocketHandler(req, res) {
           message,
         });
 
-        // console.log("Conversation :: ", Conversation)
-
-        // if (Conversation) {
-        //   const lastMessage = Conversation.messages.at(-1);
-        //   io.emit("receive", lastMessage);
-        // }
-
         if (Conversation) {
           const lastMessage =
             Conversation.messages[Conversation.messages.length - 1];
 
-            console.log("last messageeee  :: ", lastMessage)
-          io.emit("receive", { lastMessage, roomId: conversationId });
+          io.emit( "receive", { lastMessage, roomId: conversationId });
+          io.emit("notification", { lastMessage, roomId: conversationId });
         }
       }
     );
@@ -53,10 +45,6 @@ export default function SocketHandler(req, res) {
 
     socket.on("disconnect", function () {
       console.log("user disconnected");
-    });
-
-    socket.on("join-room", ({ roomId }) => {
-      socket.join(roomId);
     });
   });
 

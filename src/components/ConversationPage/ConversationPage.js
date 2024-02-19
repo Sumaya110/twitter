@@ -18,7 +18,7 @@ const ConversationPage = ({ user, conversationId }) => {
           </div>
 
           <div>
-            <Conversation user={user} conversationId={conversationId} />
+            <Conversation user={user} conversation_id={conversationId} />
           </div>
         </div>
       </main>

@@ -1,4 +1,8 @@
-import { updateConversation } from "@/libs/services/conversation-service";
+import {
+  markAsSeen,
+  markSeen,
+  updateConversation,
+} from "@/libs/services/conversation-service";
 import { Server } from "socket.io";
 
 export default function SocketHandler(req, res) {
@@ -25,12 +29,35 @@ export default function SocketHandler(req, res) {
           message,
         });
 
+        // console.log("Conversation :: ", Conversation)
+
+        // if (Conversation) {
+        //   const lastMessage = Conversation.messages.at(-1);
+        //   io.emit("receive", lastMessage);
+        // }
+
         if (Conversation) {
-          const lastMessage = Conversation.messages.at(-1);
-          io.emit("receive", lastMessage);
+          const lastMessage =
+            Conversation.messages[Conversation.messages.length - 1];
+
+            console.log("last messageeee  :: ", lastMessage)
+          io.emit("receive", { lastMessage, roomId: conversationId });
         }
       }
     );
+
+    socket.on("mark-as-seen", async ({ conversationId, messageIds }) => {
+      await markAsSeen({ conversationId, messageIds });
+      io.emit("marked-as-seen", { conversationId, messageIds });
+    });
+
+    socket.on("disconnect", function () {
+      console.log("user disconnected");
+    });
+
+    socket.on("join-room", ({ roomId }) => {
+      socket.join(roomId);
+    });
   });
 
   console.log("Setting up socket");

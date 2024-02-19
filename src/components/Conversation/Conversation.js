@@ -11,25 +11,32 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import Image from "next/image";
 
-const Conversation = ({ user, conversationId }) => {
-  const [message, setMessage] = useState("");
-  const [username, setUsername] = useState("");
+const Conversation = ({ user, conversation_id }) => {
+  const [message, setMessage] = useState(null);
+  const [username, setUsername] = useState(null);
   const [sender, setSender] = useState(null);
   const [receiver, setReceiver] = useState(null);
   const [senderId, setSenderId] = useState(null);
   const [receiverId, setReceiverId] = useState(null);
   const [allMessages, setAllMessages] = useState([]);
-  const [notification, setNotification] = useState(1);
+  const [notification, setNotification] = useState(false);
   const [conversation, setConversation] = useState();
+  const [unreadMessagesCount, setUnreadMessagesCount] = useState({});
   const router = useRouter();
-  //   const Notifications = useSelector((state) => state.notifications)
-  // const dispatch = useDispatch();
   const chatBoxRef = useRef(null);
   const socket = useSocket();
+  const dispatch = useDispatch();
+
+  const Notifications = useSelector(
+    (state) => state.notifications.notifications
+  );
+
+  // console.log("notifications  : ", Notifications);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getConversation(conversationId);
+      const data = await getConversation(conversation_id);
+      // console.log("data  :: ", data);
 
       const userOneId = data.userOneId;
       const userTwoId = data.userTwoId;
@@ -45,13 +52,28 @@ const Conversation = ({ user, conversationId }) => {
 
       setSenderId(senderId);
       setReceiverId(receiverId);
+
+      // if (
+      //   senderId === user?._id &&
+      //   data?.messages.some((message) => !message.seen)
+      // ) {
+      //   setNotification(true);
+      // }
+
+      const unreadCount = data.messages.filter(
+        (message) => message.senderId === senderId && !message.seen
+      ).length;
+      setUnreadMessagesCount((prevState) => ({
+        ...prevState,
+        [senderId]: unreadCount,
+      }));
     };
     fetchData();
-  }, [socket, conversationId, user, receiverId]);
+  }, [socket, conversation_id, user, receiverId]);
 
   useEffect(() => {
     socketInitializer();
-    markMessagesAsSeen();
+    markMessageSeen();
 
     return () => {
       if (socket) {
@@ -59,21 +81,21 @@ const Conversation = ({ user, conversationId }) => {
         socket.off("receive");
       }
     };
-  }, [socket, conversationId, user, receiverId]);
+  }, [socket, conversation_id, user, receiverId, allMessages]);
 
-  const markMessagesAsSeen = async () => {
+  const markMessageSeen = async () => {
     const unseenMessageIds = allMessages?.filter((message) => {
       return message.senderId === receiverId && !message.seen;
     });
 
     const messageIds = unseenMessageIds?.map((message) => message._id);
     if (messageIds?.length > 0) {
-      await markSeen({ conversationId, messageIds });
+      await markSeen({ conversationId: conversation_id, messageIds });
 
-      setNotification(null);
+      setNotification(false);
 
       socket?.emit("mark-as-seen", {
-        conversationId,
+        conversationId: conversation_id,
         messageIds,
       });
     }
@@ -81,18 +103,10 @@ const Conversation = ({ user, conversationId }) => {
 
   useEffect(() => {
     socket?.on("marked-as-seen", ({ conversationId, messageIds }) => {
-      if (conversationId === conversationId) {
+      if (conversation_id === conversationId) {
         setAllMessages((prev) => {
           const updatedMessages = prev.map((message) => {
             if (!message.seen && message.senderId === user._id) {
-              // const updatedNotifications = Notifications.filter(
-              //   (notification) => notification.roomId !== conversation?._id
-              // );
-              // console.log(updatedNotifications);
-              // dispatch({
-              //   type: "SET_NOTIFICATIONS",
-              //   payload: updatedNotifications,
-              // });
               return {
                 ...message,
                 seen: true,
@@ -104,21 +118,58 @@ const Conversation = ({ user, conversationId }) => {
         });
       }
     });
-  }, [socket, conversationId, allMessages, user?._id]);
+  }, [socket, conversation_id, allMessages, user?._id]);
 
   useEffect(() => {
     scrollDown();
   }, [allMessages]);
 
   async function socketInitializer() {
-    // socket = io();
     if (!socket) return;
     socket.off("send");
     socket.off("receive");
+    socket.off("disconnect");
+    socket.off("join-room");
 
-    socket.on("receive", (data) => {
-      setAllMessages([...allMessages, data]);
+    // socket.on("receive", (data) => {
+    //   setAllMessages([...allMessages, data]);
+    // });
+
+    socket.on("receive", ({ lastMessage, roomId }) => {
+      console.log("lastMessage  ::  ", lastMessage);
+      if (roomId == conversation_id)
+        setAllMessages((pre) => [...pre, lastMessage]);
+      if (
+        !Notifications?.some(
+          (notification) => notification.roomId === conversation_id
+        )
+      ) {
+        const updatedNotifications = [
+          ...Notifications,
+          {
+            roomId: conversation_id,
+            senderId: lastMessage?.senderId,
+            message: lastMessage?.message,
+          },
+        ];
+        dispatch({ type: "SET_NOTIFICATIONS", payload: updatedNotifications });
+      }
+      const lastMessageIsFromOtherUser = lastMessage?.senderId === receiverId;
+      let messageIds = [];
+      if (allMessages) messageIds.push(lastMessage?._id);
+      if (lastMessageIsFromOtherUser) {
+        setNotification(null);
+        socket?.emit("mark-as-seen", {
+          conversationId: conversation_id,
+          messageIds,
+        });
+      }
     });
+
+    socket.on("disconnect", function () {
+      console.log("user disconnected");
+    });
+    socket.emit("join-room", { roomId: conversation_id });
   }
 
   function scrollDown() {
@@ -126,17 +177,16 @@ const Conversation = ({ user, conversationId }) => {
   }
 
   const handleProfile = () => {
-    router.push(`/profileId/${receiver?._id}`);
+    router.push(`/profileId/${receiverId}`);
   };
 
   function handleSubmit() {
     socket.emit("send", {
-      conversationId,
+      conversationId: conversation_id,
       senderId,
       receiverId,
       text: message,
     });
-
     setMessage("");
   }
 
@@ -157,7 +207,16 @@ const Conversation = ({ user, conversationId }) => {
             className={styles.buttonDesign}
             onClick={() => handleProfile()}
           >
-            <div className={styles.receiverName}>{receiver?.name}</div>
+            <div className={styles.receiverName}>
+              {receiver?.name}
+              {unreadMessagesCount[receiverId] > 0 && (
+                <span className={styles.notification}>
+                  {unreadMessagesCount[receiverId]}
+                </span>
+              )}
+            </div>
+
+            {/* <div className={styles.receiverName}>{receiver?.name}</div> */}
           </button>
 
           <div className={styles.username}>@{receiver?.username}</div>
@@ -191,6 +250,7 @@ const Conversation = ({ user, conversationId }) => {
           ))}
         </div>
         <div className={styles.sendButton}>
+          {/* {notification && <div className={styles.notification}>You have unread messages.</div>} */}
           <input
             className={styles.input}
             name="message"

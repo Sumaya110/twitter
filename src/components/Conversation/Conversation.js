@@ -202,7 +202,7 @@ const Conversation = ({ user, conversation_id }) => {
             className={styles.input}
             name="message"
             placeholder="Start a new message"
-            value={message}
+            value={message || ""}
             onChange={(e) => setMessage(e.target.value)}
             autoComplete={"off"}
           />

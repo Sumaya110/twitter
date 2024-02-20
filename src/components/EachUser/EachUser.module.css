@@ -1,58 +1,41 @@
 .userInfo {
-    display: flex;
-    align-items: center;
-    border: none;
-    width: 100%;
-    /* padding: 10px 20px; */
-    background-color: white;
-    margin-left: 0;
-    padding-left: 15px;
-    text-align: left;
-  }
-  
+  display: flex;
+  align-items: center;
+  border: none;
+  width: 100%;
+  background-color: white;
+  margin-left: 0;
+  padding-left: 15px;
+  text-align: left;
+}
 
- 
-  .userInfo:hover {
-    background-color: #dbd4d7;
-    cursor: pointer;
-  }
-  
-  .profilePicture {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
-  
-  .details {
-    margin-left: 10px;
-    /* align-items: left; */
-    
-  }
-  
- 
-  .username {
-    color: gray;
-    margin-top: 0;
-   
-  }
-  
-  .name {
-    margin-bottom: 0;
-   
-  }
-  .alertIcon {
-    color: red; /* Set the color to red */
-  }
-  
-  
+.userInfo:hover {
+  background-color: #dbd4d7;
+  cursor: pointer;
+}
 
-  .marker {
-    width: 8px;
-    height: 8px;
-    background-color: #1da1f2; 
-    border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    right: -12px;
-    transform: translateY(-50%);
-  }
+.profilePicture {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.details {
+  position: relative;
+  margin-left: 10px;
+}
+
+.username {
+  color: gray;
+  margin-top: 0;
+}
+
+.name {
+  margin-bottom: 0;
+}
+
+.alertIcon {
+  position: relative;
+  top: -5px;
+  color: red;
+}

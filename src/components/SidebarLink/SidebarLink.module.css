@@ -38,8 +38,8 @@
 
 .notificationCount {
   position: absolute; 
-  top: 4px; /* Adjust top position to move it slightly above the icon */
-  right: 131px; /* Align notification count to the right side of the container */
+  top: 2px; /* Adjust top position to move it slightly above the icon */
+  right: 110px; /* Align notification count to the right side of the container */
   background-color: red; 
   color: white; 
   width: 15px;

@@ -9,6 +9,7 @@ import { AiFillHome, AiOutlineInbox, AiOutlineUser } from "react-icons/ai";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
+import { useSocket } from "@/libs/Context/Context";
 import {
   HiOutlineClipboardList,
   HiOutlineDotsCircleHorizontal,
@@ -26,55 +27,49 @@ const Sidebar = ({ user, option }) => {
   const User = useSelector((state) => state.users.users);
   const { data: session } = useSession();
   const [notification, setNotification] = useState(null);
+  const socket = useSocket();
+  const notifications = [];
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (session?.user?._id) {
-        try {
-          const userInfo = await getUser(session?.user?._id);
-          dispatch(setUsers(userInfo));
-        } catch (error) {
-          console.error("Error fetching user:", error);
-        }
-      }
-    };
     fetchData();
 
     const socket = io();
     socket.on("notification", ({ lastMessage, roomId }) => {
-      setNotification({ lastMessage, roomId });
+      if (lastMessage.receiverId === user?._id) setNotification(1);
+      notifications.push({ lastMessage, roomId });
     });
-
-    const fetchConversations = async () => {
-      const allConversations = await getConversations();
-
-      // console.log("all con:: ", allConversations)
-
-      const notifications = [];
-
-      allConversations?.forEach((conversation) => {
-        const { messages } = conversation;
-        const lastMessage = messages[messages?.length - 1];
-
-        
-        if (lastMessage?.receiverId === user?._id && !lastMessage?.seen) {
-          // console.log("lll", lastMessage)
-          notifications.push({ lastMessage, roomId: conversation?._id });
-        }
-      });
-
-     
-      setNotification(notifications.length > 0 ? notifications : null);
-
-      // console.log("notification ::  ", notification)
-
-    };
-
     fetchConversations();
+
     return () => {
       socket.disconnect();
     };
-  }, [dispatch, session]);
+  }, [user, socket]);
+
+  const fetchData = async () => {
+    if (session?.user?._id) {
+      try {
+        const userInfo = await getUser(session?.user?._id);
+        dispatch(setUsers(userInfo));
+      } catch (error) {
+        console.error("Error fetching user:", error);
+      }
+    }
+  };
+
+  const fetchConversations = async () => {
+    const allConversations = await getConversations();
+
+    allConversations?.forEach((conversation) => {
+      const { messages } = conversation;
+      const lastMessage = messages[messages?.length - 1];
+
+      if (lastMessage?.receiverId === user?._id && !lastMessage?.seen) {
+        notifications.push({ lastMessage, roomId: conversation?._id });
+      }
+    });
+
+    setNotification(notifications?.length || null);
+  };
 
   const handleEditProfile = async () => {
     router.push(`/profileId/${session?.user?._id}`);
@@ -96,45 +91,57 @@ const Sidebar = ({ user, option }) => {
         </div>
 
         <button className={styles.profileButton} onClick={() => handleHome()}>
-          <SidebarLink text="Home" Icon={AiFillHome}  notification={null} />
+          <SidebarLink text="Home" Icon={AiFillHome} notification={null} />
         </button>
 
         <button className={styles.profileButton}>
-          <SidebarLink text="Explore" Icon={BiHash}  notification={null}/>
+          <SidebarLink text="Explore" Icon={BiHash} notification={null} />
         </button>
 
         <button className={styles.profileButton}>
-          <SidebarLink
-            text="Notifications"
-            Icon={BsBell}
-            notification={notification}
-          />
+          <SidebarLink text="Notifications" Icon={BsBell} notification={null} />
         </button>
 
         <button
           className={styles.profileButton}
           onClick={() => handleMessage()}
         >
-          <SidebarLink text="Messages" Icon={AiOutlineInbox}  notification={null}/>
+          <SidebarLink
+            text="Messages"
+            Icon={AiOutlineInbox}
+            notification={notification}
+          />
         </button>
 
         <button className={styles.profileButton}>
-          <SidebarLink text="Bookmarks" Icon={BsBookmark} notification={null}/>
+          <SidebarLink text="Bookmarks" Icon={BsBookmark} notification={null} />
         </button>
 
         <button className={styles.profileButton}>
-          <SidebarLink text="Lists" Icon={HiOutlineClipboardList} notification={null}/>
+          <SidebarLink
+            text="Lists"
+            Icon={HiOutlineClipboardList}
+            notification={null}
+          />
         </button>
 
         <button
           className={styles.profileButton}
           onClick={() => handleEditProfile()}
         >
-          <SidebarLink text="Profile" Icon={AiOutlineUser} notification={null}/>
+          <SidebarLink
+            text="Profile"
+            Icon={AiOutlineUser}
+            notification={null}
+          />
         </button>
 
         <button className={styles.profileButton}>
-          <SidebarLink text="More" Icon={HiOutlineDotsCircleHorizontal} notification={null} />
+          <SidebarLink
+            text="More"
+            Icon={HiOutlineDotsCircleHorizontal}
+            notification={null}
+          />
         </button>
       </div>
 

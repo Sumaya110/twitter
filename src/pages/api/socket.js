@@ -34,6 +34,7 @@ export default function SocketHandler(req, res) {
 
           io.emit( "receive", { lastMessage, roomId: conversationId });
           io.emit("notification", { lastMessage, roomId: conversationId });
+
         }
       }
     );

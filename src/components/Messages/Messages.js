@@ -6,15 +6,31 @@ import { getUsers } from "@/libs/action/userAction";
 import EachUser from "../EachUser/EachUser";
 import io from "socket.io-client";
 import { getConversations } from "@/libs/action/conversationAction";
+import { useSocket } from "@/libs/Context/Context";
 
 const Messages = ({ user }) => {
   const [users, setUsers] = useState([]);
-  const [notification, setNotification] = useState(null);
+  const [notification, setNotification] = useState([]);
+  const socket = useSocket();
+  const notifications = [];
 
   useEffect(() => {
     fetchData();
+    const socket = io();
+    socket.on("notification", ({ lastMessage, roomId }) => {
+      setNotification((prevNotifications) => [
+        ...prevNotifications,
+        { lastMessage, roomId },
+      ]);
+
+      notifications.push({ lastMessage, roomId });
+    });
     fetchConversations();
-  }, [user, notification]);
+
+    return () => {
+      socket.disconnect();
+    };
+  }, [user, socket]);
 
   const fetchData = async () => {
     try {
@@ -30,8 +46,6 @@ const Messages = ({ user }) => {
   const fetchConversations = async () => {
     const allConversations = await getConversations();
 
-    // console.log("all con:: ", allConversations);
-
     const notifications = [];
 
     allConversations?.forEach((conversation) => {
@@ -39,14 +53,11 @@ const Messages = ({ user }) => {
       const lastMessage = messages[messages?.length - 1];
 
       if (lastMessage?.receiverId === user?._id && !lastMessage?.seen) {
-        // console.log("lll", lastMessage);
         notifications.push({ lastMessage, roomId: conversation?._id });
       }
     });
 
-    setNotification(notifications.length > 0 ? notifications : null);
-
-    console.log("notification ::  ", notification);
+    setNotification(notifications);
   };
 
   return (
@@ -62,7 +73,7 @@ const Messages = ({ user }) => {
       <div>
         <div className={styles.userList}>
           {users.map((user) => (
-            <EachUser key={user?._id} user={user} notification={notification}/>
+            <EachUser key={user?._id} user={user} notification={notification} />
           ))}
         </div>
       </div>

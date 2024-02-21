@@ -4,23 +4,34 @@ import styles from "@/components/Reply/Reply.module.css";
 import Image from "next/image";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { getPosts, updatePost } from "@/libs/action/postAction";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BsArrowReturnRight } from "react-icons/bs";
 import { FaEdit } from "react-icons/fa";
 import ReplyEditModal from "@/components/ReplyEditModal/ReplyEditModal";
 import { setPosts } from "@/actions/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useSession } from "next-auth/react";
+import { getUser } from "@/libs/action/userAction";
 
 function Reply({ comment, postId, comments, post, reply, user }) {
   const [showEditModal, setShowEditModal] = useState(false);
   const [liked, setLiked] = useState(false);
+  const [replyUser, setReplyUser]= useState(null)
   const { data: session } = useSession();
+  const users = useSelector((state) => state.users.users);
 
   const dispatch = useDispatch();
 
   const replyId = reply?._id;
   const commentId = comment?._id;
+
+  useEffect(() => {
+    const fetchdata = async () => {
+      const info = await getUser(reply?.userId);
+      setReplyUser(info);
+    };
+    fetchdata();
+  }, [reply, user]);
 
   const handleDeleteReply = async () => {
     const commentToUpdate = post?.comments?.find(
@@ -73,26 +84,17 @@ function Reply({ comment, postId, comments, post, reply, user }) {
       <div className={styles.combined}>
         <div className={styles.replyContainer}>
           <div className={styles.sameSpan}>
-            {reply?.userImg ? (
-              <Image
-                className={styles.image}
-                src={reply?.userImg || "/images/blank-profile-picture.webp"}
-                alt={`${reply?.username}'s avatar`}
-                width={40}
-                height={40}
-              />
-            ) : (
-              <Image
-                className={styles.image}
-                alt={`${reply?.username}'s avatar`}
-                width={40}
-                height={40}
-              />
-            )}
+            <Image
+              className={styles.image}
+              src={replyUser?.profilePicture || "/images/blank-profile-picture.webp"}
+              alt={`${replyUser?.username}'s avatar`}
+              width={40}
+              height={40}
+            />
 
             <div className={styles.topBottom}>
-              <span className={styles.userName}>{reply?.username}</span>
-              <span className={styles.tag}>@{reply?.tag}</span>
+              <span className={styles.userName}>{replyUser?.name}</span>
+              <span className={styles.tag}>@{replyUser?.username}</span>
             </div>
 
             <Moment fromNow className={styles.time}>

@@ -127,14 +127,11 @@
   display: flex;
   justify-content: space-between;
   font-size: 20px;
-  /* margin-left: 4rem; */
   width: 100%;
-  /* gap:5.35rem; */
 }
 
 .comment9 {
   display: flex;
-  /* gap: 1rem; */
   align-items: center;
 }
 
@@ -153,7 +150,6 @@
 
 .comment11 {
   display: flex;
-  /* gap: 1rem; */
   align-items: center;
 }
 
@@ -214,9 +210,7 @@
   display: flex;
 }
 .image {
-  height: auto;
-  width: auto;
-  border-radius: 50%;
+  border-radius: 100%;
 }
 
 .userName {

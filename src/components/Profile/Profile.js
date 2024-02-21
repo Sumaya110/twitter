@@ -4,22 +4,41 @@ import Sidebar from "../Sidebar/Sidebar";
 import Trending from "../Trending/Trending";
 import UserFeed from "../UserFeed/UserFeed";
 import { getUser } from "@/libs/action/userAction";
-import { setUsers } from "@/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
+import Login from "../Login/Login";
+
+
 
 const Profile = ({ userId, feedUser }) => {
   const [user, setUser] = useState(null);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   useEffect(() => {
     const fetchdata = async () => {
-      const info = await getUser(userId);
-      setUser(info);
+      if(userId)
+      {const info = await getUser(userId);
+      setUser(info);}
     };
     fetchdata();
   }, []);
 
+ 
+
+  useEffect(() => {
+    const replace = async () => {
+      if (!userId) {
+        await router.replace("/");
+      }
+    };
+
+    replace();
+  }, [userId, router]);
+
   return (
     <div>
+      {userId ? (
       <main className={styles.main}>
         <div className={styles.container}>
           <div className={styles.fixed}>
@@ -34,6 +53,9 @@ const Profile = ({ userId, feedUser }) => {
           </div>
         </div>
       </main>
+       ) : (
+        <Login />
+      )}
     </div>
   );
 };

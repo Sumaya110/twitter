@@ -81,9 +81,8 @@
   font-size: 15px;
 }
 .image {
-  height: auto;
-  width: auto;
-  border-radius: 50%;
+ 
+  border-radius: 100%;
 }
 
 .iconGroup {

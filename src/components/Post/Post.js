@@ -34,7 +34,11 @@ const Post = ({ id, post, user, fetchData }) => {
 
   useEffect(() => {
     const fetchdata = async () => {
-      const info = await getUser(post?.userId);
+      var info = null;
+
+      if (post?.retweetedFrom) info = await getUser(post?.retweetedFrom);
+      else info = await getUser(post?.userId);
+
       setPostUser(info);
     };
     fetchdata();
@@ -83,7 +87,7 @@ const Post = ({ id, post, user, fetchData }) => {
       username: post?.username,
       text: post?.text,
       imageUrl: post?.imageUrl,
-      retweetedFrom: post?.userEmail,
+      retweetedFrom: post?.userId,
       retweetedBy: user?.name,
     });
 

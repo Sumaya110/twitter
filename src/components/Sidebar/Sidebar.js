@@ -38,6 +38,7 @@ const Sidebar = ({ user, option }) => {
       if (lastMessage.receiverId === user?._id) setNotification(1);
       notifications.push({ lastMessage, roomId });
     });
+
     fetchConversations();
 
     return () => {
@@ -69,6 +70,14 @@ const Sidebar = ({ user, option }) => {
     });
 
     setNotification(notifications?.length || null);
+    socket?.on("marked-as-seen", ({ conversationId, messageIds }) => {
+      const filteredNotifications = notifications.filter(
+        (notification) => notification.roomId !== conversationId
+      );
+      setNotification(filteredNotifications?.length || null);
+    });
+
+    //setNotification(filteredNotifications?.length || null);
   };
 
   const handleEditProfile = async () => {

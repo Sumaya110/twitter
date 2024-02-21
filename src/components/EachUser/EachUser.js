@@ -10,24 +10,19 @@ import { useRouter } from "next/router";
 import { IoMdAlert } from "react-icons/io";
 import { useSocket } from "@/libs/Context/Context";
 
-
-
 const EachUser = ({ user, notification }) => {
   const { data: session } = useSession();
   const router = useRouter();
   const [buttonClicked, setButtonClicked] = useState(false);
   const socket = useSocket();
   const [allMessages, setAllMessages] = useState([]);
+  var hasNewMessages = false;
 
   const matchingNotification = notification?.find(
     (notif) =>
       notif?.lastMessage?.senderId === user?._id && !notif?.lastMessage?.seen
   );
-
-  var hasNewMessages = notification?.some(
-    (notif) =>
-      notif?.lastMessage?.senderId === user?._id && !notif?.lastMessage?.seen
-  );
+  if (matchingNotification) hasNewMessages = true;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,48 +31,26 @@ const EachUser = ({ user, notification }) => {
           const data = await getConversation(matchingNotification?.roomId);
           setAllMessages(data?.messages);
 
-
           socket?.on("marked-as-seen", ({ conversationId, messageIds }) => {
             if (matchingNotification?.roomId === conversationId) {
-
-              
+              setButtonClicked(true);
             }
           });
-
-          console.log(
-            "data ",
-            allMessages[allMessages?.length - 1]?.senderId,
-            user?._id,
-            allMessages[allMessages?.length - 1].seen
-          );
-
-          if (
-            allMessages[allMessages?.length - 1].senderId === user?._id &&
-            allMessages[allMessages?.length - 1].seen === false
-          ) {
-            setButtonClicked(true);
-            console.log("true");
-          }
         }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
-   
-    console.log("d", matchingNotification?.roomId);
-
-    if (matchingNotification?.roomId) fetchData();
+    if (hasNewMessages) fetchData();
   }, [matchingNotification?.roomId, user?._id]);
 
-  
   const handleSubmit = async () => {
     var conversationId = await createConversation({
       userOneId: session?.user?._id,
       userTwoId: user?._id,
       messages: [],
     });
-
     if (conversationId) router.push(`/messages/${conversationId}`);
   };
 
@@ -101,7 +74,9 @@ const EachUser = ({ user, notification }) => {
           <p className={styles.username}> @{user?.username}</p>
         </div>
         <div>
-          {hasNewMessages  && buttonClicked===true && <IoMdAlert className={styles.alertIcon} />}
+          {hasNewMessages && !buttonClicked && (
+            <IoMdAlert className={styles.alertIcon} />
+          )}
         </div>
       </button>
     </div>

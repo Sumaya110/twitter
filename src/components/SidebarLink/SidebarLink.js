@@ -7,7 +7,7 @@ const SidebarLink = ({ Icon, text, notification }) => {
       <Icon className={styles.icon} />
       {notification && (
         <span className={`${styles.notificationCount} ${styles.red}`}>
-          {notification}
+          !
         </span>
       )}
 

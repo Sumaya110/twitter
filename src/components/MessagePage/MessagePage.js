@@ -16,9 +16,9 @@ const MessagePage = ({ user }) => {
             <Messages user={user} />
           </div>
 
-          <div>
+          {/* <div>
             <NewMessage user={user} />
-          </div>
+          </div> */}
         </div>
       </main>
     </div>

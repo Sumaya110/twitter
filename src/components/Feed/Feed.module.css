@@ -1,16 +1,15 @@
 .section {
-  /* margin-left: auto; */
   display: block;
   width: 600px;
   height: 100%;
   border-right: 1px solid #dfd7d7;
-  border-left: 1px solid #eee6e6 ;
+  border-left: 1px solid #eee6e6;
   color: black;
 }
 
 .sectiondiv {
-  display: flex; /* Use flexbox */
-  align-items: center; /* Align items vertically */
+  display: flex;
+  align-items: center;
   justify-content: space-between;
   font-weight: 500;
   font-size: 20px;
@@ -21,21 +20,16 @@
 }
 
 .sectiondiv > svg {
-  margin-left: auto; /* Push the icon to the right */
+  margin-left: auto;
 }
 
-
-
-.line{
+.line {
   color: rgb(224, 219, 219);
-  border-bottom: 1px solid rgb(234, 228, 228); 
+  border-bottom: 1px solid rgb(234, 228, 228);
 }
 
- 
 @media (max-width: 1280px) {
   .section {
     margin-left: 100px;
   }
 }
-
- 

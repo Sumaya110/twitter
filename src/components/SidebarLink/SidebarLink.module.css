@@ -16,24 +16,18 @@
   display: none;
 }
 
-@media (min-width: 1280px) {
-  .hidden {
-    display: inline;
-  }
-
-  .container {
-    justify-content: start;
-  }
-}
 
 .container {
-  position: relative; /* Set container position to relative */
+  position: relative; 
   display: inline-flex; /* Use inline-flex for better alignment */
   align-items: center;
 }
 
 .icon {
-  margin-right: 4px; /* Add slight margin between icon and notification count */
+  /* margin-right: 4px; */
+  /* align-items: right; */
+  /* margin-left: 5px; */
+  margin-left: auto;
 }
 
 .notificationCount {
@@ -46,4 +40,21 @@
   height: 15px;
   border-radius: 50%;
   font-size: 0.75rem; 
+}
+
+
+@media (min-width: 1280px) {
+  .hidden {
+    display: inline;
+   
+  }
+
+  .container {
+    justify-content: start;
+  }
+
+  .icon {
+    margin-right: 10px; 
+   
+  }
 }

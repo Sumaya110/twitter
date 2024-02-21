@@ -4,7 +4,7 @@ import {
   getNewPosts,
   updateNewPost,
   deleteNewPost,
-  createNewComment,
+
 } from "@/libs/api_routes/routes";
 
 async function createPost(data) {
@@ -55,13 +55,6 @@ async function updatePost(postId, updateData) {
   }
 }
 
-async function createComment(data) {
-  try {
-    const response = await createNewComment(data);
-    return response.data;
-  } catch (error) {
-    throw Error(error.response.data);
-  }
-}
 
-export { createPost, getPost, getPosts, updatePost, deletePost, createComment };
+
+export { createPost, getPost, getPosts, updatePost, deletePost};

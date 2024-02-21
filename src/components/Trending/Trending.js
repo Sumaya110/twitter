@@ -15,7 +15,7 @@ const Trending = ({ user, option }) => {
       <div className={styles.combined4}>
         {option === 1 && (
           <div>
-            <h1 className="text"> You might like</h1>
+            <h1 className="text"> Who to follow</h1>
             <FollowUser user={user} />
           </div>
         )}

@@ -76,8 +76,6 @@ const Sidebar = ({ user, option }) => {
       );
       setNotification(filteredNotifications?.length || null);
     });
-
-    //setNotification(filteredNotifications?.length || null);
   };
 
   const handleEditProfile = async () => {

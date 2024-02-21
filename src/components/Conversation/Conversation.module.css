@@ -11,6 +11,7 @@
   margin-left: auto;
   width: 480px;
   border-right: 1px solid #f0f1f3;
+  border-left: 1px solid #f0f1f3;
   padding-right: 1rem;
 }
 
@@ -112,6 +113,8 @@
   border: none;
   color: #0f0c0c;
   font-size: 15px;
+  /* height: 100%px; */
+  height: 30px;
 }
 .button {
   border: none;

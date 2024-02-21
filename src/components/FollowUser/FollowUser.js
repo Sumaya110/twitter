@@ -23,11 +23,11 @@ const FollowUser = ({ user }) => {
 
   return (
     <div>
-      <ul className={styles.userList}>
+      <div className={styles.userList}>
         {filteredUsers.map((fuser) => (
           <EachFollowUser key={fuser?._id} fuser={fuser} user={user} />
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

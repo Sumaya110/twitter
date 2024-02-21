@@ -2,7 +2,10 @@
   display: flex;
   align-items: center;
   border-radius: 30px;
-  width: 100%;
+  width: 90%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+
 }
 
 .userInfo:hover {
@@ -23,7 +26,7 @@
 .actions {
   margin-left: auto;
   display: flex;
-  align-items: left;
+  /* margin-right: 1 rem; */
 }
 
 .followButton,
@@ -36,7 +39,7 @@
   cursor: pointer;
   border-radius: 30px;
 
-  right: 90%;
+  /* right: 90%; */
   font-weight: bolder;
 }
 

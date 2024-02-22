@@ -182,9 +182,6 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
           <div>
             <div className={styles.combined2}>
               <h1>{post?.username}</h1>
-              <h2 className={styles.gray}>
-                <Moment fromNow>{timestamp}</Moment>
-              </h2>
             </div>
 
             {option === 1 && (
@@ -203,7 +200,9 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
 
                 <p className={styles.combined3}>
                   Replying to:{" "}
-                  <span className={styles.textColor}>@{post?.tag}</span>
+                  <span className={styles.textColor}>
+                    @{postUser?.username}
+                  </span>
                 </p>
               </div>
             )}
@@ -223,7 +222,9 @@ const Modal = ({ onClose, id, post, comment, user, option }) => {
 
                 <p className={styles.combined3}>
                   Replying to:{" "}
-                  <span className={styles.textColor}>@{comment?.tag}</span>
+                  <span className={styles.textColor}>
+                    @{commentUser?.username}
+                  </span>
                 </p>
               </div>
             )}

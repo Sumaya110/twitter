@@ -61,9 +61,6 @@ const Modal = ({ onClose, user }) => {
       await updateUser(user._id, {
         profilePicture: url,
       });
-
-      const data = await getUser(user?._id);
-      dispatch(setUsers(data));
     }
 
     if (selectedCoverPic !== user.coverPicture) {
@@ -78,19 +75,16 @@ const Modal = ({ onClose, user }) => {
       await updateUser(user._id, {
         coverPicture: url,
       });
-
-      const data = await getUser(user?._id);
-      dispatch(setUsers(data));
     }
 
     if (name !== user.name) {
       await updateUser(user?._id, {
         name: name,
       });
-
-      const data = await getUser(user?._id);
-      dispatch(setUsers(data));
     }
+
+    const data = await getUser(user?._id);
+    dispatch(setUsers(data));
   };
 
   const closeModal = (e) => {
@@ -180,12 +174,10 @@ const Modal = ({ onClose, user }) => {
         </div>
 
         <div>
+          <p className={styles.p}> Name </p>
           <button className={styles.name}>
-            <p className={styles.p}> Name </p>
-
-            <textarea
+            <input
               className={styles.textAreaStyle}
-              rows="4"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />

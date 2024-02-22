@@ -47,13 +47,11 @@ const Messages = ({ user }) => {
   async function socketInitializer() {
     if (!socket) return;
     socket.off("disconnect");
-
     socket.on("disconnect", function () {});
   }
 
   const fetchConversations = async () => {
     const allConversations = await getConversations();
-
     const notifications = [];
 
     allConversations?.forEach((conversation) => {
@@ -68,6 +66,19 @@ const Messages = ({ user }) => {
     setNotification(notifications);
   };
 
+  const sortedUsers = [...users].sort((a, b) => {
+    const hasNotificationA = notification.some(
+      (n) => n.lastMessage.senderId === a._id
+    );
+    const hasNotificationB = notification.some(
+      (n) => n.lastMessage.senderIdId === b._id
+    );
+
+    if (hasNotificationA && !hasNotificationB) return -1;
+    if (!hasNotificationA && hasNotificationB) return 1;
+    return 0;
+  });
+
   return (
     <div className={styles.section}>
       <div className={styles.fixedHeader}>
@@ -80,7 +91,7 @@ const Messages = ({ user }) => {
 
       <div>
         <div className={styles.userList}>
-          {users.map((user) => (
+          {sortedUsers.map((user) => (
             <EachUser key={user?._id} user={user} notification={notification} />
           ))}
         </div>

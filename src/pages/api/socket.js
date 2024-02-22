@@ -44,7 +44,7 @@ export default function SocketHandler(req, res) {
     });
 
     socket.on("disconnect", function () {
-      console.log("Disconnected User");
+      
     });
   });
 

@@ -20,9 +20,7 @@ export const SocketProvider = ({ children }) => {
         const newSocket = io();
         setSocket(newSocket);
 
-        newSocket.on("disconnect", () => {
-          console.log("Disconnected User");
-        });
+        newSocket.on("disconnect", () => {});
 
         return () => {
           newSocket.disconnect();

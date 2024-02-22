@@ -17,7 +17,6 @@ const Conversation = ({ user, conversation_id }) => {
   const [senderId, setSenderId] = useState(null);
   const [receiverId, setReceiverId] = useState(null);
   const [allMessages, setAllMessages] = useState([]);
-  const [unreadMessagesCount, setUnreadMessagesCount] = useState({});
   const router = useRouter();
   const chatBoxRef = useRef(null);
   const socket = useSocket();
@@ -40,14 +39,6 @@ const Conversation = ({ user, conversation_id }) => {
 
       setSenderId(senderId);
       setReceiverId(receiverId);
-
-      const unreadCount = data.messages.filter(
-        (message) => message.senderId === senderId && !message.seen
-      ).length;
-      setUnreadMessagesCount((prevState) => ({
-        ...prevState,
-        [senderId]: unreadCount,
-      }));
     };
     fetchData();
   }, [socket, conversation_id, user, receiverId]);
@@ -124,9 +115,7 @@ const Conversation = ({ user, conversation_id }) => {
       }
     });
 
-    socket.on("disconnect", function () {
-      console.log("user disconnected");
-    });
+    socket.on("disconnect", function () {});
   }
 
   function scrollDown() {

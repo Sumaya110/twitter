@@ -8,9 +8,10 @@ import {
 async function createUser(data) {
   try {
     const response = await createNewUser(data);
-    return response.data;
+
+    return response.status;
   } catch (error) {
-    throw Error(error.response.data);
+    throw new Error(error.response.status);
   }
 }
 

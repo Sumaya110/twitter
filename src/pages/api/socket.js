@@ -32,9 +32,8 @@ export default function SocketHandler(req, res) {
           const lastMessage =
             Conversation.messages[Conversation.messages.length - 1];
 
-          io.emit( "receive", { lastMessage, roomId: conversationId });
+          io.emit("receive", { lastMessage, roomId: conversationId });
           io.emit("notification", { lastMessage, roomId: conversationId });
-
         }
       }
     );
@@ -45,7 +44,7 @@ export default function SocketHandler(req, res) {
     });
 
     socket.on("disconnect", function () {
-      console.log("user disconnected");
+      console.log("Disconnected User");
     });
   });
 

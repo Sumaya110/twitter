@@ -12,6 +12,15 @@
   padding: 0;
   margin-left: 22px;
   margin-bottom: 1.3rem; 
+  border: none;
+  background-color: white;
+  border-radius: 100%;
+ 
+}
+
+.twitterIconContainer:hover {
+  background-color: #f0f0f0;
+  cursor: pointer;
 }
 
 .hoverEffect:hover {
@@ -26,7 +35,6 @@
 .sidebar {
   margin-top: 1rem;
   margin-bottom: 1rem;
-  
 }
 
 .tweetButton {
@@ -52,6 +60,7 @@
   align-items: center;
   justify-content: center;
   margin-top: 190px;
+  padding:18px 18px 18px 18px;
  
 }
 
@@ -70,15 +79,12 @@
 }
 
 .userImage {
-  border-radius: 50%;
-  /* margin-left: 15px; */
-  
+  border-radius: 100%;
 }
 
 .userDetails {
   display: none;
-  line-height: 1.25;
-  margin-bottom: 40px;
+  
 }
 
 .userDetails h4 {
@@ -101,7 +107,6 @@
   height: 1.25rem;
   display: none;
   margin-left: 4rem;
-  margin-bottom: 40px;
 }
 
 @media (min-width: 1280px) {
@@ -124,7 +129,6 @@
 
   .userImage {
     margin-right: .9rem;
-    margin-bottom: 40px;
   }
 
   .dotsIcon {

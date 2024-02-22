@@ -31,6 +31,7 @@ const Sidebar = ({ user, option }) => {
   const notifications = [];
 
   useEffect(() => {
+    socketInitializer();
     fetchData();
 
     const socket = io();
@@ -42,10 +43,18 @@ const Sidebar = ({ user, option }) => {
     fetchConversations();
 
     return () => {
-      socket.disconnect();
+      if (socket) {
+        socket.off("notification");
+      }
     };
   }, [user, socket]);
 
+  async function socketInitializer() {
+    if (!socket) return;
+    socket.off("disconnect");
+
+    socket.on("disconnect", function () {});
+  }
   const fetchData = async () => {
     if (session?.user?._id) {
       try {
@@ -93,9 +102,12 @@ const Sidebar = ({ user, option }) => {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.sidebar}>
-        <div className={styles.twitterIconContainer}>
+        <button
+          className={styles.twitterIconContainer}
+          onClick={() => handleHome()}
+        >
           <FaXTwitter className={styles.twitterIcon} />
-        </div>
+        </button>
 
         <button className={styles.profileButton} onClick={() => handleHome()}>
           <SidebarLink text="Home" Icon={AiFillHome} notification={null} />

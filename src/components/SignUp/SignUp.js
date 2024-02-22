@@ -4,6 +4,7 @@ import { createUser } from "@/libs/action/userAction";
 
 const SignIn = () => {
   const [verificationSent, setVerificationSent] = useState(false);
+  const [error, setError] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,13 +20,10 @@ const SignIn = () => {
     };
 
     try {
-      const handleCreate = async () => {
-        const userId = await createUser(formData);
-        setVerificationSent(true);
-      };
-      handleCreate();
+      const status = await createUser(formData);
+      setVerificationSent(true);
     } catch (error) {
-      console.error("Error during form submission:", error);
+      setError("Email already used Or Password not strong!");
     }
   };
 
@@ -73,6 +71,8 @@ const SignIn = () => {
             SignUp
           </button>
         </div>
+
+        {error && <p className={styles.myElement}>{error}</p>}
 
         {verificationSent && (
           <div className={styles.myElement}>

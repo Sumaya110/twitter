@@ -74,7 +74,7 @@
   padding: 10px;
   border: 1px solid #f0f1f3;
   background-color: #cbd5e0;
-  border-radius: 9999px;
+  border-radius: 30px;
   color: black;
   max-width: 50%;
   border-bottom-left-radius: 4px;
@@ -83,7 +83,7 @@
 .send {
   padding: 10px;
   border: 1px solid #f0f1f3;
-  border-radius: 9999px;
+  border-radius: 30px;
   text-align: end;
   background-color: #4059fc;
   max-width: 50%;
@@ -96,12 +96,12 @@
   display: flex;
   margin-top: 5px;
   padding: 5px 0px;
-  width: 480px;
+  width: 490px;
   border: 1px solid #f0f1f3;
   border-radius: 10px;
   background-color: rgb(249, 245, 245);
   position: fixed;
-  margin-right: 10px;
+  top: 860px;
 }
 
 .input {
@@ -113,7 +113,7 @@
   border: none;
   color: #0f0c0c;
   font-size: 15px;
-  /* height: 100%px; */
+
   height: 30px;
 }
 .button {
@@ -136,13 +136,11 @@
   border-radius: 50%;
 }
 
-
 .notification {
   background-color: red;
   color: white;
   border-radius: 50%;
   padding: 4px 8px;
   font-size: 12px;
-  margin-left: 4px; 
+  margin-left: 4px;
 }
-

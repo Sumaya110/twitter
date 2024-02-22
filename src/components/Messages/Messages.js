@@ -15,7 +15,10 @@ const Messages = ({ user }) => {
   const notifications = [];
 
   useEffect(() => {
+    socketInitializer();
+
     fetchData();
+
     const socket = io();
     socket.on("notification", ({ lastMessage, roomId }) => {
       setNotification((prevNotifications) => [
@@ -27,9 +30,7 @@ const Messages = ({ user }) => {
     });
     fetchConversations();
 
-    return () => {
-      socket.disconnect();
-    };
+    socket.on("disconnect", function () {});
   }, [user, socket]);
 
   const fetchData = async () => {
@@ -42,6 +43,13 @@ const Messages = ({ user }) => {
       console.error("Error fetching data:", error);
     }
   };
+
+  async function socketInitializer() {
+    if (!socket) return;
+    socket.off("disconnect");
+
+    socket.on("disconnect", function () {});
+  }
 
   const fetchConversations = async () => {
     const allConversations = await getConversations();

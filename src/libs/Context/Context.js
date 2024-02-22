@@ -21,7 +21,7 @@ export const SocketProvider = ({ children }) => {
         setSocket(newSocket);
 
         newSocket.on("disconnect", () => {
-          console.log("user disconnected");
+          console.log("Disconnected User");
         });
 
         return () => {

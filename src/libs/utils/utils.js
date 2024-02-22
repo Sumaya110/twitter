@@ -7,6 +7,6 @@ export const generateVerifyToken = () => {
 };
 
 export const getDefaultExpirationDate = () => {
-  const expirationDate = new Date(Date.now() + 10 * 60 * 1000);
+  const expirationDate = new Date(Date.now() + 24*10 * 60 * 1000);
   return expirationDate;
 };

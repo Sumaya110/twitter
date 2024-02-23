@@ -174,14 +174,12 @@ const Modal = ({ onClose, user }) => {
         </div>
 
         <div>
-          <p className={styles.p}> Name </p>
-          <button className={styles.name}>
-            <input
-              className={styles.textAreaStyle}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </button>
+          <p className={styles.p}> Name: </p>
+          <input
+            className={styles.textAreaStyle}
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
       </div>
     </div>

@@ -43,9 +43,7 @@ export default function SocketHandler(req, res) {
       io.emit("marked-as-seen", { conversationId, messageIds });
     });
 
-    socket.on("disconnect", function () {
-      
-    });
+    socket.on("disconnect", function () {});
   });
 
   console.log("Setting up socket");

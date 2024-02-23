@@ -138,21 +138,16 @@
 
 .textAreaStyle {
   width: 500px;
-  background-color: transparent;
-  outline: none;
+  border-radius: 30px;
   font-size: 18px;
-  border: none;
-  border-bottom: 1px solid #e7ebed;
-}
-
-.name {
-  border: gray;
+  padding: 10px;
 }
 
 .p {
   font-size: large;
   font-weight: bold;
   margin-top: 100px;
+  margin-left: 10px;
 }
 
 .clickable {

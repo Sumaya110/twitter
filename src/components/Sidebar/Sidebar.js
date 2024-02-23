@@ -34,11 +34,11 @@ const Sidebar = ({ user, option }) => {
     socketInitializer();
     fetchData();
 
-    // const socket = io();
-    // socket.on("notification", ({ lastMessage, roomId }) => {
-    //   if (lastMessage.receiverId === user?._id) setNotification(1);
-    //   notifications.push({ lastMessage, roomId });
-    // });
+    const socket = io();
+    socket.on("notification", ({ lastMessage, roomId }) => {
+      if (lastMessage.receiverId === user?._id) setNotification(1);
+      notifications.push({ lastMessage, roomId });
+    });
 
     fetchConversations();
 
@@ -52,15 +52,9 @@ const Sidebar = ({ user, option }) => {
   async function socketInitializer() {
     if (!socket) return;
     socket.off("disconnect");
-    socket.off("notification");
 
-    //socket.on("disconnect", function () {});
-    socket.on("notification", ({ lastMessage, roomId }) => {
-     if (lastMessage.receiverId === user?._id) {setNotification(1);
-      notifications.push({ lastMessage, roomId });}
-    });
+    socket.on("disconnect", function () {});
   }
-
   const fetchData = async () => {
     if (session?.user?._id) {
       try {
@@ -79,11 +73,10 @@ const Sidebar = ({ user, option }) => {
       const { messages } = conversation;
       const lastMessage = messages[messages?.length - 1];
 
-      if (lastMessage && lastMessage?.receiverId === user?._id && !lastMessage?.seen) {
+      if (lastMessage?.receiverId === user?._id && !lastMessage?.seen) {
         notifications.push({ lastMessage, roomId: conversation?._id });
       }
     });
-    
 
     setNotification(notifications?.length || null);
     socket?.on("marked-as-seen", ({ conversationId, messageIds }) => {

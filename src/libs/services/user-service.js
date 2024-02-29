@@ -9,15 +9,8 @@ const jwt = require("jsonwebtoken");
 
 export const createUser = async (req, res) => {
   try {
-    const {
-      name,
-      username,
-      email,
-      password,
-      profilePicture,
-      coverPicture,
-      blankPicture,
-    } = req.body;
+    const { name, username, email, password, profilePicture, coverPicture } =
+      req.body;
 
     if (!email || !password) {
       return res.status(400).json({ error: "All fields must be filled" });
@@ -41,6 +34,7 @@ export const createUser = async (req, res) => {
 
     const saltRounds = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const verify_token = generateVerifyToken();
 
     const newUser = await UserRepository.create({
@@ -51,7 +45,6 @@ export const createUser = async (req, res) => {
       verify_token,
       profilePicture,
       coverPicture,
-      blankPicture,
     });
 
     const verificationCollection = await VerificationRepository.create({
@@ -60,6 +53,8 @@ export const createUser = async (req, res) => {
     });
 
     if (verificationCollection) await sendMail(email, verify_token);
+
+    console.log("res", res, newUser);
 
     return res.status(201).json(newUser);
   } catch (error) {
@@ -91,8 +86,8 @@ export const getUsers = async (req, res) => {
 
 export const updateUser = async (req, res) => {
   try {
-    const query = { _id: req.body.query };
-    const payload = req.body.payload;
+    const query = { _id: req.body.userId };
+    const payload = req.body.updateData;
     const response = await UserRepository.findOneAndUpdate({ query, payload });
     return res.status(200).json(response);
   } catch (error) {

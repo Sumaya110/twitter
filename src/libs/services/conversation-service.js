@@ -5,6 +5,7 @@ export const createConversation = async (req, res) => {
   try {
     const userOneId = req.body.userOneId;
     const userTwoId = req.body.userTwoId;
+    console.log("body : ", req.body)
 
     var response = null;
     response = await ConversationRepository.findOne({
@@ -15,6 +16,8 @@ export const createConversation = async (req, res) => {
     });
 
     if (!response) response = await ConversationRepository.create(req.body);
+
+    console.log("response  :: ", response)
 
     return res.status(200).json(response._id);
   } catch (error) {

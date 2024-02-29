@@ -80,9 +80,6 @@ const Conversation = ({ user, conversation_id }) => {
     });
   }, [socket, conversation_id, allMessages, user?._id]);
 
-  // useEffect(() => {
-  //   scrollDown();
-  // }, [allMessages]);
 
   async function socketInitializer() {
     if (!socket) return;
@@ -111,8 +108,8 @@ const Conversation = ({ user, conversation_id }) => {
   const fetchData = async () => {
     const data = await getConversation(conversation_id);
 
-    const userOneId = data.userOneId;
-    const userTwoId = data.userTwoId;
+    const userOneId = data?.userOneId;
+    const userTwoId = data?.userTwoId;
     const senderId = userOneId === user?._id ? userOneId : userTwoId;
     const receiverId = userOneId === user?._id ? userTwoId : userOneId;
 

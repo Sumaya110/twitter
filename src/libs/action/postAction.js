@@ -4,7 +4,6 @@ import {
   getNewPosts,
   updateNewPost,
   deleteNewPost,
-
 } from "@/libs/api_routes/routes";
 
 async function createPost(data) {
@@ -55,6 +54,4 @@ async function updatePost(postId, updateData) {
   }
 }
 
-
-
-export { createPost, getPost, getPosts, updatePost, deletePost};
+export { createPost, getPost, getPosts, updatePost, deletePost };

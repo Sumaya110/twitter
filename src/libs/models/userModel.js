@@ -20,11 +20,15 @@ const userSchema = new Schema({
     type: String,
   },
 
-  blankPicture: {
-    type: String,
-  },
-
   following: [
+    {
+      userId: String,
+      username: String,
+      userImg: String,
+    },
+  ],
+
+  followers: [
     {
       userId: String,
       username: String,

@@ -16,7 +16,7 @@ const SignIn = () => {
       password: e.target.password.value,
       profilePicture: "",
       coverPicture: "",
-      blankPicture: "",
+     
     };
 
     try {

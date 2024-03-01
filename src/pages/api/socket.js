@@ -47,5 +47,6 @@ export default function SocketHandler(req, res) {
   });
 
   console.log("Setting up socket");
+
   res.end();
 }

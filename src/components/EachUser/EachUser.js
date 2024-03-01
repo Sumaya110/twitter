@@ -49,7 +49,6 @@ const EachUser = ({ user, notification }) => {
     var conversationId = await createConversation({
       userOneId: session?.user?._id,
       userTwoId: user?._id,
-      // messages: [],
     });
     if (conversationId) router.push(`/messages/${conversationId}`);
   };

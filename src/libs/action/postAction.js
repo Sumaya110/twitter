@@ -1,6 +1,5 @@
 import {
   createNewPost,
-  getNewPost,
   getNewPosts,
   updateNewPost,
   deleteNewPost,
@@ -18,15 +17,6 @@ async function createPost(data) {
 async function getPosts(userId) {
   try {
     const response = await getNewPosts(userId);
-    return response.data;
-  } catch (error) {
-    throw Error(error.response.data);
-  }
-}
-
-async function getPost(postId) {
-  try {
-    const response = await getNewPost(postId);
     return response.data;
   } catch (error) {
     throw Error(error.response.data);
@@ -54,4 +44,4 @@ async function updatePost(postId, updateData) {
   }
 }
 
-export { createPost, getPost, getPosts, updatePost, deletePost };
+export { createPost, getPosts, updatePost, deletePost };

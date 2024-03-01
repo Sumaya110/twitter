@@ -26,23 +26,27 @@ const Conversation = ({ user, conversation_id }) => {
     scrollDown();
     socketInitializer();
     MessageSeen();
-    socketOff();
-  }, [socket, conversation_id, user, receiverId]);
+    markedAsSeenFunc();
+    return () => {
+      if (socket)
+      socketOff();
+    };
+  }, [socket, conversation_id, user]);
 
   useEffect(() => {
     scrollDown();
     socketInitializer();
     MessageSeen();
-    socketOff();
-  }, [ allMessages]);
-
-  const socketOff = async () => {
+    markedAsSeenFunc();
     return () => {
-      if (socket) {
-        socket.off("send");
-        socket.off("receive");
-      }
+      socketOff();
     };
+  }, [allMessages]);
+
+  
+  function socketOff() {
+    socket?.off("send");
+    socket?.off("receive");
   };
 
   const MessageSeen = async () => {
@@ -61,7 +65,8 @@ const Conversation = ({ user, conversation_id }) => {
     }
   };
 
-  useEffect(() => {
+
+  const markedAsSeenFunc = () =>{
     socket?.on("marked-as-seen", ({ conversationId, messageIds }) => {
       if (conversation_id === conversationId) {
         setAllMessages((prev) => {
@@ -78,14 +83,11 @@ const Conversation = ({ user, conversation_id }) => {
         });
       }
     });
-  }, [socket, conversation_id, allMessages, user?._id]);
-
+  }
 
   async function socketInitializer() {
     if (!socket) return;
-    socket.off("send");
-    socket.off("receive");
-    socket.off("disconnect");
+    socketOff();
 
     socket.on("receive", ({ lastMessage, roomId }) => {
       if (roomId == conversation_id)
@@ -102,7 +104,6 @@ const Conversation = ({ user, conversation_id }) => {
       }
     });
 
-    socket.on("disconnect", function () {});
   }
 
   const fetchData = async () => {

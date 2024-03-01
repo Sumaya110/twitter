@@ -7,12 +7,6 @@ const getPosts = async (req, res) => {
   res.status(200).json(posts);
 };
 
-const getPost = async (req, res) => {
-  const postId = req.params;
-  const posts = await PostRepository.findById({ _id: postId });
-  res.status(200).json(posts);
-};
-
 const createPost = async (req, res) => {
   try {
     const post = await PostRepository.create(req.body);
@@ -65,7 +59,6 @@ const createComment = async (req, res) => {
 
 module.exports = {
   getPosts,
-  getPost,
   createPost,
   updatePost,
   deletePost,

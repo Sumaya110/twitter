@@ -35,11 +35,6 @@ async function getUsers() {
 
 async function updateUser(userId, updateData) {
   try {
-    // const response = await updateNewUser({
-    //   query: userId,
-    //   payload: updateData,
-    // });
-
     const response = await updateNewUser({userId,updateData});
 
     return response.data;

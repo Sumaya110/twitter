@@ -10,11 +10,6 @@ const find = async (payload) => {
   return response;
 };
 
-const findById = async (payload) => {
-  const response = await Post.findById(payload);
-  return response;
-};
-
 const findByIdAndUpdate = async ({ query, payload }) => {
   const response = await Post.findByIdAndUpdate(query, payload, { new: true });
   return response;
@@ -29,7 +24,6 @@ const PostRepository = {
   create,
   find,
   findByIdAndUpdate,
-  findById,
   findOneAndDelete,
 };
 

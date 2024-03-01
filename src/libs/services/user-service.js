@@ -53,9 +53,6 @@ export const createUser = async (req, res) => {
     });
 
     if (verificationCollection) await sendMail(email, verify_token);
-
-    console.log("res", res, newUser);
-
     return res.status(201).json(newUser);
   } catch (error) {
     console.error("Error creating user:", error);

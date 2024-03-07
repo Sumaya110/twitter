@@ -6,12 +6,12 @@
 .container {
   padding-top: 1rem;
   padding-bottom: 0.5rem;
-  border-color: #f0f1f3;
+  border-color: #2c2c2d;
   min-height: 100vh;
   margin-left: auto;
   width: 480px;
-  border-right: 1px solid #f0f1f3;
-  border-left: 1px solid #f0f1f3;
+  border-right: 1px solid #262627;
+  border-left: 1px solid #262627;
   padding-right: 1rem;
 }
 
@@ -19,12 +19,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 1px solid #f0f1f3;
+  border-bottom: 1px solid #262627;
   width: 100%;
 }
 
 .receiverContainer:hover {
-  background-color: rgb(228, 226, 226);
+  background-color: rgb(58, 56, 56);
 }
 .receiver {
   display: flex;
@@ -43,15 +43,14 @@
   font-size: 20px;
   font-weight: bold;
   cursor: pointer;
+  color: white;
 }
 
 .receiverName:hover {
   text-decoration: underline;
 }
 .chatBox {
-  height: 600px;
   width: 100%;
-
   overflow-y: auto;
 }
 .userImage img {
@@ -63,26 +62,26 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-.check {
+.checked {
   color: white;
 }
-.checked {
+.check {
   color: #012046;
 }
 
 .receive {
   padding: 10px;
-  border: 1px solid #f0f1f3;
-  background-color: #cbd5e0;
+  border: 1px solid #262627;
+  background-color: #1a1b1c;
   border-radius: 30px;
-  color: black;
+  color:white;
   max-width: 50%;
   border-bottom-left-radius: 4px;
 }
 
 .send {
   padding: 10px;
-  border: 1px solid #f0f1f3;
+  border: 1px solid #262627;
   border-radius: 30px;
   text-align: end;
   background-color: #4059fc;
@@ -97,11 +96,11 @@
   margin-top: 5px;
   padding: 5px 0px;
   width: 490px;
-  border: 1px solid #f0f1f3;
+  border: 1px solid #262627;
   border-radius: 10px;
-  background-color: rgb(249, 245, 245);
+  background-color: rgb(33, 33, 33);
   position: fixed;
-  top: 860px;
+  bottom: 0%;
 }
 
 .input {
@@ -111,7 +110,7 @@
   outline: none;
   background-color: transparent;
   border: none;
-  color: #0f0c0c;
+  color: white;
   font-size: 15px;
 
   height: 30px;
@@ -125,6 +124,7 @@
 
 .username {
   padding-bottom: 60px;
+  color: white;
 }
 
 .buttonDesign {
@@ -138,7 +138,7 @@
 
 .notification {
   background-color: red;
-  color: white;
+  color: black;
   border-radius: 50%;
   padding: 4px 8px;
   font-size: 12px;

@@ -1,10 +1,15 @@
+
+body{
+  background: black;
+  font-family: Arial, 'Segoe UI';
+}
+
 .hoverEffect {
-  background-color: transparent; /* Default background color */
-  border-radius: 50%; /* Rounded corners */
-  cursor: pointer; /* Cursor becomes a pointer on hover */
-  transition: background-color 300ms ease-in-out; /* Smooth background color transition */
+  background-color: black; 
+  border-radius: 50%; 
+  cursor: pointer;
 }
 
 .hoverEffect:hover {
-  background-color: #181818; /* Dark gray background on hover */
+  background-color: #181818; 
 }

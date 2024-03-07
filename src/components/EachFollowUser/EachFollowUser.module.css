@@ -5,11 +5,10 @@
   width: 90%;
   padding-left: 1rem;
   padding-right: 1rem;
-
 }
 
 .userInfo:hover {
-  background-color: #dbd4d7;
+  background-color: #333031;
 }
 
 .profilePicture {
@@ -26,7 +25,6 @@
 .actions {
   margin-left: auto;
   display: flex;
-  /* margin-right: 1 rem; */
 }
 
 .followButton,
@@ -38,8 +36,6 @@
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 30px;
-
-  /* right: 90%; */
   font-weight: bolder;
 }
 
@@ -56,6 +52,7 @@
 
 .name {
   margin-bottom: 0;
+  color: white;
 }
 
 .name:hover {

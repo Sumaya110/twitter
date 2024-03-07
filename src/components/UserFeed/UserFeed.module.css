@@ -4,7 +4,7 @@
   height: 100%;
   border-right: 1px solid #dfd7d7;
   border-left: 1px solid #eee6e6;
-  color: black;
+  color: white;
 }
 
 .sectiondiv {
@@ -51,7 +51,7 @@
 .button {
   position: absolute;
   background-color: transparent;
-  color: rgb(9, 9, 9);
+  color: rgb(250, 246, 246);
   font-weight: 700;
   cursor: pointer;
   border-radius: 30px;

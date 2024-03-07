@@ -1,13 +1,9 @@
 
 .userList {
     list-style: none; 
-    background-color: rgb(245, 241, 241);
+    background-color: rgb(27, 27, 27);
     border-radius: 30px;
     width: 380px;
-    /* margin-left: -1rem; */
-    /* padding: 1 rem; */
-
-   
   }
   
   .userList > li {

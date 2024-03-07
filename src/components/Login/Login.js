@@ -72,7 +72,7 @@ const Login = () => {
 
         <div className={styles.container}>
           <div className={styles.signUpLink}>
-            <p>Already have an account?</p>
+            <p className={styles.p}> Already have an account?</p>
 
             <form className={styles.loginForm} onSubmit={handleSubmit}>
               <div>

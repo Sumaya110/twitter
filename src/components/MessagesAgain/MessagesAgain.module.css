@@ -46,11 +46,11 @@
     margin-top: 60px;
   }
   
-  @media (max-width: 1280px) {
+  /* @media (max-width: 1280px) {
     .section {
       display: none;
     }
-  }
+  } */
 
  
 

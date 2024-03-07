@@ -102,26 +102,26 @@ const Sidebar = ({ user, option }) => {
   return (
     <div className={styles.mainDiv}>
       <div className={styles.sidebar}>
-        <button
+        <div
           className={styles.twitterIconContainer}
           onClick={() => handleHome()}
         >
           <FaXTwitter className={styles.twitterIcon} />
-        </button>
+        </div>
 
-        <button className={styles.profileButton} onClick={() => handleHome()}>
+        <div className={styles.profileButton} onClick={() => handleHome()}>
           <SidebarLink text="Home" Icon={AiFillHome} notification={null} />
-        </button>
+        </div>
 
-        <button className={styles.profileButton}>
+        <div className={styles.profileButton}>
           <SidebarLink text="Explore" Icon={BiHash} notification={null} />
-        </button>
+        </div>
 
-        <button className={styles.profileButton}>
+        <div className={styles.profileButton}>
           <SidebarLink text="Notifications" Icon={BsBell} notification={null} />
-        </button>
+        </div>
 
-        <button
+        <div
           className={styles.profileButton}
           onClick={() => handleMessage()}
         >
@@ -130,21 +130,21 @@ const Sidebar = ({ user, option }) => {
             Icon={AiOutlineInbox}
             notification={notification}
           />
-        </button>
+        </div>
 
-        <button className={styles.profileButton}>
+        <div className={styles.profileButton}>
           <SidebarLink text="Bookmarks" Icon={BsBookmark} notification={null} />
-        </button>
+        </div>
 
-        <button className={styles.profileButton}>
+        <div className={styles.profileButton}>
           <SidebarLink
             text="Lists"
             Icon={HiOutlineClipboardList}
             notification={null}
           />
-        </button>
+        </div>
 
-        <button
+        <div
           className={styles.profileButton}
           onClick={() => handleEditProfile()}
         >
@@ -153,15 +153,15 @@ const Sidebar = ({ user, option }) => {
             Icon={AiOutlineUser}
             notification={null}
           />
-        </button>
+        </div>
 
-        <button className={styles.profileButton}>
+        <div className={styles.profileButton}>
           <SidebarLink
             text="More"
             Icon={HiOutlineDotsCircleHorizontal}
             notification={null}
           />
-        </button>
+        </div>
       </div>
 
       <button className={styles.tweetButton}>Post</button>

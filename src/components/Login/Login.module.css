@@ -11,6 +11,7 @@
 
 .twitterIcon {
   font-size: 335px;
+  color: white;
 }
 
 .happeningNowContainer {
@@ -25,8 +26,9 @@
   word-wrap: break-word;
   text-overflow: unset;
   box-sizing: border-box;
-  border: 0 solid black;
+  border: 0 solid rgb(248, 241, 241);
   text-align: left;
+  color: white;
 }
 
 .lower {
@@ -36,8 +38,9 @@
   word-wrap: break-word;
   text-overflow: unset;
   box-sizing: border-box;
-  border: 0 solid black;
+  border: 0 solid rgb(247, 240, 240);
   text-align: left;
+  color: white;
 }
 
 .googleSignupContainer {
@@ -57,7 +60,7 @@
   align-items: center;
   border-radius: 30px;
   cursor: pointer;
-  border-color: rgb(6, 0, 0);
+  border-color: rgb(194, 189, 189);
   text-align: center;
 }
 
@@ -67,15 +70,13 @@
   padding: 10px;
   padding-left: 24px;
   padding-right: 24px;
-
-  /* padding-top: 10px; */
   margin-top: 10px;
 
   width: 300px;
   align-items: center;
   border-radius: 30px;
   cursor: pointer;
-  border-color: rgb(6, 0, 0);
+  border-color: rgb(239, 235, 235);
   text-align: center;
 }
 
@@ -89,7 +90,7 @@
   text-align: center;
 }
 
-/* Login.module.css */
+
 
 .container {
   display: flex;
@@ -104,8 +105,8 @@
   padding: 30px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 5px; /* Add some margin to separate the form and the signup link */
+  box-shadow: 0 0 10px rgba(178, 171, 171, 0.1);
+  margin-bottom: 5px; 
 }
 
 .inputField {
@@ -136,6 +137,10 @@
   font-size: larger;
   color: Red;
   font-weight: bold;
+}
+
+.p{
+  color: white;
 }
 
 

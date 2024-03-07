@@ -10,26 +10,25 @@
   width: 20px;
   height: 20px;
   padding: 0;
-  margin-left: 22px;
-  margin-bottom: 1.3rem; 
+  margin-left: 40%;
+  margin-bottom: 1.3rem;
   border: none;
-  background-color: white;
   border-radius: 100%;
- 
 }
 
 .twitterIconContainer:hover {
-  background-color: #f0f0f0;
+  background-color: #292727;
   cursor: pointer;
 }
 
 .hoverEffect:hover {
-  background-color: #f0f0f0;
+  background-color: #292727;
   cursor: pointer;
 }
 
 .twitterIcon {
   font-size: 34px;
+  color: white;
 }
 
 .sidebar {
@@ -40,11 +39,11 @@
 .tweetButton {
   display: none;
   margin-left: 80px;
-  background-color: #1d9bf0;
+  background-color: #0d94ef;
   color: white;
   border-radius: 40px;
   width: 200px;
-  height: 52px;
+  height: 48px;
   font-size: 1.125rem;
   font-weight: bold;
 }
@@ -55,27 +54,26 @@
 }
 
 .signOutDiv {
-  color: #211616;
+  color: #a49b9b;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 190px;
-  padding:18px 18px 18px 18px;
- 
+  margin-top:220%;
+  
+  padding: 18px 18px 18px 18px;
 }
 
-.resize{
- display: block; 
+.resize {
+  display: block;
 }
 
 .signOutDiv:hover {
-  background-color: #f5f8fa;
+  background-color: #292727;
   border-radius: 60px;
   cursor: pointer;
 }
 
-.signoutButton{
- 
+.signoutButton {
 }
 
 .userImage {
@@ -84,7 +82,6 @@
 
 .userDetails {
   display: none;
-  
 }
 
 .userDetails h4 {
@@ -109,15 +106,29 @@
   margin-left: 4rem;
 }
 
+.profileButton {
+  border: none;
+  border-radius: 30px;
+  margin-bottom: 1.3rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profileButton:hover {
+  background-color: #292727;
+}
+
 @media (min-width: 1280px) {
 
-
+  .twitterIconContainer{
+    margin-left: 8%;
+  }
   .userDetails h4 {
     display: flex;
   }
-  
-  .userDetails p {
 
+  .userDetails p {
     display: flex;
   }
   .sidebar {
@@ -128,7 +139,7 @@
   }
 
   .userImage {
-    margin-right: .9rem;
+    margin-right: 0.9rem;
   }
 
   .dotsIcon {
@@ -139,28 +150,22 @@
     width: 345px;
   }
 
- 
-
   .tweetButton {
     display: inline;
   }
 
   .signOutDiv {
     margin-left: auto;
+    margin-top:50%;
   }
 
-}
+  .profileButton {
+    margin-left: auto;
+    align-items: left;
+    justify-content: left;
+  }
 
 
-
-.profileButton{
-  border: none;
-  background-color: white;
-  border-radius: 30px;
-  margin-bottom: 1.3rem; 
-}
-.profileButton:hover {
-  background-color: lightgray; 
 }
 
 @media (max-width: 640px) {
@@ -168,7 +173,6 @@
     width: 100px;
   }
 }
-
 
 @media (min-width: 640px) and (max-width: 1280px) {
   .mainDiv {
@@ -181,4 +185,3 @@
     width: 50px;
   }
 }
-

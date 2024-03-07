@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import styles from "@/components/MessagePage/MessagePage.module.css";
 import Sidebar from "../Sidebar/Sidebar";
-import Messages from "../Messages/Messages";
-import NewMessage from "../NewMessage/NewMessage";
+import MessagesAgain from "@/components/MessagesAgain/MessagesAgain"
 import { useRouter } from "next/router";
 import Login from "../Login/Login";
 
@@ -28,12 +27,9 @@ const MessagePage = ({ user }) => {
             <Sidebar user={user} option={1} />
           </div>
           <div>
-            <Messages user={user} />
+            <MessagesAgain user={user}/>
           </div>
 
-          {/* <div>
-            <NewMessage user={user} />
-          </div> */}
         </div>
       </main>
       ) : (

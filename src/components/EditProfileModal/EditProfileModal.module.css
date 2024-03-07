@@ -9,10 +9,10 @@
 }
 
 .stopPropagation {
-  background-color: rgb(253, 251, 251);
+  background-color: black;
   width: 350px;
   width: 650px;
-  color: rgb(8, 7, 7);
+  color: white;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -136,19 +136,37 @@
   margin-left: 500px;
 }
 
-.textAreaStyle {
-  width: 500px;
-  border-radius: 30px;
-  font-size: 18px;
-  padding: 10px;
-}
-
-.p {
-  font-size: large;
-  font-weight: bold;
+.nameStyle {
   margin-top: 100px;
   margin-left: 10px;
+  width: 90%;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid;
+  border-color: #474848;
 }
+.textAreaStyle {
+  margin-top: 20px;
+  margin-left: 10px;
+  width: 90%;
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid;
+  border-color: #474848;
+}
+.p{
+  color: #737575;
+  top:10%;
+  margin: 0;
+  font-size: 14px;
+}
+.name{
+  background-color: black;
+  color:white;
+  margin-top: 2px;;
+  font-size: 20px;
+}
+
 
 .clickable {
   cursor: pointer;

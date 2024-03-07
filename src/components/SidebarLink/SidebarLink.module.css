@@ -4,8 +4,11 @@
   justify-content: center;
   font-size: 1.25rem;
   gap: 0.5rem;
-  padding: .3rem 1rem;
-  width:auto;
+  padding: 0.3rem 1rem;
+  width: auto;
+  color: white;
+  position: relative;
+  display: inline-flex;
 }
 
 .container:hover {
@@ -16,45 +19,31 @@
   display: none;
 }
 
-
-.container {
-  position: relative; 
-  display: inline-flex; /* Use inline-flex for better alignment */
-  align-items: center;
-}
-
 .icon {
-  /* margin-right: 4px; */
-  /* align-items: right; */
-  /* margin-left: 5px; */
-  margin-left: auto;
+  /* margin-left: auto; */
 }
 
 .notificationCount {
-  position: absolute; 
-  top: 2px; /* Adjust top position to move it slightly above the icon */
-  right: 110px; /* Align notification count to the right side of the container */
-  background-color: red; 
-  color: white; 
+  position: absolute;
+  top: 2px;
+  right: 110px;
+  background-color: red;
   width: 15px;
   height: 15px;
   border-radius: 50%;
-  font-size: 0.75rem; 
+  font-size: 0.75rem;
 }
-
 
 @media (min-width: 1280px) {
   .hidden {
     display: inline;
-   
   }
 
-  .container {
+  /* .container {
     justify-content: start;
-  }
+  } */
 
   .icon {
-    margin-right: 10px; 
-   
+    margin-right: 10px;
   }
 }

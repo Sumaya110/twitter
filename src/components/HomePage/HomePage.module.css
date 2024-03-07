@@ -3,6 +3,7 @@
     max-width: 1400px;
     margin: 0 auto;
     box-shadow: 0 2px 5px rgba(223, 220, 220, 0.1);
+    background-color: black;
   }
   .fixed{
     position: sticky; 

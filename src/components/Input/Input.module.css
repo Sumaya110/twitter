@@ -15,14 +15,13 @@
   position: absolute;
   width: 20px;
   height: 20px;
-  border-radius: 50%; 
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   top: 1px;
   left: 1px;
   cursor: pointer;
-  
 }
 
 .combined4 {
@@ -36,13 +35,16 @@
 }
 
 .combined6 {
- 
- width: 100%;
- background-color: transparent;
- outline: none;
- border: none;
- font-size: 20px;
- border-bottom: 1px solid #e7ebed;
+  width: 100%;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+}
+
+.combined6:hover {
+  border-bottom: 1px solid #252627;
 }
 
 .combined7 {
@@ -50,11 +52,11 @@
 }
 
 .combined8 {
-  margin-top: 1rem; 
+  margin-top: 1rem;
   padding-left: 1rem;
   padding-right: 1rem;
-  opacity: 0.6; 
-  border-bottom: 1px solid #e7ebed;
+  opacity: 0.6;
+  border-bottom: 1px solid #252627;
 }
 
 .combined8:not(.loading) {
@@ -68,10 +70,7 @@
 }
 
 .combined10 {
-
-
- border-radius: 100%;
-
+  border-radius: 100%;
 }
 
 .combined11 {
@@ -92,40 +91,36 @@
 }
 
 .combined13 {
-    border: 1px solid #1d9bf0;
-    border-radius: 4px;
-    height: 18px;
-    font-size: 16px;
-    display: grid;
-    place-items: center;
-  }
+  border: 1px solid #1d9bf0;
+  border-radius: 4px;
+  height: 18px;
+  font-size: 16px;
+  display: grid;
+  place-items: center;
+}
 
-  .rotatedCw {
-    transform: rotate(90deg);
-  }
+.rotatedCw {
+  transform: rotate(90deg);
+}
 
-  .combined14 {
+.combined14 {
+  background-color: #0c89dc;
+  color: white;
+  border-radius: 30px;
+  padding: 0.75rem 1.3rem;
+  font-weight: bold;
+}
 
-    background-color: #0c89dc;
-    color: white;
-    border-radius: 30px;
-    padding: 0.75rem 1.3rem;
-    font-weight: bold;
-  }
-  
-  .combined14:hover {
-    background-color: #1a8cd8;
-    cursor: pointer;
-  }
-  
-  .combined14:disabled {
-    background-color: #1d9bf0;
-    opacity: 0.5;
-    cursor: default;
-  }
-  .combined14:disabled:hover {
-    background-color: #1d9bf0; 
-  }
-  
-  
-  
+.combined14:hover {
+  background-color: #1a8cd8;
+  cursor: pointer;
+}
+
+.combined14:disabled {
+  background-color: #1d9bf0;
+  opacity: 0.5;
+  cursor: default;
+}
+.combined14:disabled:hover {
+  background-color: #1d9bf0;
+}

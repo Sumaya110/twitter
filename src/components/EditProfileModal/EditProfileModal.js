@@ -173,14 +173,36 @@ const Modal = ({ onClose, user }) => {
           <input id="pro" type="file" hidden onChange={addImageToProPic} />
         </div>
 
-        <div>
-          <p className={styles.p}> Name: </p>
-          <input
-            className={styles.textAreaStyle}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+        <section>
+        <div className={styles.nameStyle}>
+          <p className={styles.p}> Name </p>
+          <input className={styles.name} value={name} onChange={(e) => setName(e.target.value)} />
         </div>
+
+
+        <div className={styles.textAreaStyle}>
+          <p className={styles.p}> Bio </p>
+          <input className={styles.name} value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+
+
+        <div className={styles.textAreaStyle}>
+          <p className={styles.p}> Location </p>
+          <input className={styles.name} value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+
+        <div className={styles.textAreaStyle}>
+          <p className={styles.p}> Website </p>
+          <input className={styles.name} value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+
+        <div className={styles.textAreaStyle}>
+          <p className={styles.p}> Birth date </p>
+          <input className={styles.name} value={name} onChange={(e) => setName(e.target.value)} />
+        </div>
+
+        </section>
+        
       </div>
     </div>
   );
